@@ -1,0 +1,27 @@
+<?php
+
+require_once('cfg_admin.php');
+require_once('cfg_complete.php');
+
+logincheck();
+
+if ( isset($_POST['id'], $_POST['into']) ) {
+	$szFolder = trim(trim($_POST['into'], './').'/'.trim($_POST['id'], './'), './');
+	mkdir($_SERVER['DOCUMENT_ROOT'].'/'.$szFolder);
+	header('Location: edit.php?id='.$szFolder);
+	exit;
+}
+
+echo '<h1>Creating new file folder</h1>';
+
+?>
+<form method="post" action="">
+	<input type="hidden" name="into" value="<?=isset($_GET['into']) ? trim($_GET['into'], '/') : '.'?>" />
+
+	<p>URL:<br />/<?=isset($_GET['into']) ? trim($_GET['into'], '/').'/' : ''?><input type="text" name="id" value="" style="border:solid 1px black;border-width:0 0 1px;" /></p> 
+
+	<p><input type="submit" value="Save" /></p>
+
+</form>
+
+<script type="text/javascript">document.forms[0].elements[0].focus();</script>
