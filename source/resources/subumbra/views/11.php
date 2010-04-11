@@ -1,8 +1,2 @@
-<?$page->content_1?>
-
-<p>Which title: <?$this->title?></p>
-
-<fieldset>
-<?assign list="[['abc', 'xyz', '123']]"?>
-<?load id=tsnip?>
-</fieldset>
+<?assign mis=$this->load('menu')->getMenuItems()?>
+<pre><?$mis|@print_r?>
