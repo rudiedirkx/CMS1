@@ -17,9 +17,14 @@ class AROPageImplementation extends Extended_ActiveRecordObject {
 	}
 
 
-	public function init($parent) {
+	public function init($parent = null) {
 		$this->parent = $parent;
-		$this->root = $parent->root ? $parent->root : $parent;
+		$this->root = $parent && $parent->root ? $parent->root : $parent;
+
+		$this->relative_url = '/' . $this->id;
+		$this->id = end(explode('/', $this->id));
+
+		return $this;
 	}
 
 
@@ -46,6 +51,7 @@ class AROPageImplementation extends Extended_ActiveRecordObject {
 		if ( !is_object($objView) ) {
 			return false;
 		}
+		$this->init();
 		$o = $this;
 		$o->root = $this;
 		foreach ( $this->details AS $id ) {

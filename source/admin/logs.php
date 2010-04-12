@@ -30,6 +30,7 @@ foreach ( $arrLogs AS $log ) {
 	echo '<td>'.getUsername($log->user_id).'</td>';
 	echo '<td>'.getObjectName($log->table_name, $log->pk_value).'</td>';
 	echo '<td align="right">'.date('D Y-m-d H:i:s', $log->utc).'</td>';
+	echo '<td>'.$log->extra.'</td>';
 	echo '</tr>';
 }
 echo '</table>';

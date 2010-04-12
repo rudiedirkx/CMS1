@@ -38,7 +38,8 @@ class MyActiveRecordObject extends ActiveRecordObject {
 	}
 	public function unsetConfig( $k ) {
 		$pk = $this->getStaticChildValue('pk');
-		$keys = array_map('addslashes', func_get_args());
+		$args = func_get_args();
+		$keys = array_map('addslashes', $args);
 		return $GLOBALS['db']->delete('custom_configs', "table_name = '".addslashes($this->getStaticChildValue('table'))."' AND object_id = '".(int)$this->$pk."' AND config_key IN ('".implode("', '", $keys)."')");
 	}
 	public function saveConfigs() {
