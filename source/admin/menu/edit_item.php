@@ -36,7 +36,7 @@ if ( isset($_POST['title'], $_POST['link'], $_POST['code'], $_POST['title_2'], $
 	$objItem->unsetConfig($objMenu->special_1, $objMenu->special_2, $objMenu->special_3);
 	if ( isset($_POST['cflags']) ) {
 		foreach ( $_POST['cflags'] AS $flag => $x ) {
-			$objItem->setConfig($flag, '1');
+			$objItem->setConfig($flag, $x);
 		}
 	}
 
