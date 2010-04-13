@@ -65,23 +65,15 @@ echo '<h1>Editing &quot;'.$objNews->title.'&quot;</h1>';
 
 	<p>URL:<br />/<input type="text" name="id" value="<?=$objNews->id?>" style="border:solid 1px black;border-width:0 0 1px;" /></p>
 
-	<p><?=$objNews->label_for_title_1?>:<br /><input type="text" name="title" size="80" value="<?=htmlspecialchars($objNews->title)?>" /></p>
+	<p>Title:<br /><input type="text" name="title" size="80" value="<?=htmlspecialchars($objNews->title)?>" /></p>
 
-	<p><?=$objNews->label_for_content_1?>:<br /><textarea name="content_1" rows="12" cols="100"><?=htmlspecialchars($objNews->content_1)?></textarea></p>
+	<p>Content:<br /><textarea id="content_1" name="content_1" rows="12" cols="100"><?=htmlspecialchars($objNews->content_1)?></textarea></p>
 
-	<p<?=0===strpos($objNews->label_for_title_2, '.') ? ' style="display:none;"' : ''?>><?=$objNews->label_for_title_2?>: (<a href="?id=<?=$_GET['id']?>&disable=title_2">x</a>)<br /><input type="text" name="title_2" size="80" value="<?=htmlspecialchars($objNews->title_2)?>" /></p>
+	<p>Title 2:<br /><input type="text" name="title_2" size="80" value="<?=htmlspecialchars($objNews->title_2)?>" /></p>
 
-	<p<?=0===strpos($objNews->label_for_content_2, '.') ? ' style="display:none;"' : ''?>><?=$objNews->label_for_content_2?>: (<a href="?id=<?=$_GET['id']?>&disable=content_2">x</a>)<br /><textarea name="content_2" rows="12" cols="100"><?=htmlspecialchars($objNews->content_2)?></textarea></p>
+	<p>Content 2:<br /><textarea id="content_2" name="content_2" rows="12" cols="100"><?=htmlspecialchars($objNews->content_2)?></textarea></p>
 
 	<p>Special 1: <input type="text" name="special_1" value="<?=$objNews->special_1?>" /><br />Special 2: <input type="text" name="special_2" value="<?=$objNews->special_2?>" /><br />Special 3: <input type="text" name="special_3" value="<?=$objNews->special_3?>" /></p>
-
-	<h2 style="cursor:pointer;" onclick="with(document.getElementById('labels').style){display=display=='none'?'':'none';}">Labels</h2>
-	<table id="labels" style="display:none;">
-		<tr><td>Title 1</td><td>:</td><td><input type="text" name="label_for_title_1" value="<?=$objNews->label_for_title_1?>" /></td></tr>
-		<tr><td>Content 1</td><td>:</td><td><input type="text" name="label_for_content_1" value="<?=$objNews->label_for_content_1?>" /></td></tr>
-		<tr><td>Title 2</td><td>:</td><td><input type="text" name="label_for_title_2" value="<?=$objNews->label_for_title_2?>" /></td></tr>
-		<tr><td>Content 2</td><td>:</td><td><input type="text" name="label_for_content_2" value="<?=$objNews->label_for_content_2?>" /></td></tr>
-	</table>
 
 	<h2 style="cursor:pointer;" onclick="with(document.getElementById('specviews').style){display=display=='none'?'':'none';}">Specific views</h2>
 	<p id="specviews" style="display:none;"><?php

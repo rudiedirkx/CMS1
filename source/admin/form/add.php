@@ -28,13 +28,15 @@ if ( isset($_POST['id'], $_POST['title'], $_POST['content_1']) ) {
 echo '<h1>Creating new form</h1>';
 
 ?>
+<script type="text/javascript" src="/admin/_resources/ckeditor/ckeditor.js"></script>
+
 <form method="post" action="">
 
 	<p>URL:<br />/<input type="text" name="id" value="" style="border:solid 1px black;border-width:0 0 1px;" /></p> 
 
 	<p>Title:<br /><input type="text" name="title" size="80" value="" /></p>
 
-	<p>Content:<br /><textarea name="content_1" rows="12" cols="100"></textarea></p>
+	<p>Content:<br /><textarea id="content_1" name="content_1" rows="12" cols="100"></textarea></p>
 
 	<p>Send to [e-mail]:<br /><input type="text" name="send_to_email" size="80" value="" /></p>
 
@@ -46,4 +48,12 @@ echo '<h1>Creating new form</h1>';
 
 </form>
 
-<script type="text/javascript">document.forms[0].elements[0].focus();</script>
+<script type="text/javascript">
+<!--//
+document.forms[0].elements[0].focus();
+CKEDITOR.replace('content_1', {});
+if(document.getElementById('content_2')){CKEDITOR.replace('content_2', {});}
+//-->
+</script>
+
+

@@ -27,13 +27,15 @@ if ( isset($_POST['id'], $_POST['title'], $_POST['content_1'], $_POST['max_depth
 echo '<h1>New menu</h1>';
 
 ?>
+<script type="text/javascript" src="/admin/_resources/ckeditor/ckeditor.js"></script>
+
 <form method="post" action="">
 
 	<p>ID:<br /><input type="text" name="id" size="20" value="" /></p>
 
 	<p>Title:<br /><input type="text" name="title" size="80" value="" /></p>
 
-	<p>Content:<br /><textarea name="content_1" rows="11" cols="80"></textarea></p>
+	<p>Content:<br /><textarea id="content_1" name="content_1" rows="11" cols="80"></textarea></p>
 
 	<p>Max depth:<br /><input type="text" name="max_depth" size="10" value="1" /></p>
 
@@ -41,5 +43,11 @@ echo '<h1>New menu</h1>';
 
 </form>
 
-<script type="text/javascript">document.forms[0].elements[0].focus();</script>
+<script type="text/javascript">
+<!--//
+document.forms[0].elements[0].focus();
+CKEDITOR.replace('content_1', {});
+if(document.getElementById('content_2')){CKEDITOR.replace('content_2', {});}
+//-->
+</script>
 

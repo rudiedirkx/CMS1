@@ -44,9 +44,9 @@ echo '<table id="sortable" border="0" cellpadding="3" cellspacing="2" bordercolo
 echo '<thead><tr><th>o</th><th>Title</th><th>URL</th><th></th></tr></thead><tbody>';
 foreach ( $objPage->getPages() AS $page ) {
 	echo '<tr mid="'.$page->implementation_id.'"'.( empty($_GET['sort']) ? '' : ' bgcolor="#cccccc"' ).'>';
-	echo '<td><a href="properties.php?id='.$page->id.'">'.$page->o.'</a></td>';
-	echo '<td><a href="properties.php?id='.$page->id.'">'.$page->title.'</a></td>';
-	echo '<td>'.$page->id.' <a href="pages.php?id='.$page->id.'">&gt;</a></td>';
+	echo '<td><a href="properties.php?id='.$objPage->id.'/'.$page->id.'">'.$page->o.'</a></td>';
+	echo '<td><a href="properties.php?id='.$objPage->id.'/'.$page->id.'">'.$page->title.'</a></td>';
+	echo '<td>'.$page->id.' <a href="pages.php?id='.$objPage->id.'/'.$page->id.'">&gt;</a></td>';
 	echo '<td><a href="?id='.$objPage->id.'&del='.$page->id.'">x</a></td>';
 	echo '</tr>';
 }

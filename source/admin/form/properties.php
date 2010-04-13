@@ -46,13 +46,15 @@ echo '<h1>Editing form: '.$objForm->title.'</h1>';
 ?>
 <p><a href="properties.php?id=<?=$_GET['id']?>">Properties</a> | <a href="fields.php?id=<?=$_GET['id']?>">Fields</a> | <a href="add_field.php?id=<?=$_GET['id']?>">Add field</a> | <a href="fields.php?id=<?=$_GET['id']?>&sort=1">Sort</a></p>
 
+<script type="text/javascript" src="/admin/_resources/ckeditor/ckeditor.js"></script>
+
 <form method="post" action="">
 
 	<p>URL:<br />/<input type="text" name="id" value="<?=htmlspecialchars($objForm->id)?>" style="border:solid 1px black;border-width:0 0 1px;" /></p> 
 
 	<p>Title:<br /><input type="text" name="title" size="80" value="<?=htmlspecialchars($objForm->title)?>" /></p>
 
-	<p>Content:<br /><textarea name="content_1" rows="12" cols="100"><?=htmlspecialchars($objForm->content_1)?></textarea></p>
+	<p>Content:<br /><textarea id="content_1" name="content_1" rows="12" cols="100"><?=htmlspecialchars($objForm->content_1)?></textarea></p>
 
 	<p>Send to [e-mail]:<br /><input type="text" name="send_to_email" size="80" value="<?=htmlspecialchars($objForm->send_to_email)?>" /></p>
 
@@ -82,4 +84,12 @@ foreach ( $arrViewTypes AS $type ) {
 
 </form>
 
-<script type="text/javascript">document.forms[0].elements[0].focus();</script>
+<script type="text/javascript">
+<!--//
+document.forms[0].elements[0].focus();
+CKEDITOR.replace('content_1', {});
+if(document.getElementById('content_2')){CKEDITOR.replace('content_2', {});}
+//-->
+</script>
+
+

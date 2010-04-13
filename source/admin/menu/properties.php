@@ -30,13 +30,15 @@ echo '<h1>Editing menu: '.$objMenu->title.'</h1>';
 ?>
 <p><a href="properties.php?id=<?=$objMenu->id?>">Properties</a> | <a href="items.php?id=<?=$objMenu->id?>">Items</a></p>
 
+<script type="text/javascript" src="/admin/_resources/ckeditor/ckeditor.js"></script>
+
 <form method="post" action="">
 
 	<p>ID:<br /><input type="text" name="id" size="20" value="<?=htmlspecialchars($objMenu->id)?>" /></p>
 
 	<p>Title:<br /><input type="text" name="title" size="80" value="<?=htmlspecialchars($objMenu->title)?>" /></p>
 
-	<p>Content:<br /><textarea name="content_1" rows="11" cols="80"><?=htmlspecialchars($objMenu->content_1)?></textarea></p>
+	<p>Content:<br /><textarea id="content_1" name="content_1" rows="11" cols="80"><?=htmlspecialchars($objMenu->content_1)?></textarea></p>
 
 	<input type="hidden" name="max_depth" value="10" /><!--<p>Max depth:<br /><input type="text" name="max_depth" size="10" value="<?=htmlspecialchars($objMenu->max_depth)?>" /></p>-->
 
@@ -46,5 +48,11 @@ echo '<h1>Editing menu: '.$objMenu->title.'</h1>';
 
 </form>
 
-<script type="text/javascript">document.forms[0].elements[0].focus();</script>
+<script type="text/javascript">
+<!--//
+document.forms[0].elements[0].focus();
+CKEDITOR.replace('content_1', {});
+if(document.getElementById('content_2')){CKEDITOR.replace('content_2', {});}
+//-->
+</script>
 

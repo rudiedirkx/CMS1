@@ -19,10 +19,6 @@ if ( isset($_POST['id'], $_POST['title'], $_POST['content_1'], $_POST['title_2']
 		'content_1' => $_POST['content_1'],
 		'title_2' => $_POST['title_2'],
 		'content_2' => $_POST['content_2'],
-		'label_for_title_1' => $_POST['label_for_title_1'],
-		'label_for_content_1' => $_POST['label_for_content_1'],
-		'label_for_title_2' => $_POST['label_for_title_2'],
-		'label_for_content_2' => $_POST['label_for_content_2'],
 		'must_verify' => (string)(int)!empty($_POST['must_verify']),
 		'use_name' => (string)(int)!empty($_POST['use_name']),
 		'use_email' => (string)(int)!empty($_POST['use_email']),
@@ -76,13 +72,13 @@ echo '<h1>Editing guestbook: '.$objGuestbook->title.'</h1>';
 
 	<p>URL:<br />/<input type="text" name="id" value="<?=$objGuestbook->id?>" style="border:solid 1px black;border-width:0 0 1px;" /></p>
 
-	<p><?=$objGuestbook->label_for_title_1?>:<br /><input type="text" name="title" size="80" value="<?=$objGuestbook->title?>" /></p>
+	<p>Title:<br /><input type="text" name="title" size="80" value="<?=$objGuestbook->title?>" /></p>
 
-	<p><?=$objGuestbook->label_for_content_1?>:<br /><textarea name="content_1" rows="12" cols="100"><?=htmlspecialchars($objGuestbook->content_1)?></textarea></p>
+	<p>Content:<br /><textarea id="content_1" name="content_1" rows="12" cols="100"><?=htmlspecialchars($objGuestbook->content_1)?></textarea></p>
 
-	<p<?=0===strpos($objGuestbook->label_for_title_2, '.') ? ' style="display:none;"' : ''?>><?=$objGuestbook->label_for_title_2?>: (<a href="?id=<?=$_GET['id']?>&disable=title_2">x</a>)<br /><input type="text" name="title_2" size="80" value="<?=$objGuestbook->title_2?>" /></p>
+	<p>Title 2:<br /><input type="text" name="title_2" size="80" value="<?=$objGuestbook->title_2?>" /></p>
 
-	<p<?=0===strpos($objGuestbook->label_for_content_2, '.') ? ' style="display:none;"' : ''?>><?=$objGuestbook->label_for_content_2?>: (<a href="?id=<?=$_GET['id']?>&disable=content_2">x</a>)<br /><textarea name="content_2" rows="12" cols="100"><?=htmlspecialchars($objGuestbook->content_2)?></textarea></p>
+	<p>Content 2:<br /><textarea id="content_2" name="content_2" rows="12" cols="100"><?=htmlspecialchars($objGuestbook->content_2)?></textarea></p>
 
 	<p>Return to URL:<br /><input type="text" name="return_url" size="40" value="<?=$objGuestbook->return_url?>" /></p>
 
@@ -99,14 +95,6 @@ echo '<h1>Editing guestbook: '.$objGuestbook->title.'</h1>';
 		<label><input type="checkbox" name="must_verify" value="1"<?=$objGuestbook->must_verify?' checked="1"':''?> /> Must approve new entries</label><br />
 		<label><input type="checkbox" name="check_email_regexp" value="1"<?=$objGuestbook->check_email_regexp?' checked="1"':''?> /> Check e-mail field with regexp</label><br />
 	</p>
-
-	<h2 style="cursor:pointer;" onclick="with(document.getElementById('labels').style){display=display=='none'?'':'none';}">Labels</h2>
-	<table id="labels" style="display:none;">
-		<tr><td>Title 1</td><td>:</td><td><input type="text" name="label_for_title_1" value="<?=$objGuestbook->label_for_title_1?>" /></td></tr>
-		<tr><td>Content 1</td><td>:</td><td><input type="text" name="label_for_content_1" value="<?=$objGuestbook->label_for_content_1?>" /></td></tr>
-		<tr><td>Title 2</td><td>:</td><td><input type="text" name="label_for_title_2" value="<?=$objGuestbook->label_for_title_2?>" /></td></tr>
-		<tr><td>Content 2</td><td>:</td><td><input type="text" name="label_for_content_2" value="<?=$objGuestbook->label_for_content_2?>" /></td></tr>
-	</table>
 
 	<h2 style="cursor:pointer;" onclick="with(document.getElementById('specviews').style){display=display=='none'?'':'none';}">Specific views</h2>
 	<p id="specviews" style="display:none;"><?php
