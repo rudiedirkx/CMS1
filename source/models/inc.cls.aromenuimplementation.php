@@ -11,6 +11,8 @@ class AROMenuImplementation extends Extended_ActiveRecordObject {
 		
 	);
 
+	public $_type = 'menu';
+
 
 	public function admin() {
 		return '/admin/menu/edit.php?id='.$this->id;

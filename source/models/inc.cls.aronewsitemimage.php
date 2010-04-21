@@ -9,6 +9,8 @@ class ARONewsItemImage extends Extended_ActiveRecordObject {
 		
 	);
 
+	public $_type = 'newsItemImage';
+
 
 	public function admin() {
 		return '/admin/news/edit_item_image.php?id='.$this->root->id.'&item='.$this->parent->id.'&image='.$this->id;

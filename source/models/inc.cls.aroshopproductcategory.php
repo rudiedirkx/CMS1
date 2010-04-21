@@ -3,19 +3,14 @@
 class AROShopProductCategory extends Extended_ActiveRecordObject {
 
 	protected static $_table = 'shop_product_categories';
-	protected static $_columns = array(
-		'shop_implementation_id',
-		'parent_category_id',
-		'title',
-		'content_1',
-		'image_1',
-		'image_2',
-	);
+	protected static $_columns = array();
 	protected static $_pk = 'id';
 	protected static $_relations = array(
 		'categories' => array( self::FROM_FUNCTION, 'getCategories' ),
 		'products' => array( self::FROM_FUNCTION, 'getProducts' ),
 	);
+
+	public $_type = 'productCategory';
 
 
 	public function getCategory( $f_szCatID ) {

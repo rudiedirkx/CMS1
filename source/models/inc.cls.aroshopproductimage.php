@@ -3,17 +3,11 @@
 class AROShopProductImage extends MyActiveRecordObject {
 
 	protected static $_table = 'shop_product_images';
-	protected static $_columns = array(
-		'shop_product_id',
-		'image',
-		'title',
-		'content_1',
-		'o',
-	);
+	protected static $_columns = array();
 	protected static $_pk = 'id';
-	protected static $_relations = array(
-		
-	);
+	protected static $_relations = array();
+
+	public $_type = 'productImage';
 
 
 	public function __construct($data=null) {

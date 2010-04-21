@@ -7,6 +7,8 @@ class AROGuestbookEntry extends MyActiveRecordObject {
 	protected static $_pk = 'id';
 	protected static $_relations = array();
 
+	public $_type = 'guestbookEntry';
+
 
 	public function admin() {
 		return '/admin/guestbook/edit_entry.php?id='.$this->root->id.'&entry='.$this->id;

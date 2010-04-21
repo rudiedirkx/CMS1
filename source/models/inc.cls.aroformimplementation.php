@@ -8,13 +8,9 @@ class AROFormImplementation extends Extended_ActiveRecordObject {
 	protected static $_columns = array();
 	protected static $_pk = 'implementation_id';
 	protected static $_relations = array();
+
 	public static $m_arrFieldTypes = array('label', 'textbox', 'email', 'textarea', 'checkbox', 'checkboxes', 'radiobuttons', 'select', 'specialtextbox');
-
-
-	public function __construct($data=null) {
-		parent::__construct($data);
-		$this->saveConfigs();
-	}
+	public $_type = 'form';
 
 
 	public function admin() {

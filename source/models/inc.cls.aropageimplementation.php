@@ -11,6 +11,8 @@ class AROPageImplementation extends Extended_ActiveRecordObject {
 		
 	);
 
+	public $_type = 'page';
+
 
 	public function admin() {
 		return '/admin/page/edit.php?id='.$this->id;

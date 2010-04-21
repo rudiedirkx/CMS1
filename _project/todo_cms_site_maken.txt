@@ -1,0 +1,9 @@
+- runtime/default > runtime/$site > chmod
+
+- resources/default > resources/$site > chmod
+
+- database cms1_$site maken
+
+- database user cms1_$site maken + rechten geven
+
+? nieuwe cms site opslaan in db?

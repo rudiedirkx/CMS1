@@ -9,6 +9,8 @@ class ARONewsItem extends Extended_ActiveRecordObject {
 		
 	);
 
+	public $_type = 'newsItem';
+
 
 	public function admin() {
 		return '/admin/news/edit_item.php?id='.$this->root->id.'&item='.$this->id;

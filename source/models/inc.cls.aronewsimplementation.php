@@ -9,6 +9,8 @@ class ARONewsImplementation extends Extended_ActiveRecordObject {
 		
 	);
 
+	public $_type = 'newsIndex';
+
 
 	public function admin() {
 		return '/admin/news/edit_item_image.php?id='.$this->id;

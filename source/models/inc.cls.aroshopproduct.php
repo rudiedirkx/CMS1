@@ -3,18 +3,13 @@
 class AROShopProduct extends Extended_ActiveRecordObject {
 
 	protected static $_table = 'shop_products';
-	protected static $_columns = array(
-		'shop_implementation_id',
-		'title',
-		'content_1',
-		'content_2',
-		'image_1',
-		'image_2',
-	);
+	protected static $_columns = array();
 	protected static $_pk = 'id';
 	protected static $_relations = array(
 		'images' => array( self::FROM_FUNCTION, 'getImages' )
 	);
+
+	public $_type = 'productDetails';
 
 
 	public function getImages() {

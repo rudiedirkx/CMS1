@@ -10,6 +10,8 @@ class AROShopImplementation extends Extended_ActiveRecordObject {
 		'products' => array( self::FROM_FUNCTION, 'getProducts' ),
 	);
 
+	public $_type = 'shopIndex';
+
 
 	public function getCategory( $f_szCatID ) {
 		$cat = AROShopProductCategory::finder()->findOne('parent_category_id IS NULL AND url_id = ?', $f_szCatID);
