@@ -1,0 +1,3 @@
+RewriteEngine On
+RewriteRule ^((__FOLDERS__).*) $1 [NC,QSA,L]
+RewriteRule .* index.php

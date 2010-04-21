@@ -1,8 +1,3 @@
-DirectoryIndex index.php
-
-php_value error_reporting 2039
-
-	RewriteEngine On
-	RewriteCond %{REQUEST_FILENAME} !-d
-	RewriteCond %{REQUEST_FILENAME} !-f
-	RewriteRule ^.*$ index.php [QSA,L]
+RewriteEngine On
+RewriteRule ^((_images|files|images|pages|test).*) $1 [NC,QSA,L]
+RewriteRule .* index.php

@@ -4,6 +4,10 @@ require_once(dirname(__FILE__).'/inc.cls.myactiverecordobject.php');
 
 class Extended_ActiveRecordObject extends MyActiveRecordObject {
 
+	public function file_exists($file) {
+		return (int)(bool)file_exists(PROJECT_PUBLIC.$file);
+	}
+
 	final public function load( $f_szId ) {
 		return AROImplementation::loadImplementationByID($f_szId);
 	}
