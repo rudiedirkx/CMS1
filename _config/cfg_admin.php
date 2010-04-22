@@ -2,7 +2,7 @@
 
 session_start();
 
-define( 'SQL_DB', basename(dirname($_SERVER['DOCUMENT_ROOT'])) );
+define( 'CMS_SITE_SUBDOMAIN', basename(dirname($_SERVER['DOCUMENT_ROOT'])) );
 
 define( 'SESSION_NAME', 'thiscms' );
 

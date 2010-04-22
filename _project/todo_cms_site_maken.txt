@@ -7,3 +7,5 @@
 - database user cms1_$site maken + rechten geven
 
 ? nieuwe cms site opslaan in db?
+
+- vhost maken, op goede locatie zetten (?) en httpd restarten (?)

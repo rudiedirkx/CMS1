@@ -1,12 +1,9 @@
 <?php
 
-session_start();
-
-define( 'SQL_DB', basename(dirname($_SERVER['DOCUMENT_ROOT'])) );
 require_once('cfg_complete.php');
 
 require_once(PROJECT_INCLUDE.'/inc.cls.application.php');
-$application = new Application(SQL_DB);
+$application = new Application(SITE_SQL_DB);
 
 require_once(PROJECT_INCLUDE.'/inc.cls.smartytpl.php');
 
