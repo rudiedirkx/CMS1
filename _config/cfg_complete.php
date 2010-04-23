@@ -1,7 +1,5 @@
 <?php
 
-session_start();
-
 define( 'CMS_SITE_SUBDOMAIN', basename(dirname($_SERVER['DOCUMENT_ROOT'])) );
 
 require_once('cfg_toplevel.php');

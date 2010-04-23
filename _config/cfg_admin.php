@@ -2,8 +2,6 @@
 
 session_start();
 
-define( 'CMS_SITE_SUBDOMAIN', basename(dirname($_SERVER['DOCUMENT_ROOT'])) );
-
 define( 'SESSION_NAME', 'thiscms' );
 
 
@@ -93,7 +91,7 @@ function logincheck( $f_act = true ) {
 		return true;
 	}
 	if ( isset($_SESSION[SESSION_NAME]['user_id']) ) {
-		if ( 0 < count($arrUser=$GLOBALS['root']->select('cms_users', "(sitename IS NULL OR sitename = '".addslashes(SQL_DB)."') AND id = ".$_SESSION[SESSION_NAME]['user_id'].' AND is_enabled = \'1\'')) ) {
+		if ( 0 < count($arrUser=$GLOBALS['root']->select('cms_users', "(sitename IS NULL OR sitename = '".addslashes(CMS_SITE_SUBDOMAIN)."') AND id = ".$_SESSION[SESSION_NAME]['user_id'].' AND is_enabled = \'1\'')) ) {
 			$GLOBALS['g_objAdmin'] = new CMSUser($arrUser[0]);
 			define('USER_ID', (int)$_SESSION['thiscms']['user_id']);
 			return true;
