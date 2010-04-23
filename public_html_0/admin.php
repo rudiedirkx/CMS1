@@ -21,8 +21,8 @@ foreach ( $arrSites AS $szSitename ) {
 	echo '	<th><a href="http://'.$szSitename.'.'.$_SERVER['HTTP_HOST'].'/">'.$szSitename.'</a></th>';
 	echo '	<td><a href="?users='.$szSitename.'">'.$root->count('cms_users', 'sitename = \''.$szSitename.'\'').' users</a></td>';
 	echo '	<td>~ '.number_format(mfilesize($szPath1)/1024/1024+mfilesize($szPath2)/1024/1024, 1, '.', ' ').' MB</td>';
-	echo '	<td>'.$root->count_rows('SHOW TABLES IN `'.ROOT_SQL_DB.$szSitename.'`').' tables</td>';
-	echo '	<td>~ '.number_format((int)$root->select_one('information_schema.TABLES', 'SUM(data_length+index_length)', "table_schema = 'cms1_default'")/1024, 1, '.', ' ').' KB</td>';
+	echo '	<td>'.( false === ($iTables=$root->count_rows('SHOW TABLES IN `'.ROOT_SQL_DB.$szSitename.'`')) ? '-' : $iTables.' tables' ).'</td>';
+	echo '	<td>'.( false === $iTables ? '-' : '~ '.number_format((int)$root->select_one('information_schema.TABLES', 'SUM(data_length+index_length)', "table_schema = 'cms1_default'")/1024, 1, '.', ' ').' KB' ).'</td>';
 	echo '</tr>';
 }
 echo '</table>';
