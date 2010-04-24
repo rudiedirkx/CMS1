@@ -50,7 +50,7 @@ foreach ( $arrFiles AS $f ) {
 		$arrFolders[] = '<a href="?id='.$_GET['id'].'/'.basename($f).'"><b>'.basename($f).'</b></a>';
 	}
 }
-echo '<p><span style="float:left; padding:5px 100px 7px 5px; background-color:#afa;">Child folders: '.implode(' | ', $arrFolders).'<p>';
+echo '<p style="background-color:#eee;">Child folders: '.implode(' | ', $arrFolders).'<p>';
 
 echo '<p><a href="upload.php?id='.$_GET['id'].'">Upload file</a> | <a href="add.php?into='.$_GET['id'].'">Create subfolder</a></p>';
 

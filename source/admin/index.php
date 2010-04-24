@@ -24,7 +24,7 @@ foreach ( $arrImplementations AS $imp ) {
 	echo '</tr>';
 }
 if ( $g_objAdmin->allowAddObject() ) {
-	echo '<tr><td align="center" colspan="3"><form onsubmit="document.location=\'./\'+this._type.value+\'/add.php\';return false;">New <select name="_type">'.implode('', array_map(create_function('$type', 'return \'<option value="\'.$type->type.\'">\'.$type->name.\'</option>\';'), $root->select('implementation_types'))).'</select> <input type="submit" value="&gt;" /></form></td></tr>';
+	echo '<tr><td align="center" colspan="3"><form onsubmit="document.location=\'./\'+this._type.value+\'/add.php\';return false;">New <select name="_type">'.implode('', array_map(create_function('$type', 'return \'<option value="\'.$type->type.\'">\'.$type->name.\'</option>\';'), $root->select('implementation_types', 'enabled = 1'))).'</select> <input type="submit" value="&gt;" /></form></td></tr>';
 }
 
 ?>

@@ -28,7 +28,7 @@ tpl_header();
 
 echo '<h1>Editing view: '.$objView->title.'</h1>';
 
-$arrViewTypes = array_map('trim', explode(',', $root->select_one('implementation_types', 'GROUP_CONCAT(view_types SEPARATOR \',\')', 'view_types <> \'\'')));
+$arrViewTypes = array_map('trim', explode(',', $root->select_one('implementation_types', 'GROUP_CONCAT(view_types SEPARATOR \',\')', 'enabled = 1 AND view_types <> \'\'')));
 natcasesort($arrViewTypes);
 
 $arrSelectedTypes = explode(',', $objView->type);

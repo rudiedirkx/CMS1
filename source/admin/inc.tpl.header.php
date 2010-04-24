@@ -6,7 +6,6 @@ body { font-family:Arial; font-size:14px; }
 a { font-size:15px; color:#800; }
 h1 a, h2 a, h3 a { font-size:inherit; }
 form{padding:0;margin:0;}
-p, form, fieldset { clear:both; overflow:auto; }
 th.hd{font-size:20px;}
 table{font-family:Arial;float:left;margin-right:10px;}
 th,td{padding:4px;}

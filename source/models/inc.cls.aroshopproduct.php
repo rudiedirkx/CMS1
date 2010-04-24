@@ -25,8 +25,8 @@ class AROShopProduct extends Extended_ActiveRecordObject {
 
 	public function init($parent) {
 		$this->parent = $parent;
-		$this->shop = $parent->shop;
-		$this->relative_url = '/'.$this->shop->id.'/p'.$this->id.'/';
+		$this->root = $parent->root;
+		$this->relative_url = '/'.$this->root->id.'/p'.$this->id.'/';
 		return $this;
 	}
 
