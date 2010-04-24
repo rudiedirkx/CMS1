@@ -28,4 +28,15 @@ class Application {
 
 }
 
+class PageNotFoundException extends Exception {}
+
+class NoTemplateFoundException extends Exception {
+	public $m_arrViewTypes = array();
+	public function __construct( Array $f_arrViewTypes ) {
+		$this->m_arrViewTypes = $f_arrViewTypes;
+	}
+}
+
+class TemplateErrorException extends Exception {}
+
 

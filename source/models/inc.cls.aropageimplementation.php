@@ -7,9 +7,7 @@ class AROPageImplementation extends Extended_ActiveRecordObject {
 	protected static $_table = 'page_implementations';
 	protected static $_columns = array();
 	protected static $_pk = 'implementation_id';
-	protected static $_relations = array(
-		
-	);
+	protected static $_relations = array();
 
 	public $_type = 'page';
 
@@ -51,7 +49,7 @@ class AROPageImplementation extends Extended_ActiveRecordObject {
 		$f_pszViewType = $szViewType;
 		$objView = AROView::getView($szViewType, $this->id);
 		if ( !is_object($objView) ) {
-			return false;
+			throw new NoTemplateFoundException(array($szViewType));
 		}
 		$this->init();
 		$o = $this;

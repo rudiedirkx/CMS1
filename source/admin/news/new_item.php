@@ -1,7 +1,6 @@
 <?php
 
 require_once('cfg_admin.php');
-require_once('cfg_complete.php');
 
 logincheck();
 
@@ -41,6 +40,8 @@ if ( isset($_POST['type'], $_POST['title'], $_POST['title_2'], $_POST['content_1
 	header('Location: edit_item.php?id='.$objNews->id.'&item='.$iNewsItem);
 	exit;
 }
+
+tpl_header();
 
 echo '<h1>New message in news collection: '.$objNews->title.'</h1>';
 

@@ -1,7 +1,6 @@
 <?php
 
 require_once('cfg_admin.php');
-require_once('cfg_complete.php');
 
 logincheck();
 
@@ -32,11 +31,11 @@ else*/ if ( isset($_POST['sortorder']) ) {
 	exit;
 }
 
+tpl_header();
+
 echo '<h1>Pages in page: '.$objPage->title.'</h1>';
 
 ?>
-<script type="text/javascript" src="/admin/_resources/mootools_1_11.js"></script>
-
 <p><a href="properties.php?id=<?=$objPage->id?>">Properties</a> | <a href="pages.php?id=<?=$objPage->id?>">Child pages</a> | <a href="new_page.php?id=<?=$objPage->id?>">New page</a> | <a href="?id=<?=$objPage->id?>&sort=1">Sort</a></p>
 <?php
 

@@ -1,7 +1,6 @@
 <?php
 
 require_once('cfg_admin.php');
-require_once('cfg_complete.php');
 
 logincheck();
 $g_objAdmin->checkEditSnippetAccess();
@@ -22,6 +21,8 @@ if ( isset($_POST['id'], $_POST['title'], $_POST['content'], $_POST['content_typ
 	header('Location: edit.php?id='.$objSnippet->id);
 	exit;
 }
+
+tpl_header();
 
 echo '<h1>Editing snippet: '.$objSnippet->title.'</h1>';
 

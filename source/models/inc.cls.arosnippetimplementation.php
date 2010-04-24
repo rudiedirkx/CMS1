@@ -7,9 +7,9 @@ class AROSnippetImplementation extends Extended_ActiveRecordObject {
 	protected static $_table = 'snippet_implementations';
 	protected static $_columns = array();
 	protected static $_pk = 'implementation_id';
-	protected static $_relations = array(
-		
-	);
+	protected static $_relations = array();
+
+	public $_type = 'snippet';
 
 
 	public function parse( &$f_pszViewType = null, $f_arrContext = array() ) {

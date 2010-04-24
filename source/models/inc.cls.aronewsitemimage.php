@@ -5,9 +5,7 @@ class ARONewsItemImage extends Extended_ActiveRecordObject {
 	protected static $_table = 'news_item_images';
 	protected static $_columns = array();
 	protected static $_pk = 'id';
-	protected static $_relations = array(
-		
-	);
+	protected static $_relations = array();
 
 	public $_type = 'newsItemImage';
 

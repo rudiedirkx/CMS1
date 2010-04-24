@@ -1,3 +1,6 @@
 RewriteEngine On
+
+RewriteRule ^(.*)/cms1admin /admin/portal.php?url=$1 [L]
+
 RewriteRule ^((__FOLDERS__).*) $1 [NC,QSA,L]
 RewriteRule .* index.php

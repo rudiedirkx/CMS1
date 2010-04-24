@@ -1,7 +1,6 @@
 <?php
 
 require_once('cfg_admin.php');
-require_once('cfg_complete.php');
 
 logincheck();
 
@@ -22,6 +21,8 @@ function getObjectName($table, $id) {
 	}
 	return $cache[$table][$id];
 }
+
+tpl_header();
 
 echo '<table border="1" cellpadding="5" cellspacing="1">';
 foreach ( $arrLogs AS $log ) {

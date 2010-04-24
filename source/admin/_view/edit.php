@@ -1,7 +1,6 @@
 <?php
 
 require_once('cfg_admin.php');
-require_once('cfg_complete.php');
 
 logincheck();
 $g_objAdmin->checkEditViewAccess();
@@ -24,6 +23,8 @@ if ( isset($_POST['title'], $_POST['content'], $_POST['type']) ) {
 	header('Location: '.$_SERVER['HTTP_REFERER']);
 	exit;
 }
+
+tpl_header();
 
 echo '<h1>Editing view: '.$objView->title.'</h1>';
 

@@ -3,11 +3,11 @@
 require_once('cfg_complete.php');
 
 require_once(PROJECT_INCLUDE.'/inc.cls.application.php');
-$application = new Application(SITE_SQL_DB);
+$application = new Application(CMS_SITE_SUBDOMAIN);
 
 require_once(PROJECT_INCLUDE.'/inc.cls.smartytpl.php');
 
-/** dispatcher **/
+/** <!-- dispatcher **/
 if ( 1 < count($x = explode('?', $_SERVER['REQUEST_URI'], 2)) ) {
 	$_SERVER['REQUEST_URI'] = $x[0];
 	parse_str($x[1], $_GET);
@@ -41,27 +41,28 @@ foreach ( $arrRoutes AS $route ) {
 $arrLoad = explode('/', trim($g_szUseRequestUri, '/'));
 
 $szModuleID = array_shift($arrLoad);
-/** dispatcher **/
+/** dispatcher --> **/
 
 try {
+
 	$objImplementation = AROImplementation::loadImplementationByID( $szModuleID, $arrLoad );
-}
-catch ( AROException $ex ) {
-	exit('No object `'.$szModuleID.'` found.');
-}
 
-$page = $objImplementation;
+	$page = $objImplementation;
 
-try {
-	$mvParsed = $objImplementation->parse($pszViewType);
-} catch (Exception $ex) {
-	exit('Error in parsing page: '.$ex->getMessage().'');
+	$objImplementation->parse();
+
 }
-if ( false === $mvParsed ) {
-	exit('No view found of type \''.$pszViewType.'\'.');
-}
-else if ( -2 === $mvParsed ) {
+catch ( PageNotFoundException $ex ) {
 	exit('Page not found');
+}
+catch ( NoTemplateFoundException $ex ) {
+	exit('No template found for type(s) `'.implode('` or `', $ex->m_arrViewTypes).'`.');
+}
+catch ( TemplateErrorException $ex ) {
+	exit('No template found.');
+}
+catch ( Exception $ex ) {
+	exit('Unknown error');
 }
 
 

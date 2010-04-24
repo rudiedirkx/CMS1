@@ -1,7 +1,6 @@
 <?php
 
 require_once('cfg_admin.php');
-require_once('cfg_complete.php');
 
 logincheck();
 
@@ -31,6 +30,8 @@ if ( isset($_POST['label_1'], $_POST['label_2'], $_POST['label_3'], $_POST['opti
 	header('Location: fields.php?id='.$_GET['id']);
 	exit;
 }
+
+tpl_header();
 
 echo '<h1>Add field to form: '.$objForm->title.'</h1>';
 

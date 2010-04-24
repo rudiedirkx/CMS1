@@ -1,6 +1,6 @@
 * { margin:0; padding;0; }
 
-body { padding:10px 10px 40px 212px; background:white url(/images/Architecturally_beatiful_bridge2.jpg) left bottom no-repeat fixed; }
+body { padding:10px 10px 40px 212px; background:white url(/images/fotooud-1934.jpg) center center no-repeat fixed; }
 table, body { font-size:14px; font-weight:bold; color:black; font-family:Arial,Verdana; }
 h1 { background-color:#006666; color:#ffcc99; padding:7px 0 7px 25px; font-size:25px; margin-bottom:4px; font-family:'Comic Sans MS'; }
 h2 { background-color:#ffcc99; color:#006666; font-size:20px; padding:3px; }

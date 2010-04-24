@@ -23,11 +23,16 @@ class AROImplementation extends ActiveRecordObject {
 
 
 	static public function loadImplementationByID( $f_szID, $f_arrDetails = array() ) {
-		$objImpLoader = AROImplementation::finder()->byPK($f_szID);
-		$objImplementation = $objImpLoader->loadImplementation( $f_arrDetails );
-		$objImplementation->id = $objImpLoader->id;
-		$objImplementation->title = $objImpLoader->title;
-		return $objImplementation;
+		try {
+			$objImpLoader = AROImplementation::finder()->byPK($f_szID);
+			$objImplementation = $objImpLoader->loadImplementation( $f_arrDetails );
+			$objImplementation->id = $objImpLoader->id;
+			$objImplementation->title = $objImpLoader->title;
+			return $objImplementation;
+		}
+		catch ( AROException $ex ) {
+			throw new PageNotFoundException;
+		}
 	}
 
 

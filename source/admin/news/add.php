@@ -1,7 +1,6 @@
 <?php
 
 require_once('cfg_admin.php');
-require_once('cfg_complete.php');
 
 logincheck();
 
@@ -24,11 +23,11 @@ if ( isset($_POST['id'], $_POST['title'], $_POST['content_1']) ) {
 	exit;
 }
 
+tpl_header();
+
 echo '<h1>New news collection</h1>';
 
 ?>
-<script type="text/javascript" src="/admin/_resources/ckeditor/ckeditor.js"></script>
-
 <form method="post" action="">
 
 	<p>ID:<br /><input type="text" name="id" maxlength="50" size="20" value="" /></p>

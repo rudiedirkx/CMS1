@@ -1,7 +1,6 @@
 <?php
 
 require_once('cfg_admin.php');
-require_once('cfg_complete.php');
 
 logincheck();
 
@@ -14,6 +13,8 @@ if ( isset($_POST['name'], $_POST['email'], $_POST['website'], $_POST['subject']
 	header('Location: entries.php?id='.$_GET['id']);
 	exit;
 }
+
+tpl_header();
 
 echo '<h1>Editing entry in guestbook: '.$objGuestbook->title.'</h1>';
 

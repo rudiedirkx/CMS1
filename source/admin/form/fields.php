@@ -1,7 +1,6 @@
 <?php
 
 require_once('cfg_admin.php');
-require_once('cfg_complete.php');
 
 logincheck();
 
@@ -15,6 +14,8 @@ if ( isset($_POST['sortorder']) ) {
 	header('Location: ?id='.$_GET['id']);
 	exit;
 }
+
+tpl_header();
 
 echo '<h1>Fields in form: '.$objForm->title.'</h1>';
 

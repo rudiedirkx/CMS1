@@ -1,7 +1,6 @@
 <?php
 
 require_once('cfg_admin.php');
-require_once('cfg_complete.php');
 
 logincheck();
 
@@ -52,11 +51,11 @@ else if ( isset($_GET['disable']) ) {
 	exit;
 }
 
+tpl_header();
+
 echo '<h1>Editing web page: '.$objPage->title.'</h1>';
 
 ?>
-<script type="text/javascript" src="/admin/_resources/ckeditor/ckeditor.js"></script>
-
 <p><a href="properties.php?id=<?=$objPage->id?>">Properties</a> | <a href="pages.php?id=<?=$objPage->id?>">Child pages</a></p>
 
 <form method="post" action="">

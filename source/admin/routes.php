@@ -1,7 +1,6 @@
 <?php
 
 require_once('cfg_admin.php');
-require_once('cfg_complete.php');
 
 logincheck();
 
@@ -40,9 +39,7 @@ else if ( isset($_GET['toggle'], $_GET['field']) && in_array($_GET['field'], arr
 	exit;
 }
 
-?>
-<script type="text/javascript" src="/admin/_resources/mootools_1_11.js"></script>
-<?php
+tpl_header();
 
 $arrRoutes = $db->select('routes', '1 ORDER BY o ASC');
 

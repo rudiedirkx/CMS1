@@ -1,7 +1,6 @@
 <?php
 
 require_once('cfg_admin.php');
-require_once('cfg_complete.php');
 
 logincheck();
 
@@ -13,11 +12,11 @@ if ( isset($_GET['del']) ) {
 	exit;
 }
 
+tpl_header();
+
 echo '<h1>News items in: '.$objNews->title.'</h1>';
 
 ?>
-<script type="text/javascript" src="/admin/_resources/mootools_1_11.js"></script>
-
 <p><a href="properties.php?id=<?=$_GET['id']?>">Properties</a> | <a href="items.php?id=<?=$_GET['id']?>">Items</a> | <a href="new_item.php?id=<?=$_GET['id']?>">New item</a></p>
 <?php
 

@@ -1,7 +1,6 @@
 <?php
 
 require_once('cfg_admin.php');
-require_once('cfg_complete.php');
 
 logincheck();
 
@@ -26,11 +25,11 @@ if ( isset($_POST['id'], $_POST['title'], $_POST['content_1'], $_POST['title_2']
 	exit;
 }
 
+tpl_header();
+
 echo '<h1>Creating new web page</h1>';
 
 ?>
-<script type="text/javascript" src="/admin/_resources/ckeditor/ckeditor.js"></script>
-
 <form method="post" action="">
 
 	<p>URL:<br />/<input type="text" name="id" maxlength="50" value="" style="border:solid 1px black;border-width:0 0 1px;" /></p>

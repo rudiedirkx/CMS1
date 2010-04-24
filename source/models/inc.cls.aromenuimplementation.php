@@ -30,7 +30,7 @@ class AROMenuImplementation extends Extended_ActiveRecordObject {
 		$f_pszViewType = $szViewType;
 		$objView = AROView::getView($szViewType, $this->id);
 		if ( !is_object($objView) ) {
-			return false;
+			throw new NoTemplateFoundException(array($szViewType));
 		}
 		$this->parseView($objView);
 		return true;

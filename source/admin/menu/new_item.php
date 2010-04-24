@@ -1,7 +1,6 @@
 <?php
 
 require_once('cfg_admin.php');
-require_once('cfg_complete.php');
 
 logincheck();
 
@@ -43,6 +42,8 @@ if ( isset($_POST['title'], $_POST['link'], $_POST['code'], $_POST['title_2'], $
 
 	exit;
 }
+
+tpl_header();
 
 echo '<h1>New item in &quot;'.$objMenu->title.'&quot;</h1>';
 

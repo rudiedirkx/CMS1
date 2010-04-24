@@ -1,7 +1,6 @@
 <?php
 
 require_once('cfg_admin.php');
-require_once('cfg_complete.php');
 
 logincheck();
 
@@ -28,6 +27,8 @@ else if ( isset($_GET['del']) ) {
 	header('Location: ?id='.$_GET['id']);
 	exit;
 }
+
+tpl_header();
 
 echo '<h1>Editing guestbook: '.$objGuestbook->title.'</h1>';
 

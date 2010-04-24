@@ -1,7 +1,6 @@
 <?php
 
 require_once('cfg_admin.php');
-require_once('cfg_complete.php');
 
 logincheck();
 
@@ -33,6 +32,8 @@ if ( isset($_POST['content_1'], $_FILES['image']) && empty($_FILES['image']['err
 	header('Location: '.$_SERVER['HTTP_REFERER']);
 	exit;
 }
+
+tpl_header();
 
 echo '<h1>Gallery for &quot;'.$objItem->title.'&quot;</h1>';
 

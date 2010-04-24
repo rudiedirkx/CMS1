@@ -1,8 +1,42 @@
 <?php
 
+require_once('cfg_complete.php');
+
 session_start();
 
 define( 'SESSION_NAME', 'thiscms' );
+define( 'PROJECT_ADMIN', PROJECT_LOGIC.'/admin' );
+
+function tpl_header() {
+	global $g_objAdmin;
+	include(PROJECT_ADMIN.'/inc.tpl.header.php');
+	if ( dirname($_SERVER['PHP_SELF']) != PROJECT_ADMIN && file_exists(dirname($_SERVER['PHP_SELF']).'/inc.tpl.header.php') ) {
+		include(dirname($_SERVER['PHP_SELF']).'/inc.tpl.header.php');
+	}
+}
+
+function tpl_footer() {
+	global $g_objAdmin;
+	include(PROJECT_ADMIN.'/inc.tpl.footer.php');
+}
+
+function tpl_notices() {
+	if ( !empty($_GET['errors']) ) {
+		echo '<ul class="error">';
+		foreach ( $_GET['errors'] AS $msg ) {
+			echo '<li>'.htmlspecialchars($msg).'</li>';
+		}
+		echo '</ul>';
+	}
+	if ( !empty($_GET['successes']) ) {
+		echo '<ul class="success">';
+		foreach ( $_GET['successes'] AS $msg ) {
+			echo '<li>'.htmlspecialchars($msg).'</li>';
+		}
+		echo '</ul>';
+	}
+}
+
 
 /**
  * User levels

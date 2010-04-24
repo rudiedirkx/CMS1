@@ -1,7 +1,6 @@
 <?php
 
 require_once('cfg_admin.php');
-require_once('cfg_complete.php');
 
 logincheck();
 
@@ -29,6 +28,8 @@ if ( isset($_POST['title'], $_POST['id']) ) {
 	header('Location: properties.php?id='.$objPage->id.'/'.$_POST['id']);
 	exit;
 }
+
+tpl_header();
 
 echo '<h1>New page in page: '.$objPage->title.'</h1>';
 

@@ -49,7 +49,7 @@ class AROShopImplementation extends Extended_ActiveRecordObject {
 		$f_pszViewType = $arrViewType[0];
 		$objView = AROView::getView($arrViewType, $this->id);
 		if ( !is_object($objView) ) {
-			return false;
+			throw new NoTemplateFoundException($arrViewType);
 		}
 		switch ( $arrViewType[0] ) {
 			case 'productDetails':

@@ -14,9 +14,18 @@ class SmartyTpl extends Smarty {
 		$this->security_settings['IF_FUNCS'][] = 'strtoupper';
 		$this->security_settings['IF_FUNCS'][] = 'get_class';
 		$this->security_settings['IF_FUNCS'][] = 'strpos';
-		$this->compile_dir = PROJECT_RUNTIME.'/'.$type.'_c';
+
 		$this->left_delimiter = '<'.'?';
 		$this->right_delimiter = '?'.'>';
+
+		$this->compile_dir = PROJECT_RUNTIME.'/'.$type.'_c';
+
+		if ( false && file_exists(PROJECT_RUNTIME.'/'.$type.'_cache') && is_dir(PROJECT_RUNTIME.'/'.$type.'_cache') ) {
+			$this->caching = 1;
+			$this->cache_dir = PROJECT_RUNTIME.'/'.$type.'_cache';
+			$this->cache_lifetime = 60;
+		}
+
 		$this->assign( 'this', $page );
 		$this->assign( 'context', $context );
 		

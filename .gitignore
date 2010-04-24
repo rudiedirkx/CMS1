@@ -1,0 +1,7 @@
+source/resources/*
+!source/resources/*.*
+!source/resources/default/*
+
+source/runtime/*
+!source/runtime/*.*
+!source/runtime/default/*

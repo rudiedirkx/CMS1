@@ -1,7 +1,6 @@
 <?php
 
 require_once('cfg_admin.php');
-require_once('cfg_complete.php');
 
 logincheck();
 
@@ -29,6 +28,8 @@ if ( isset($_POST['title'], $_POST['content_1']) ) {
 	header('Location: '.$_SERVER['HTTP_REFERER']);
 	exit;
 }
+
+tpl_header();
 
 echo '<h1>Edit image &quot;'.$objImage->title.'&quot;</h1>';
 

@@ -1,7 +1,6 @@
 <?php
 
 require_once('cfg_admin.php');
-require_once('cfg_complete.php');
 
 logincheck();
 $g_objAdmin->checkAddViewAccess();
@@ -20,6 +19,8 @@ if ( isset($_POST['type'], $_POST['title'], $_POST['content']) ) {
 	header('Location: edit.php?id='.$iViewId);
 	exit;
 }
+
+tpl_header();
 
 echo '<h1>Creating new view</h1>';
 

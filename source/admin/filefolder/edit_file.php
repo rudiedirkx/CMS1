@@ -1,9 +1,11 @@
 <?php
 
 require_once('cfg_admin.php');
-require_once('cfg_complete.php');
 
 logincheck();
+
+$_GET['id'] = trim($_GET['id'], '/');
+$dir = $_SERVER['DOCUMENT_ROOT'].'/'.$_GET['id'];
 
 $szPreAmp = $_SERVER['DOCUMENT_ROOT'].'/'.$_GET['id'].'/';
 if ( !file_exists($szPreAmp.$_GET['file']) ) {
@@ -18,6 +20,8 @@ if ( isset($_GET['id'], $_GET['file'], $_POST['filename']) ) {
 	header('Location: edit.php?id='.$_GET['id']);
 	exit;
 }
+
+tpl_header();
 
 echo '<h1>Change: &quot;'.$_GET['file'].'&quot;</h1>';
 

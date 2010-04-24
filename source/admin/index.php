@@ -1,22 +1,12 @@
 <?php
 
 require_once('cfg_admin.php');
-require_once('cfg_complete.php');
 
 logincheck();
 
+tpl_header();
+
 ?>
-<html>
-
-<head>
-<script type="text/javascript" src="/admin/_resources/mootools_1_11.js"></script>
-<style>form{padding:0;margin:0;}th.hd{font-size:20px;}table{font-family:Arial;float:left;margin-right:10px;}th,td{padding:4px;}.floating-tables{clear:both;}.userinfo{padding-bottom:7px;}</style>
-</head>
-
-<body>
-
-<div class="userinfo">Ingelogd als: <?=$g_objAdmin->name?> (<?=$g_objAdmin->username?>) (<?=$g_objAdmin->user_type?>) | <a href="/admin/login.php?logout=1">uitloggen</a> | <a href="/admin/logs.php">logs</a> | <a href="/admin/routes.php">routes</a></div>
-
 <div class="floating-tables">
 <table border="1">
 <tr><th class="hd" colspan="3">Objects</th></tr>
@@ -47,7 +37,7 @@ if ( $g_objAdmin->allowAddObject() ) {
 <input type="hidden" name="id" value="" />
 <table border="1">
 <tr><th class="hd" colspan="3">Views</th></tr>
-<tr><th>?</th><th>Title</th><th>Type</th><th></th></tr>
+<tr><th>?</th><th>Title</th><th>Type</th><!--<th></th>--></tr>
 <?php
 
 $arrViews = AROView::finder()->findMany('1 ORDER BY o ASC');

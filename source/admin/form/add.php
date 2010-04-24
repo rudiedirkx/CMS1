@@ -1,7 +1,6 @@
 <?php
 
 require_once('cfg_admin.php');
-require_once('cfg_complete.php');
 
 logincheck();
 
@@ -24,6 +23,8 @@ if ( isset($_POST['id'], $_POST['title'], $_POST['content_1']) ) {
 	header('Location: edit.php?id='.$_POST['id']);
 	exit;
 }
+
+tpl_header();
 
 echo '<h1>Creating new form</h1>';
 
