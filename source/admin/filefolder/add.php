@@ -31,7 +31,7 @@ echo '<h1>Creating new file folder</h1>';
 <form method="post" action="">
 	<input type="hidden" name="into" value="<?=isset($_GET['into']) ? trim($_GET['into'], '/') : '.'?>" />
 
-	<p>URL:<br />/<?=isset($_GET['into']) ? trim($_GET['into'], '/').'/' : ''?><input type="text" name="id" value="" style="border:solid 1px black;border-width:0 0 1px;" /></p> 
+	<p>URL:<br />/<?=isset($_GET['into']) ? trim($_GET['into'], '/').'/' : ''?><input type="text" name="id" value="" maxlength="50" style="border:solid 1px black;border-width:0 0 1px;" /></p> 
 
 	<p><input type="submit" value="Save" /></p>
 

@@ -34,7 +34,7 @@ echo '<h1>Editing menu: '.$objMenu->title.'</h1>';
 
 <form method="post" action="">
 
-	<p>ID:<br /><input type="text" name="id" size="20" value="<?=htmlspecialchars($objMenu->id)?>" /></p>
+	<p>ID:<br /><input type="text" name="id" size="20" maxlength="50" value="<?=htmlspecialchars($objMenu->id)?>" /></p>
 
 	<p>Title:<br /><input type="text" name="title" size="80" value="<?=htmlspecialchars($objMenu->title)?>" /></p>
 

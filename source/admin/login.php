@@ -12,7 +12,7 @@ if ( logincheck(false) ) {
 }
 
 if ( isset($_POST['username'], $_POST['password']) ) {
-	if ( false !== ($iUserId=$root->select_one('cms_users', 'id', "(sitename IS NULL OR sitename = '".addslashes(SQL_DB)."') AND username = '".addslashes($_POST['username'])."' AND password = '".addslashes($_POST['password'])."'")) ) {
+	if ( false !== ($iUserId=$root->select_one('cms_users', 'id', "(sitename IS NULL OR sitename = '".addslashes(CMS_SITE_SUBDOMAIN)."') AND username = '".addslashes($_POST['username'])."' AND password = '".addslashes($_POST['password'])."'")) ) {
 		$_SESSION[SESSION_NAME] = array('user_id' => (int)$iUserId);
 		$db->insert('logs', array('action' => 'login', 'utc' => time(), 'user_id' => $iUserId, 'extra' => $_SERVER['REMOTE_ADDR']));
 		header('Location: /admin/');

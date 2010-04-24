@@ -32,7 +32,7 @@ echo '<h1>Creating new form</h1>';
 
 <form method="post" action="">
 
-	<p>URL:<br />/<input type="text" name="id" value="" style="border:solid 1px black;border-width:0 0 1px;" /></p> 
+	<p>URL:<br />/<input type="text" name="id" maxlength="50" value="" style="border:solid 1px black;border-width:0 0 1px;" /></p> 
 
 	<p>Title:<br /><input type="text" name="title" size="80" value="" /></p>
 

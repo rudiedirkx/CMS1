@@ -4,6 +4,12 @@ session_start();
 
 define( 'SESSION_NAME', 'thiscms' );
 
+/**
+ * User levels
+ * 0 - everything
+ * 1 - just the basics (no add and no snippets or views)
+ * 2 - quite much (basics + edit snippets & views and add objects)
+ */
 
 class CMSUser {
 	public function __construct( $user ) {

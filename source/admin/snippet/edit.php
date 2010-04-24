@@ -29,7 +29,7 @@ echo '<h1>Editing snippet: '.$objSnippet->title.'</h1>';
 <form method="post" action="">
 
 	<p>ID</p>
-	<p><input type="text" name="id" size="20" value="<?=$objSnippet->id?>" /></p>
+	<p><input type="text" name="id" size="20" maxlength="50" value="<?=$objSnippet->id?>" /></p>
 
 	<p>Title</p>
 	<p><input type="text" name="title" size="80" value="<?=$objSnippet->title?>" /></p>

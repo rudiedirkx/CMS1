@@ -35,7 +35,7 @@ echo '<h1>New page in page: '.$objPage->title.'</h1>';
 ?>
 <form method="post" action="">
 
-	<p>URL:<br />/<?=$objPage->id?>/<input type="text" name="id" value="" style="border:solid 1px black;border-width:0 0 1px;" /></p>
+	<p>URL:<br />/<?=$objPage->id?>/<input type="text" name="id" maxlength="50" value="" style="border:solid 1px black;border-width:0 0 1px;" /></p>
 
 	<p>Title:<br /><input type="text" name="title" /></p>
 

@@ -61,7 +61,7 @@ echo '<h1>Editing web page: '.$objPage->title.'</h1>';
 
 <form method="post" action="">
 
-	<p>URL:<br />/<input type="text" name="id" value="<?=$objPage->id?>" style="border:solid 1px black;border-width:0 0 1px;" /></p>
+	<p>URL:<br />/<input type="text" name="id" maxlength="50" value="<?=$objPage->id?>" style="border:solid 1px black;border-width:0 0 1px;" /></p>
 
 	<p><?=$objPage->label_for_title_1?>:<br /><input type="text" name="title" size="80" value="<?=htmlspecialchars($objPage->title)?>" /></p>
 

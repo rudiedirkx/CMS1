@@ -31,7 +31,7 @@ echo '<h1>New menu</h1>';
 
 <form method="post" action="">
 
-	<p>ID:<br /><input type="text" name="id" size="20" value="" /></p>
+	<p>ID:<br /><input type="text" name="id" size="20" maxlength="50" value="" /></p>
 
 	<p>Title:<br /><input type="text" name="title" size="80" value="" /></p>
 
