@@ -12,11 +12,29 @@ class Application {
 		if ( !$this->m_bConfigsFetched ) {
 			$this->saveConfigs();
 		}
-		return $this->$f_szKey;
+		return property_exists($this, $f_szKey) ? $this->$f_szKey : null;
 	}
 	public function saveConfigs() {
-		$this->fill($GLOBALS['db']->select_fields('custom_configs', 'config_key,config_value', 'table_name IS NULL AND object_id IS NULL'));
+		$this->fill($GLOBALS['db']->select_fields('custom_configs', 'config_key,config_value', 'table_name = \'\' AND object_id = 0'));
 		$this->m_bConfigsFetched = true;
+	}
+	public function setConfig( $k, $v ) {
+		if ( null === $v ) {
+			return $this->unsetConfig($k);
+		}
+		$this->$k = $v;
+		return $GLOBALS['db']->replace_into('custom_configs', array(
+			'config_key' => $k,
+			'config_value' => $v,
+			'table_name' => '',
+			'object_id' => 0
+		));
+	}
+	public function unsetConfig( $k ) {
+		$pk = $this->getStaticChildValue('pk');
+		$args = func_get_args();
+		$keys = array_map('addslashes', $args);
+		return $GLOBALS['db']->delete('custom_configs', "table_name = \'\' AND object_id = 0 AND config_key IN ('".implode("', '", $keys)."')");
 	}
 
 	public function fill($data) {

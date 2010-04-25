@@ -49,11 +49,4 @@ echo '<h1>Editing menu: '.$objMenu->title.'</h1>';
 
 </form>
 
-<script type="text/javascript">
-<!--//
-document.forms[0].elements[0].focus();
-CKEDITOR.replace('content_1', {});
-if(document.getElementById('content_2')){CKEDITOR.replace('content_2', {});}
-//-->
-</script>
 

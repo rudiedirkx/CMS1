@@ -60,15 +60,15 @@ echo '<h1>Editing web page: '.$objPage->title.'</h1>';
 
 <form method="post" action="">
 
-	<p>URL:<br />/<input type="text" name="id" maxlength="50" value="<?=$objPage->id?>" style="border:solid 1px black;border-width:0 0 1px;" /></p>
+	<p class="ft-id">URL:<br />/<input type="text" name="id" maxlength="50" value="<?=$objPage->id?>" style="border:solid 1px black;border-width:0 0 1px;" /></p>
 
-	<p><?=$objPage->label_for_title_1?>:<br /><input type="text" name="title" size="80" value="<?=htmlspecialchars($objPage->title)?>" /></p>
+	<p class="ft-title">Title:<br /><input type="text" name="title" size="80" value="<?=htmlspecialchars($objPage->title)?>" /></p>
 
-	<p><?=$objPage->label_for_content_1?>:<br /><textarea id="content_1" name="content_1" rows="12" cols="100"><?=htmlspecialchars($objPage->content_1)?></textarea></p>
+	<p class="ft-content">Content:<br /><textarea id="content_1" name="content_1" rows="12" cols="100"><?=htmlspecialchars($objPage->content_1)?></textarea></p>
 
-	<p<?=0===strpos($objPage->label_for_title_2, '.') ? ' style="display:none;"' : ''?>><?=$objPage->label_for_title_2?>: (<a href="?id=<?=$_GET['id']?>&disable=title_2">x</a>)<br /><input type="text" name="title_2" size="80" value="<?=htmlspecialchars($objPage->title_2)?>" /></p>
+	<p class="ft-title">Title 2:<br /><input type="text" name="title_2" size="80" value="<?=htmlspecialchars($objPage->title_2)?>" /></p>
 
-	<p<?=0===strpos($objPage->label_for_content_2, '.') ? ' style="display:none;"' : ''?>><?=$objPage->label_for_content_2?>: (<a href="?id=<?=$_GET['id']?>&disable=content_2">x</a>)<br /><textarea id="content_2" name="content_2" rows="12" cols="100"><?=htmlspecialchars($objPage->content_2)?></textarea></p>
+	<p class="ft-content">Content 2:<br /><textarea id="content_2" name="content_2" rows="12" cols="100"><?=htmlspecialchars($objPage->content_2)?></textarea></p>
 
 	<h2 style="cursor:pointer;" onclick="with(document.getElementById('labels').style){display=display=='none'?'':'none';}">Labels</h2>
 	<table id="labels" style="display:none;">
@@ -98,11 +98,4 @@ foreach ( $arrViewTypes AS $type ) {
 
 </form>
 
-<script type="text/javascript">
-<!--//
-document.forms[0].elements[0].focus();
-CKEDITOR.replace('content_1', {});
-if(document.getElementById('content_2')){CKEDITOR.replace('content_2', {});}
-//-->
-</script>
 

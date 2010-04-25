@@ -1,8 +1,11 @@
+CKEDITOR.addStylesSet('my_styles', [
+	{ name : 'Semiquote', element : 'p', attributes : { 'class' : 'semiquote' } }
+]);
 CKEDITOR.editorConfig = function( config ) {
-	config.toolbar = 'CMS';
-	config.toolbar_CMS = [
+	config.toolbar = 'CMS1';
+	config.toolbar_CMS1 = [
 	    ['Source','-','Save','-','Templates'],
-	    ['Cut','Copy','Paste','PasteText','PasteFromWord'],
+	    ['Cut','Copy','PasteText'],
 	    ['Undo','Redo','-','SelectAll','RemoveFormat'],
 	    ['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],
 	    ['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],
@@ -15,8 +18,8 @@ CKEDITOR.editorConfig = function( config ) {
 	    ['Maximize', 'ShowBlocks','-','About']
 	];
 	config.skin = 'office2003';
-	config.removePlugins = 'elementspath';
-	config.resize_enabled = false;
+//	config.removePlugins = '';
+	config.resize_enabled = true;
 	config.height = 300;
 	config.stylesCombo_stylesSet = 'my_styles';
 };

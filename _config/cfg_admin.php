@@ -7,6 +7,9 @@ session_start();
 define( 'SESSION_NAME', 'thiscms' );
 define( 'PROJECT_ADMIN', PROJECT_LOGIC.'/admin' );
 
+$application = new Application(CMS_SITE_SUBDOMAIN);
+
+
 function tpl_header() {
 	global $g_objAdmin;
 	include(PROJECT_ADMIN.'/inc.tpl.header.php');

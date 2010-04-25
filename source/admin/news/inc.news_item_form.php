@@ -25,10 +25,4 @@
 
 </form>
 
-<script type="text/javascript">
-<!--//
-document.forms[0].elements[0].focus();
-CKEDITOR.replace('content_1', {});
-CKEDITOR.replace('content_2', {});
-//-->
-</script>
+

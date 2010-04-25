@@ -15,9 +15,4 @@
 </fieldset>
 </form>
 
-<script type="text/javascript">
-<!--//
-document.forms[0].elements[0].focus();
-CKEDITOR.replace('content_1', {width:800, height:250});
-//-->
-</script>
+
