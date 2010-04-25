@@ -34,19 +34,36 @@ function tmp_debug($var) {
 	var_dump($var);
 }
 
-if ( isset($_POST['subdomain'], $_POST['urls'], $_POST['path']) ) {
-	if ( 0 == preg_match('/^[0-9a-z]{2,}(?:\-[0-9a-z]{2,})?$/i', $_POST['subdomain']) || in_array($_POST['subdomain'], $arrSites) ) {
+if ( isset($_GET['vhost']) ) {
+	header('Content-type: text/plain');
+	exit(file_get_contents(SCRIPT_ROOT.'/_config/vhosts/'.ROOT_SQL_DB.$_GET['vhost'].'.conf'));
+}
+
+else if ( isset($_POST['subdomain'], $_POST['urls']) ) {
+	$subdomain = $_POST['subdomain'];
+	if ( 'zzzzz' == $subdomain || 0 == preg_match('/^[0-9a-z]+(?:\-[0-9a-z]+)?$/i', $subdomain) || 3 > strlen($subdomain) || in_array($subdomain, $arrSites) ) {
 		exit('Invalid subdomain: invalid name or already exists');
 	}
 
-	$subdomain = $_POST['subdomain'];
+echo '<pre>';
+
 	$db_name = ROOT_SQL_DB.$_POST['subdomain'];
 	$db_user = substr(ROOT_SQL_DB.$_POST['subdomain'], 0, 16);
 	$db_pass = getDatabasePasswordForCMSSite($_POST['subdomain']);
 
+	// create VHost
+	$szVHost = strtr(file_get_contents(PROJECT_ROOT_RESOURCES.'/generic_vhost.conf'), array(
+		'__SERVERNAME__'		=> $subdomain.'.'.$_SERVER['HTTP_HOST'],
+		'__SERVERALIASES__'		=> $_POST['urls'],
+		'__DOCROOT__'			=> str_replace('CMS_SITE_SUBDOMAIN', $subdomain, PROJECT_IMPARTIAL_PUBLIC),
+	));
+	var_dump(file_put_contents(SCRIPT_ROOT.'/_config/vhosts/'.ROOT_SQL_DB.$subdomain.'.conf', $szVHost));
+
 	// copy file structure
-	rcopy(PROJECT_RESOURCES.'default', PROJECT_RESOURCES.$subdomain.'');
-	rcopy(PROJECT_RUNTIME.'default', PROJECT_RUNTIME.$subdomain.'');
+	rcopy(PROJECT_ROOT_RESOURCES.'/default', PROJECT_RESOURCES.$subdomain.'');
+	rcopy(PROJECT_ROOT_RUNTIME.'/default', PROJECT_RUNTIME.$subdomain.'');
+
+	createHtaccessForSite($subdomain);
 
 	// create database
 	tmp_debug($root->query('CREATE DATABASE `'.$db_name.'`;'));
@@ -68,6 +85,9 @@ echo $root->error."\n";
 echo $db->error."\n";
 	}
 
+echo '</pre>';
+echo '<p><a href="?vhost='.$subdomain.'">View VHost</a></p>';
+
 	exit;
 }
 
@@ -84,9 +104,7 @@ input:not([type=submit]) { width:500px; }
 
 	<p>Subdomain<br /><input type="text" name="subdomain" value="example" maxlength="<?php echo 1016-strlen(ROOT_SQL_DB); ?>" /></p>
 
-	<p>VHost [ServerAlias]es<br /><input type="text" name="urls" value="www.example.com example.com *.example.com" /></p>
-
-	<p>Root VHost [DocumentRoot]<br /><input type="text" name="path" value="<?php echo SCRIPT_ROOT; ?>" /></p>
+	<p>VHost [ServerAlias]es<br /><input type="text" name="urls" value="example.com *.example.com" /></p>
 
 	<p><input type="submit" value="Create" />
 

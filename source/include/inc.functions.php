@@ -15,7 +15,7 @@ function createHtaccessForSite( $site = CMS_SITE_SUBDOMAIN ) {
 			$arrFolders[$k] = basename($f);
 		}
 	}
-	$szHtaccess = str_replace('__FOLDERS__', str_replace('.', '\.', implode('|', $arrFolders)), file_get_contents(dirname(PROJECT_RESOURCES).'/generic_htaccess.txt'));
+	$szHtaccess = str_replace('__FOLDERS__', str_replace('.', '\.', implode('|', $arrFolders)), file_get_contents(PROJECT_ROOT_RESOURCES.'/generic_htaccess.txt'));
 	return file_put_contents($szDocRoot.'/.htaccess', $szHtaccess);
 }
 

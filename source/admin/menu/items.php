@@ -34,7 +34,7 @@ else if ( isset($_POST['sortorder']) ) {
 	function saveOrder($ids, $level = 1) {
 		$arrIDs = explode('['.$level.']', $ids);
 		foreach ( $arrIDs AS $o => $id ) {
-			var_dump($GLOBALS['db']->update('menu_items', 'o = '.$o, 'id = '.(int)$id));
+			$GLOBALS['db']->update('menu_items', 'o = '.$o, 'id = '.(int)$id);
 			if ( is_int(strpos($id, '['.($level+1).']')) ) {
 				$rest = substr($id, strlen((string)(int)$id)+strlen('['.($level+1).']'));
 				saveOrder($rest, $level+1);
