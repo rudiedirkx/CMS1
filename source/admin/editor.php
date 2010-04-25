@@ -18,9 +18,9 @@ tpl_header();
 ?>
 <form action="" method="post">
 
-	<p>Styles:<br /><textarea name="styles" cols="80" rows="8"><?=$application->getConfig('wysiwyg_styles')?></textarea></p>
+	<p>Styles:<br /><textarea wrap="off" name="styles" cols="80" rows="8"><?=$application->getConfig('wysiwyg_styles')?></textarea></p>
 
-	<p>CSS:<br /><textarea name="css" cols="80" rows="8"><?=$application->getConfig('wysiwyg_css')?></textarea></p>
+	<p>CSS:<br /><textarea wrap="off" name="css" cols="80" rows="8"><?=$application->getConfig('wysiwyg_css')?></textarea></p>
 
 	<p><input type="submit" value="Save" /></p>
 
