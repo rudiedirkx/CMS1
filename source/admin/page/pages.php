@@ -16,13 +16,14 @@ $objPage = AROImplementation::loadImplementationByID( $_GET['id'] );
 	exit;
 }
 
-else if ( isset($_GET['del']) ) {
-	$db->delete('menu_items', 'id = '.$_GET['del'].' AND menu_implementation_id = '.$objMenu->implementation_id);
-	header('Location: ?id='.$objMenu->id);
+else*/ if ( isset($_GET['del']) ) {
+	$db->delete('page_implementations', 'implementation_id = '.$_GET['del']);
+	$db->delete('implementations', 'type = \'page\' AND implementation_id = '.$_GET['del']);
+	header('Location: ?id='.$_GET['id']);
 	exit;
 }
 
-else*/ if ( isset($_POST['sortorder']) ) {
+else if ( isset($_POST['sortorder']) ) {
 	$arrOrder = explode(',', $_POST['sortorder']);
 	foreach ( $arrOrder AS $o => $id ) {
 		$db->update('page_implementations', 'o = '.(int)$o, 'parent_page_id = '.$objPage->implementation_id.' AND implementation_id = '.(int)$id);
@@ -46,7 +47,7 @@ foreach ( $objPage->getPages() AS $page ) {
 	echo '<td><a href="properties.php?id='.$objPage->id.'/'.$page->id.'">'.$page->o.'</a></td>';
 	echo '<td><a href="properties.php?id='.$objPage->id.'/'.$page->id.'">'.$page->title.'</a></td>';
 	echo '<td>'.$page->id.' <a href="pages.php?id='.$objPage->id.'/'.$page->id.'">&gt;</a></td>';
-	echo '<td><a href="?id='.$objPage->id.'&del='.$page->id.'">x</a></td>';
+	echo '<td><a href="?id='.$objPage->id.'&del='.$page->implementation_id.'">x</a></td>';
 	echo '</tr>';
 }
 echo '</tbody></table>';

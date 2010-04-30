@@ -21,10 +21,6 @@ if ( isset($_POST['id'], $_POST['title'], $_POST['content_1'], $_POST['title_2']
 		'content_1' => $_POST['content_1'],
 		'title_2' => $_POST['title_2'],
 		'content_2' => $_POST['content_2'],
-		'label_for_title_1' => $_POST['label_for_title_1'],
-		'label_for_content_1' => $_POST['label_for_content_1'],
-		'label_for_title_2' => $_POST['label_for_title_2'],
-		'label_for_content_2' => $_POST['label_for_content_2'],
 	), 'implementation_id = '.$objPage->implementation_id);
 
 	$g_objAdmin->addLog('update', 'page_implementations', $objPage->implementation_id);
@@ -41,13 +37,6 @@ if ( isset($_POST['id'], $_POST['title'], $_POST['content_1'], $_POST['title_2']
 	}
 
 	header('Location: ?id='.$_POST['id']);
-	exit;
-}
-
-else if ( isset($_GET['disable']) ) {
-	$f = $_GET['disable'];
-	$db->update('page_implementations', 'label_for_'.$f.' = CONCAT(\'.\', label_for_'.$f.')', 'implementation_id = '.$objPage->implementation_id);
-	header('Location: '.$_SERVER['HTTP_REFERER']);
 	exit;
 }
 
@@ -69,14 +58,6 @@ echo '<h1>Editing web page: '.$objPage->title.'</h1>';
 	<p class="ft-title">Title 2:<br /><input type="text" name="title_2" size="80" value="<?=htmlspecialchars($objPage->title_2)?>" /></p>
 
 	<p class="ft-content">Content 2:<br /><textarea id="content_2" name="content_2" rows="12" cols="100"><?=htmlspecialchars($objPage->content_2)?></textarea></p>
-
-	<h2 style="cursor:pointer;" onclick="with(document.getElementById('labels').style){display=display=='none'?'':'none';}">Labels</h2>
-	<table id="labels" style="display:none;">
-		<tr><td>Title 1</td><td>:</td><td><input type="text" name="label_for_title_1" value="<?=$objPage->label_for_title_1?>" /></td></tr>
-		<tr><td>Content 1</td><td>:</td><td><input type="text" name="label_for_content_1" value="<?=$objPage->label_for_content_1?>" /></td></tr>
-		<tr><td>Title 2</td><td>:</td><td><input type="text" name="label_for_title_2" value="<?=$objPage->label_for_title_2?>" /></td></tr>
-		<tr><td>Content 2</td><td>:</td><td><input type="text" name="label_for_content_2" value="<?=$objPage->label_for_content_2?>" /></td></tr>
-	</table>
 
 	<h2 style="cursor:pointer;" onclick="with(document.getElementById('specviews').style){display=display=='none'?'':'none';}">Specific views</h2>
 	<p id="specviews" style="display:none;"><?php

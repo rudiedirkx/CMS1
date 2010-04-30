@@ -4,6 +4,14 @@ require_once('cfg_admin.php');
 
 logincheck();
 
+if ( isset($_GET['save_views_order']) ) {
+	foreach ( explode(',', $_GET['save_views_order']) AS $o => $vid ) {
+		$db->update('views', 'o = '.($o+1), 'id = '.$vid);
+	}
+	header('Location: '.$_SERVER['HTTP_REFERER']);
+	exit;
+}
+
 tpl_header();
 
 ?>
@@ -35,15 +43,16 @@ if ( $g_objAdmin->allowAddObject() ) {
 <form method="post" action="./_view/edit.php" id="delview">
 <input type="hidden" name="delete" value="1" />
 <input type="hidden" name="id" value="" />
-<table border="1">
+<table border="1"><thead>
 <tr><th class="hd" colspan="3">Views</th></tr>
-<tr><th>?</th><th>Title</th><th>Type</th><!--<th></th>--></tr>
+<tr><th>?</th><th>Title</th><th>Type</th><!--<th></th>--></tr></thead>
+<tbody id="tb_views">
 <?php
 
 $arrViews = AROView::finder()->findMany('1 ORDER BY o ASC');
 
 foreach ( $arrViews AS $view ) {
-	echo '<tr>';
+	echo '<tr vid="'.$view->id.'">';
 	echo '<td>'.$view->o.'</td>';
 	echo '<td><a'.( $g_objAdmin->allowEditView() ? ' href="./_view/edit.php?id='.$view->id.'"' : '' ).'>'.$view->title.'</td>';
 	echo '<td>'.str_replace(',', '<br />', $view->type).'</td>';
@@ -52,11 +61,22 @@ foreach ( $arrViews AS $view ) {
 }
 
 ?>
+</tbody>
 <?php if ( $g_objAdmin->allowAddView() ) { ?>
-<tr><td align="center" colspan="3"><a href="./_view/add.php">New view</a></td></tr>
+<tfoot><tr><td align="center" colspan="3"><a href="#" onclick="document.location='?save_views_order='+getViewsOrder();return false;" style="font-size:11px;float:right;">(saveorder)</a><a href="./_view/add.php">New view</a></td></tr></tfoot>
 <?php } ?>
 </table>
 </form>
+<script type="text/javascript">
+function getViewsOrder() {
+        return $$('#tb_views tr[vid]').map(function(tr){ return tr.attr('vid'); }).join(',');
+}
+new Sortables($('tb_views'), {
+	ghost: false,
+	onStart: function(tr){ console.log(arguments); tr.css('background-color', 'green'); },
+	onComplete: function(tr){ tr.css('background-color', ''); }
+});
+</script>
 <?php } ?>
 
 

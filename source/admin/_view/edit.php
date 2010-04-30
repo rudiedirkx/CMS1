@@ -8,14 +8,14 @@ $g_objAdmin->checkEditViewAccess();
 $objView = AROView::finder()->byPK( $_REQUEST['id'] );
 $szViewFile = PROJECT_VIEWS.'/'.$objView->id.'.php';
 
-if ( !empty($_POST['delete']) ) {
+if ( !empty($_GET['deleteme']) ) {
 	$objView->delete();
 	unlink($szViewFile);
 	header('Location: ../');
 	exit;
 }
 
-if ( isset($_POST['title'], $_POST['content'], $_POST['type']) ) {
+else if ( isset($_POST['title'], $_POST['content'], $_POST['type']) ) {
 	$objView->title = $_POST['title'];
 	$objView->type = implode(',', $_POST['type']);
 	$objView->save();
@@ -44,7 +44,7 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] ) {
 
 	<p>Content<br /><textarea wrap="off" name="content" rows="21" style="width:100%;"><?=htmlspecialchars(isset($_POST['content']) ? $_POST['content'] : file_get_contents($szViewFile))?></textarea></p>
 
-	<p>Type<br /><div style="width:750px;"><?foreach($arrViewTypes AS $v){ echo '<label style="float:left;width:250px;"><input type="checkbox" name="type[]" value="'.$v.'"'.( in_array($v, $arrSelectedTypes) ? ' checked="1"' : '' ).' /> '.$v.'</label>'."\n"; }?></div></p>
+	<p><a href="?id=<?=$_GET['id']?>&deleteme=1" style="float:right;">Delete me (no returnsies!)</a>Type<br /><div style="width:750px;"><?foreach($arrViewTypes AS $v){ echo '<label style="float:left;width:250px;"><input type="checkbox" name="type[]" value="'.$v.'"'.( in_array($v, $arrSelectedTypes) ? ' checked="1"' : '' ).' /> '.$v.'</label>'."\n"; }?></div></p>
 
 	<p style="clear:both;"><br /><input type="submit" value="Save" /></p>
 
