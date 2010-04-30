@@ -29,3 +29,8 @@ echo '<h1>Creating new file folder</h1>';
 </form>
 
 <script type="text/javascript">document.forms[0].elements[0].focus();</script>
+
+<?php
+
+tpl_footer();
+

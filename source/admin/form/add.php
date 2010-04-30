@@ -49,4 +49,9 @@ echo '<h1>Creating new form</h1>';
 
 </form>
 
+<?php
+
+tpl_footer();
+
+
 

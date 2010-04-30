@@ -35,3 +35,9 @@ echo '<h1>Change: &quot;'.$_GET['file'].'&quot;</h1>';
 	<p><input type="submit" value="Save" /></p>
 
 </form>
+
+<?php
+
+tpl_footer();
+
+

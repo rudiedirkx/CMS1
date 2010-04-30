@@ -52,3 +52,8 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] ) {
 
 <script type="text/javascript">document.forms[0].elements[0].focus();</script>
 
+<?php
+
+tpl_footer();
+
+

@@ -58,3 +58,8 @@ function getOrder() {
 }
 new Sortables($$('tbody')[0]);
 </script>
+
+<?php
+
+tpl_footer();
+

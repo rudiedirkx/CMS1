@@ -40,3 +40,8 @@ echo '<h1>Editing field &quot;'.$objItem->label_1.'&quot;</h1>';
 include('inc.field_form.php');
 
 
+
+tpl_footer();
+
+
+

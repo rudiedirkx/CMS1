@@ -26,24 +26,7 @@ tpl_header();
 
 echo '<h1>Editing snippet: '.$objSnippet->title.'</h1>';
 
-?>
-<form method="post" action="">
 
-	<p>ID</p>
-	<p><input type="text" name="id" size="20" maxlength="50" value="<?=$objSnippet->id?>" /></p>
+include 'inc.tpl.form.php';
 
-	<p>Title</p>
-	<p><input type="text" name="title" size="80" value="<?=$objSnippet->title?>" /></p>
-
-	<p>Content</p>
-	<p><textarea name="content" rows="21" cols="100" wrap="off"><?=htmlspecialchars(file_get_contents($szSnippetFile))?></textarea></p>
-
-	<p>Content-type</p>
-	<p><input type="text" name="content_type" size="30" value="<?=$objSnippet->content_type?>" /></p>
-
-	<p><input type="submit" value="Save" /></p>
-
-</form>
-
-<script type="text/javascript">document.forms[0].elements[0].focus();</script>
 

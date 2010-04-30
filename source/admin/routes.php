@@ -39,14 +39,22 @@ else if ( isset($_GET['toggle'], $_GET['field']) && in_array($_GET['field'], arr
 	exit;
 }
 
+else if ( isset($_POST['sortorder']) ) {
+	foreach ( explode(',', $_POST['sortorder']) AS $o => $vid ) {
+		$db->update('routes', 'o = '.($o+1), 'id = '.$vid);
+	}
+	header('Location: '.$_SERVER['HTTP_REFERER']);
+	exit;
+}
+
 tpl_header();
 
 $arrRoutes = $db->select('routes', '1 ORDER BY o ASC');
 
-echo '<form method="post" action=""><table border="1" cellpadding="5" cellspacing="1" bordercolor="white">';
-echo '<thead><tr><th width="10">o</th><th width="20">ID</th><th>From path</th><th>To path</th><th width="20">Forward?</th><th width="20">Enabled?</th></tr></thead><tbody id="tbody">';
+echo '<form method="post" action=""><table border="1" cellpadding="4" cellspacing="2">';
+echo '<thead><tr><th width="10">o</th><th width="20">ID</th><th>From path</th><th>To path</th><th width="20">Forward?</th><th width="20">Enabled?</th></tr></thead><tbody id="tb_routes">';
 foreach ( $arrRoutes AS $route ) {
-	echo '<tr bgcolor="#cccccc">';
+	echo '<tr rid="'.$route->id.'">';
 	echo '<td>'.$route->o.'</td>';
 	echo '<td><a href="?route='.$route->id.'">'.$route->id.'</a></td>';
 	echo '<td>'.$route->path_from.'</td>';
@@ -70,9 +78,14 @@ echo '</table></form>';
 </form>
 <script type="text/javascript">
 function getOrder() {
-	return $$('#sortable tr[mid]').map(function(tr){ return tr.attr('mid'); }).join(',');
+	return $$('#tb_routes tr[rid]').map(function(tr){ return tr.attr('rid'); }).join(',');
 }
-new Sortables($$('tbody')[0], {ghost:false});
+doMySortable($('tb_routes'));
 </script>
+
+<?php
+
+tpl_footer();
+
 
 

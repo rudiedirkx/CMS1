@@ -9,9 +9,18 @@ Asset.extend({
 	}
 });
 
+function doMySortable( obj ) {
+	return new Sortables(obj, {
+		ghost: false,
+		onStart: function(tr){ tr.css('background-color', 'green'); },
+		onComplete: function(tr){ tr.css('background-color', ''); }
+	});
+}
+
 Document.addEvent('domready', function() {
 
-	document.forms[0].elements[0].focus();
+	try { document.forms[0].elements[0].focus(); }
+	catch (ex) {}
 
 	Asset.doAllTextareas();
 

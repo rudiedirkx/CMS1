@@ -42,4 +42,9 @@ echo '<h1>Creating new guestbook</h1>';
 
 </form>
 
+<?php
+
+tpl_footer();
+
+
 

@@ -85,4 +85,9 @@ foreach ( $arrViewTypes AS $type ) {
 
 </form>
 
+<?php
+
+tpl_footer();
+
+
 

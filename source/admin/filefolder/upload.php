@@ -25,3 +25,9 @@ echo '<h1>Upload file to folder: '.$_GET['id'].'</h1>';
 	<p><input type="submit" value="Upload" /></p>
 
 </form>
+
+<?php
+
+tpl_footer();
+
+

@@ -62,3 +62,8 @@ foreach ( $arrFiles AS $f ) {
 }
 echo '</table>';
 
+
+
+tpl_footer();
+
+

@@ -40,3 +40,8 @@ echo '<h1>Folder: /'.$_GET['id'].'/</h1>';
 	<p><input type="submit" value="Rename!" />
 
 </form>
+
+<?php
+
+tpl_footer();
+

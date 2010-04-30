@@ -13,7 +13,7 @@ $application = new Application(CMS_SITE_SUBDOMAIN);
 
 
 function tpl_header() {
-	global $g_objAdmin;
+	global $g_objAdmin, $application;
 	include(PROJECT_ADMIN.'/inc.tpl.header.php');
 	if ( dirname($_SERVER['PHP_SELF']) != PROJECT_ADMIN && file_exists(dirname($_SERVER['PHP_SELF']).'/inc.tpl.header.php') ) {
 		include(dirname($_SERVER['PHP_SELF']).'/inc.tpl.header.php');
@@ -21,7 +21,10 @@ function tpl_header() {
 }
 
 function tpl_footer() {
-	global $g_objAdmin;
+	global $g_objAdmin, $application;
+	if ( dirname($_SERVER['PHP_SELF']) != PROJECT_ADMIN && file_exists(dirname($_SERVER['PHP_SELF']).'/inc.tpl.footer.php') ) {
+		include(dirname($_SERVER['PHP_SELF']).'/inc.tpl.footer.php');
+	}
 	include(PROJECT_ADMIN.'/inc.tpl.footer.php');
 }
 

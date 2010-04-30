@@ -25,3 +25,8 @@ tpl_header();
 	<p><input type="submit" value="Save" /></p>
 
 </form>
+
+<?php
+
+tpl_footer();
+

@@ -39,4 +39,9 @@ echo '<h1>Editing entry in guestbook: '.$objGuestbook->title.'</h1>';
 
 </form>
 
+<?php
+
+tpl_footer();
+
+
 
