@@ -7,12 +7,10 @@ class AROGuestbookImplementation extends Extended_ActiveRecordObject {
 	protected static $_table = 'guestbook_implementations';
 	protected static $_columns = array();
 	protected static $_pk = 'implementation_id';
-	protected static $_relations = array(
-		
-	);
+	protected static $_relations = array();
 
 	public static $m_arrFields = array('name', 'email', 'website', 'subject', 'message', 'message_2');
-	public $_type = 'guestbook';
+	public $META_TYPE = 'guestbook';
 	public $errors = array();
 
 

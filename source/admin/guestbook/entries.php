@@ -23,7 +23,7 @@ else if ( isset($_POST['sortorder']) ) {
 }
 
 else if ( isset($_GET['del']) ) {
-	$db->delete('guestbook_entries', 'id = '.(int)$_GET['del']);
+	$db->update('guestbook_entries', "deleted = '1'", 'id = '.(int)$_GET['del']);
 	header('Location: ?id='.$_GET['id']);
 	exit;
 }

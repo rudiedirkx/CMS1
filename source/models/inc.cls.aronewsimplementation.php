@@ -9,7 +9,7 @@ class ARONewsImplementation extends Extended_ActiveRecordObject {
 		
 	);
 
-	public $_type = 'newsIndex';
+	public $META_TYPE = 'newsIndex';
 
 
 	public function admin() {

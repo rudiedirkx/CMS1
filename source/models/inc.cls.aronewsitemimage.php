@@ -7,7 +7,7 @@ class ARONewsItemImage extends Extended_ActiveRecordObject {
 	protected static $_pk = 'id';
 	protected static $_relations = array();
 
-	public $_type = 'newsItemImage';
+	public $META_TYPE = 'newsItemImage';
 
 
 	public function admin() {

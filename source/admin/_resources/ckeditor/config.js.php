@@ -12,7 +12,7 @@ $szStyles = trim($application->getConfig('wysiwyg_styles'));
 if ( $szStyles ) {
 	$arrStyles = explode("\n", $szStyles);
 	foreach ( $arrStyles AS $k => $style ) {
-		$s = explode(':', trim($style));
+		$s = array_map('trim', explode('|', trim($style)));
 		echo ( 0 < $k ? ',' : '' )."	{ name : '".$s[0]."', element : '".$s[1]."', attributes : { 'class' : '".$s[2]."' } }\n";
 	}
 }

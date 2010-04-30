@@ -17,7 +17,7 @@ function getUsername($id) {
 function getObjectName($table, $id) {
 	static $cache = array();
 	if ( empty($cache[$table][$id]) ) {
-		$cache[$table][$id] = $GLOBALS['db']->select_one($table, 'title', 'id = '.(int)$id);
+		$cache[$table][$id] = is_int(strpos($table, '_implementations')) ? substr($table, 0, -16).': '.$GLOBALS['db']->select_one('implementations', 'title', 'type = \''.substr($table, 0, -16).'\' AND implementation_id = '.(int)$id) : '?';
 	}
 	return $cache[$table][$id];
 }

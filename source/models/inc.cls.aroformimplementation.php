@@ -10,7 +10,7 @@ class AROFormImplementation extends Extended_ActiveRecordObject {
 	protected static $_relations = array();
 
 	public static $m_arrFieldTypes = array('label', 'textbox', 'email', 'textarea', 'checkbox', 'checkboxes', 'radiobuttons', 'select', 'specialtextbox');
-	public $_type = 'form';
+	public $META_TYPE = 'form';
 
 
 	public function admin() {

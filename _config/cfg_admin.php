@@ -6,6 +6,8 @@ session_start();
 
 define( 'SESSION_NAME', 'thiscms' );
 define( 'PROJECT_ADMIN', PROJECT_LOGIC.'/admin' );
+$l = explode('/', $_SERVER['PHP_SELF']);
+define( 'PROJECT_ADMIN_LOCATION_TYPE', 4 <= count($l) ? $l[2] : 'admin' );
 
 $application = new Application(CMS_SITE_SUBDOMAIN);
 

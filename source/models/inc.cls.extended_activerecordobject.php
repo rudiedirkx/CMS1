@@ -28,7 +28,9 @@ class Extended_ActiveRecordObject extends MyActiveRecordObject {
 
 
 	final public function fileExists( $file ) {
-		return file_exists(PROJECT_PUBLIC.str_replace('../', '', str_replace('\\', '/', trim($file, '\\/'))));
+		$file = PROJECT_PUBLIC.'/'.str_replace('../', '', str_replace('\\', '/', trim($file, '\\/')));
+//echo $file;
+		return (int)file_exists($file);
 	}
 	public function file_exists( $file ) {
 		return $this->fileExists($file);

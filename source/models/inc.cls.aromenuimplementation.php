@@ -11,7 +11,7 @@ class AROMenuImplementation extends Extended_ActiveRecordObject {
 		
 	);
 
-	public $_type = 'menu';
+	public $META_TYPE = 'menu';
 
 
 	public function admin() {
