@@ -54,8 +54,7 @@ $arrSnippets = AROImplementation::finder()->findMany("type = 'snippet' ORDER BY 
 foreach ( $arrSnippets AS $snippet ) { echo '<tr><td><a'.( $g_objAdmin->allowEditSnippet() ? ' href="/admin/snippet/edit.php?id='.$snippet->id.'"' : '' ).'>'.$snippet->id.'</a></td></tr>'; }
 
 echo '<tr><th>File folders (<a href="/admin/filefolder/add.php">+</a>)</th></tr>';
-$arrFolders = glob($_SERVER['DOCUMENT_ROOT'].'/*');
-foreach ( $arrFolders AS $f ) { if ( is_dir($f) && !in_array(basename($f), array('_images')) ) { echo '<tr><td><a href="/admin/filefolder/edit.php?id='.basename($f).'">'.basename($f).'</a></td></tr>'; } }
+foreach ( $g_arrFileFolders AS $f ) { echo '<tr><td><a href="/admin/filefolder/edit.php?id='.basename($f).'">'.basename($f).'</a></td></tr>'; }
 
 ?>
 		</table>

@@ -11,9 +11,10 @@ define( 'PROJECT_ADMIN_LOCATION_TYPE', 4 <= count($l) ? $l[2] : 'admin' );
 
 $application = new Application(CMS_SITE_SUBDOMAIN);
 
+$g_arrFileFolders = array_values(array_map('basename', array_filter(glob(PROJECT_PUBLIC.'/*'), create_function('$f', 'return is_dir($f) && "_images" != basename($f);'))));
 
 function tpl_header() {
-	global $g_objAdmin, $application;
+	global $g_objAdmin, $application, $g_arrFileFolders;
 	include(PROJECT_ADMIN.'/inc.tpl.header.php');
 	if ( dirname($_SERVER['PHP_SELF']) != PROJECT_ADMIN && file_exists(dirname($_SERVER['PHP_SELF']).'/inc.tpl.header.php') ) {
 		include(dirname($_SERVER['PHP_SELF']).'/inc.tpl.header.php');
@@ -21,7 +22,7 @@ function tpl_header() {
 }
 
 function tpl_footer() {
-	global $g_objAdmin, $application;
+	global $g_objAdmin, $application, $g_arrFileFolders;
 	if ( dirname($_SERVER['PHP_SELF']) != PROJECT_ADMIN && file_exists(dirname($_SERVER['PHP_SELF']).'/inc.tpl.footer.php') ) {
 		include(dirname($_SERVER['PHP_SELF']).'/inc.tpl.footer.php');
 	}
