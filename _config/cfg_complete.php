@@ -10,10 +10,6 @@ require_once('cfg_db.php');
 
 $_dbtype = 'db_'.DB_TYPE;
 require_once(PROJECT_MODELS.'/db/inc.cls.'.$_dbtype.'.php');
-$root = new $_dbtype(SQL_HOST, ROOT_SQL_USER, ROOT_SQL_PASS, ROOT_SQL_DB);
-if ( !$root->connected() ) {
-	exit('No connection to &root.'."\n");
-}
 $db = new $_dbtype(SQL_HOST, SITE_SQL_USER, SITE_SQL_PASS, SITE_SQL_DB);
 if ( !$db->connected() ) {
 	exit('No connection to &site.'."\n");

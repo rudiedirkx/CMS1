@@ -2,6 +2,11 @@
 
 require_once('cfg_complete.php');
 
+$root = new $_dbtype(SQL_HOST, ROOT_SQL_USER, ROOT_SQL_PASS, ROOT_SQL_DB);
+if ( !$root->connected() ) {
+	exit('No connection to &root.'."\n");
+}
+
 session_start();
 
 define( 'SESSION_NAME', 'thiscms' );
