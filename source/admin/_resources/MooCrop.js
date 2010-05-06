@@ -104,7 +104,7 @@ var MooCrop = new Class({
 		var b = this.bounds, c = this.crop, handle = this.current.handle, styles = {}; //saving bytes
 		var dragging = (handle.length > 2) ? true : false;
 
-if ( -1 == ['E', 'S', 'NESW'].indexOf(handle) ) return;
+if ( -1 == ['SE', 'E', 'S', 'NESW'].indexOf(handle) ) return;
 
 		if( handle.contains("S") ){//SOUTH
 			if(c.bottom - ydiff > b.bottom ) ydiff = c.bottom - b.bottom; // box south

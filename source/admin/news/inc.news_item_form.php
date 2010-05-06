@@ -15,9 +15,9 @@
 
 	<?if ($objNews->ni_label_for_content_2):?><p><?=$objNews->ni_label_for_content_2?>:<br /><textarea id="content_2" name="content_2"><?=isset($objItem)?htmlspecialchars($objItem->content_2):''?></textarea></p><?endif;?>
 
-	<?if ($objNews->use_image_1):?><p>Image 1<?if (2==(int)$objNews->use_image_1):?> (mandatory!)<?endif;?>:<?if (isset($objItem) && $objItem->image_1){?><br /><a href="<?=$objItem->image_1?>"><img src="<?=$objItem->image_1?>" width="50" height="50" /></a><?}?><br /><input type="file" name="image_1" /></p><?endif;?>
+	<?if ($objNews->use_image_1):?><p>Image 1<?if (2==(int)$objNews->use_image_1):?> (mandatory!)<?endif;?>:<?if (isset($objItem) && $objItem->image_1){?><br /><a href="<?=$objItem->image_1?>"><img src="<?=$objItem->image_1?>" style="max-width:100px; max-height:100px;" /></a> (<a href="../resize_image.php?image=<?=$objItem->image_1?>">resize</a>)<?}?><br /><input type="file" name="image_1" /></p><?endif;?>
 
-	<?if ($objNews->use_image_2):?><p>Image 2<?if (2==(int)$objNews->use_image_2):?> (mandatory!)<?endif;?>:<?if (isset($objItem) && $objItem->image_2){?><br /><a href="<?=$objItem->image_2?>"><img src="<?=$objItem->image_2?>" width="50" height="50" /></a><?}?><br /><input type="file" name="image_2" /></p><?endif;?>
+	<?if ($objNews->use_image_2):?><p>Image 2<?if (2==(int)$objNews->use_image_2):?> (mandatory!)<?endif;?>:<?if (isset($objItem) && $objItem->image_2){?><br /><a href="<?=$objItem->image_2?>"><img src="<?=$objItem->image_2?>" style="max-width:100px; max-height:100px;" /></a> (<a href="../resize_image.php?image=<?=$objItem->image_2?>">resize</a>)<?}?><br /><input type="file" name="image_2" /></p><?endif;?>
 
 	<?$objOwner=$objNews?><?include('../inc.custom_flags.php')?>
 
