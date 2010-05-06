@@ -6,16 +6,23 @@ logincheck();
 
 $objNews = AROImplementation::loadImplementationByID( $_GET['id'] );
 
-if ( isset($_POST['type'], $_POST['title'], $_POST['title_2'], $_POST['content_1'], $_POST['content_2']) ) {
-	$db->insert('news_items', array(
+if ( isset($_POST['type'], $_POST['title'], $_POST['title_2']) ) {
+	$arrInsert = array(
 		'news_implementation_id' => $objNews->implementation_id,
 		'type' => $_POST['type'],
 		'title' => $_POST['title'],
 		'content_1' => $_POST['content_1'],
-		'title_2' => $_POST['title_2'],
-		'content_2' => $_POST['content_2'],
+		'title_2' => '',
+		'content_2' => '',
 		'created' => time()
-	));
+	);
+	if ( isset($_POST['title_2']) ) {
+		$arrInsert['title_2'] = $_POST['title_2'];
+	}
+	if ( isset($_POST['content_2']) ) {
+		$arrInsert['content_2'] = $_POST['content_2'];
+	}
+	$db->insert('news_items', $arrInsert);
 	echo $db->error;
 	$iNewsItem = $db->insert_id();
 
@@ -25,6 +32,7 @@ if ( isset($_POST['type'], $_POST['title'], $_POST['title_2'], $_POST['content_1
 			$objItem->setConfig($flag, $x);
 		}
 	}
+
 	foreach ( array('1', '2') AS $n ) {
 		$szColName = 'image_'.$n;
 		if ( $objNews->{'use_'.$szColName} && !empty($_FILES[$szColName]) && 0 == $_FILES[$szColName]['error'] ) {

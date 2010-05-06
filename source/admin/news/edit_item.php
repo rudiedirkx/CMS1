@@ -8,14 +8,17 @@ $objNews = AROImplementation::loadImplementationByID( $_GET['id'] );
 
 $objItem = ARONewsItem::finder()->findOne('id = ? AND news_implementation_id = ?', $_GET['item'], $objNews->implementation_id)->init($objNews);
 
-// TODO: UPDATE ITEM
-if ( isset($_POST['title'], $_POST['content_1'], $_POST['title_2'], $_POST['content_2']) ) {
+if ( isset($_POST['title'], $_POST['content_1']) ) {
 	$arrUpdate = array(
 		'title' => $_POST['title'],
-		'content_1' => $_POST['content_1'],
-		'title_2' => $_POST['title_2'],
-		'content_2' => $_POST['content_2'],
+		'content_1' => $_POST['content_1']
 	);
+	if ( isset($_POST['title_2']) ) {
+		$arrUpdate['title_2'] = $_POST['title_2'];
+	}
+	if ( isset($_POST['content_2']) ) {
+		$arrUpdate['content_2'] = $_POST['content_2'];
+	}
 
 	foreach ( array('1', '2') AS $n ) {
 		$szColName = 'image_'.$n;
@@ -29,8 +32,10 @@ if ( isset($_POST['title'], $_POST['content_1'], $_POST['title_2'], $_POST['cont
 		}
 	}
 
-	$db->update('news_items', $arrUpdate, 'id = '.$objItem->id);
+print_r($arrUpdate);
+	var_dump($db->update('news_items', $arrUpdate, 'id = '.$objItem->id));
 	echo $db->error;
+exit;
 
 	$objItem->unsetConfig($objNews->special_1, $objNews->special_2, $objNews->special_3);
 	if ( isset($_POST['cflags']) ) {
