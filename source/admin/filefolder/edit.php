@@ -57,7 +57,7 @@ echo '<p><a href="upload.php?id='.$_GET['id'].'">Upload file</a> | <a href="add.
 echo '<table border="0" cellpadding="5" cellspacing="0">';
 foreach ( $arrFiles AS $f ) {
 	if ( !is_dir($f) ) {
-		echo '<tr><td><a href="/'.$_GET['id'].'/'.basename($f).'"><img src="/'.$_GET['id'].'/'.basename($f).'" width="60" height="60" /></a></td><td><a href="edit_file.php?id='.$_GET['id'].'&file='.basename($f).'">'.basename($f).'</a></td><td>'.ceil(filesize($f)/1024).' KB</td><td><a href="?id='.$_GET['id'].'&del='.urlencode(basename($f)).'">x</a></td></tr>';
+		echo '<tr><td><a href="/'.$_GET['id'].'/'.basename($f).'"><img src="/'.$_GET['id'].'/'.basename($f).'" width="60" height="60" /></a></td><td><a href="edit_file.php?id='.$_GET['id'].'&file='.basename($f).'">'.basename($f).'</a></td><td>'.ceil(filesize($f)/1024).' KB</td><td><a href="?id='.$_GET['id'].'&del='.urlencode(basename($f)).'">x</a></td>'.( ($is=getimagesize($f)) ? '</td><td>&nbsp;</td><td><a href="../resize_image.php?image=/'.$_GET['id'].'/'.basename($f).'">'.$is[0].' * '.$is[1].'</a>' : '<td colspan="2"></td>' ).'</tr>';
 	}
 }
 echo '</table>';
