@@ -18,13 +18,21 @@ ul.error li, ul.success li { padding:2px 0; }
 p.ft-id { }
 p.ft-title { }
 p.ft-content { }
-div#cols { overflow:auto; clear:both; }
+div#cols { clear:both; }
 div#leftcol { float:left; width:140px; background-color:#ddd; padding:0 10px 10px; margin-right:10px; }
 div#leftcol td { padding:0; }
 div#leftcol th { padding-top:12px; }
 div#leftcol td a { padding:3px; display:block; }
 div#leftcol td a:hover { background-color:#eee; }
-div#rightcol { float:left; }
+div#rightcol { margin-left:180px; margin-right:10px; }
+#custom_flags { display:none; }
+img.item-image-preview { max-width:150px; max-height:100px; border:0; }
+#messages > div { /**/display:none;/**/ margin:2px 0; border:solid 2px #000; color:#000; padding:3px 8px; font-weight:bold; }
+#messages div.successes { border-color:green; background-color:#afa; }
+#messages div.notices { border-color:blue; background-color:lightblue; }
+#messages div.warnings { border-color:#ff8c00; background-color:gold; }
+#messages div.errors { border-color:#c00; background-color:#faa; }
+#messages div div { padding:2px 0; }
 </style>
 <script type="text/javascript" src="/admin/_resources/mootools_1_11.js"></script>
 <script type="text/javascript" src="/admin/_resources/javascripts.js"></script>
@@ -61,3 +69,10 @@ foreach ( $g_arrFileFolders AS $f ) { echo '<tr><td><a href="/admin/filefolder/e
 	</div>
 
 	<div id="rightcol">
+
+		<div id="messages">
+			<div class="successes"><div>This is not a success</div></div>
+			<div class="notices"><div>This is not a notice</div></div>
+			<div class="warnings"><div>This is not a warning</div></div>
+			<div class="errors"><div>This is not an error</div></div>
+		</div>

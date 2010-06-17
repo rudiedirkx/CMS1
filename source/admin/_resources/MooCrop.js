@@ -73,11 +73,11 @@ var MooCrop = new Class({
 			'width' : this.options.min.width+(diff*2), 'height' : this.options.min.height+(diff*2) };
 		
 		this.wrapper.setStyles({
-			'width' : b.right, 'height' : b.bottom,
-			'background' : 'url('+this.img.src+') no-repeat '+diff+'px '+diff+'px'
+			 'width' : b.right, 'height' : b.bottom
+/*			,'background' : 'url('+this.img.src+') no-repeat '+diff+'px '+diff+'px'*/
 		});
-		this.north.setStyle('width',b.right);
-		this.south.setStyle('width',b.right);
+		this.north.setStyle('width', b.right);
+		this.south.setStyle('width', b.right);
 	},
 
 	activate : function(event,handle){
@@ -235,10 +235,10 @@ if ( 'NESW' != handle && 0 != r ) {
 		var o = this.options;
 
 		this.wrapper = new Element("div", {
-			'styles' : {'position' : 'relative', 'width' : this.img.width, 'height' : this.img.height, 'background' : 'url('+this.img.src+') no-repeat' , 'float' : this.img.getStyle('float')  }
+			'styles' : {'position' : 'relative', 'width' : this.img.width, 'height' : this.img.height, /*'background' : 'url('+this.img.src+') no-repeat',*/ 'float' : this.img.getStyle('float')  }
 		}).injectBefore(this.img);
 
-		this.img.setStyle('display','none');
+		this.img.setStyles({ /*'display': 'none',*/ 'width': '100%', 'height': '100%', 'position': 'absolute', 'left': '0', 'top': '0' }).injectTop(this.wrapper);
 
 		this.offsets = { x : this.wrapper.getLeft(), y : this.wrapper.getTop() };
 

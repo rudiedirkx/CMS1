@@ -26,8 +26,17 @@ if ( isset($_POST['id'], $_POST['title'], $_POST['content_1']) ) {
 	$objNews->setConfig('ni_label_for_title_2', 'Title 2');
 	$objNews->setConfig('ni_label_for_content_2', 'Content 2');
 
-	$objNews->setConfig('use_image_1', max(0, min(2, (int)$_POST['use_image_1'])));
-	$objNews->setConfig('use_image_2', max(0, min(2, (int)$_POST['use_image_2'])));
+	$objNews->setConfig('use_image_1', ($img1 = max(0, min(2, (int)$_POST['use_image_1']))));
+	if ( $img1 && 0 < (int)$_POST['image_1_x'] && 0 < (int)$_POST['image_1_y'] ) {
+		$objNews->setConfig('image_1_x', (int)$_POST['image_1_x']);
+		$objNews->setConfig('image_1_y', (int)$_POST['image_1_y']);
+	}
+
+	$objNews->setConfig('use_image_2', ($img2 = max(0, min(2, (int)$_POST['use_image_2']))));
+	if ( $img2 && 0 < (int)$_POST['image_2_x'] && 0 < (int)$_POST['image_2_y'] ) {
+		$objNews->setConfig('image_2_x', (int)$_POST['image_2_x']);
+		$objNews->setConfig('image_2_y', (int)$_POST['image_2_y']);
+	}
 
 	header('Location: edit.php?id='.$_POST['id']);
 	exit;

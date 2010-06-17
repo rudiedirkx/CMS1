@@ -37,8 +37,3 @@ foreach ( $arrLogs AS $log ) {
 echo '</table>';
 
 
-
-tpl_footer();
-
-
-

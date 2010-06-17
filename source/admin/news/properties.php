@@ -24,8 +24,21 @@ if ( isset($_POST['id'], $_POST['title'], $_POST['content_1'], $_POST['title_2']
 		'content_2' => $_POST['content_2'],
 	), 'implementation_id = '.$objNews->implementation_id);
 
-	$objNews->setConfig('use_image_1', max(0, min(2, (int)$_POST['use_image_1'])));
-	$objNews->setConfig('use_image_2', max(0, min(2, (int)$_POST['use_image_2'])));
+	$objNews->setConfig('use_image_1', ($img1 = max(0, min(2, (int)$_POST['use_image_1']))));
+	$objNews->unsetConfig('image_1_x');
+	$objNews->unsetConfig('image_1_y');
+	if ( $img1 && 0 < (int)$_POST['image_1_x'] && 0 < (int)$_POST['image_1_y'] ) {
+		$objNews->setConfig('image_1_x', (int)$_POST['image_1_x']);
+		$objNews->setConfig('image_1_y', (int)$_POST['image_1_y']);
+	}
+
+	$objNews->setConfig('use_image_2', ($img2 = max(0, min(2, (int)$_POST['use_image_2']))));
+	$objNews->unsetConfig('image_2_x');
+	$objNews->unsetConfig('image_2_y');
+	if ( $img2 && 0 < (int)$_POST['image_2_x'] && 0 < (int)$_POST['image_2_y'] ) {
+		$objNews->setConfig('image_2_x', (int)$_POST['image_2_x']);
+		$objNews->setConfig('image_2_y', (int)$_POST['image_2_y']);
+	}
 
 	foreach ( array('special_1','special_2','special_3') AS $name ) {
 		$objNews->setConfig($name, empty($_POST[$name]) ? null : $_POST[$name]);

@@ -1,4 +1,9 @@
 
+<style>
+td.dimensions { text-align:center; }
+input.dimension { width:50px; text-align:center; }
+</style>
+
 <form method="post" action="">
 
 	<p>URL:<br />/<input type="text" name="id" maxlength="50" value="<?=!isset($objNews) ? '' : $objNews->id?>" style="border:solid 1px black;border-width:0 0 1px;" /></p>
@@ -18,18 +23,21 @@
 		<th>Not allowed</th>
 		<th>Optional</th>
 		<th>Mandatory</th>
+		<th>Force dimensions</th>
 	</tr>
 	<tr>
 		<td>Image 1</td>
 		<td align="center"><input type="radio" name="use_image_1" value="0"<?if (!isset($objNews) || !$objNews->use_image_1):?> checked="1"<?endif;?> /></td>
 		<td align="center"><input type="radio" name="use_image_1" value="1"<?if (isset($objNews) && $objNews->use_image_1):?> checked="1"<?endif;?> /></td>
 		<td align="center"><input type="radio" name="use_image_1" value="2"<?if (isset($objNews) && 2 == (int)$objNews->use_image_1):?> checked="1"<?endif;?> /></td>
+		<td class="dimensions"><input type="text" class="dimension" name="image_1_x" value="<?=isset($objNews)&&$objNews->image_1_x?$objNews->image_1_x:'0'?>" /> <sup>x</sup> <input type="text" class="dimension" name="image_1_y" value="<?=isset($objNews)&&$objNews->image_1_y?$objNews->image_1_y:'0'?>" /></td>
 	</tr>
 	<tr>
 		<td>Image 2</td>
 		<td align="center"><input type="radio" name="use_image_2" value="0"<?if (!isset($objNews) || !$objNews->use_image_2):?> checked="1"<?endif;?> /></td>
 		<td align="center"><input type="radio" name="use_image_2" value="1"<?if (isset($objNews) && $objNews->use_image_2):?> checked="1"<?endif;?> /></td>
 		<td align="center"><input type="radio" name="use_image_2" value="2"<?if (isset($objNews) && 2 == (int)$objNews->use_image_2):?> checked="1"<?endif;?> /></td>
+		<td class="dimensions"><input type="text" class="dimension" name="image_2_x" value="<?=isset($objNews)&&$objNews->image_2_x?$objNews->image_2_x:'0'?>" /> <sup>x</sup> <input type="text" class="dimension" name="image_2_y" value="<?=isset($objNews)&&$objNews->image_2_y?$objNews->image_2_y:'0'?>" /></td>
 	</tr>
 	</table>
 

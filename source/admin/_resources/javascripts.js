@@ -8,6 +8,16 @@ Asset.extend({
 		});
 	}
 });
+Element.extend({
+	animate: function(props, duration) {
+console.log(this);
+		var fx = new Fx.Styles(this, {'duration': duration});
+		fx.start(props);
+//		return this.effects({'duration': duration});
+//		var fx = new Fx.Styles(props, {duration: duration});
+//		return fx.start();
+	}
+});
 
 function doMySortable( obj ) {
 	return new Sortables(obj, {

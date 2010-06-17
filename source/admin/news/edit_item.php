@@ -32,10 +32,9 @@ if ( isset($_POST['title'], $_POST['content_1']) ) {
 		}
 	}
 
-print_r($arrUpdate);
-	var_dump($db->update('news_items', $arrUpdate, 'id = '.$objItem->id));
+
+	$db->update('news_items', $arrUpdate, 'id = '.$objItem->id);
 	echo $db->error;
-exit;
 
 	$objItem->unsetConfig($objNews->special_1, $objNews->special_2, $objNews->special_3);
 	if ( isset($_POST['cflags']) ) {
