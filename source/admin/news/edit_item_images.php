@@ -28,14 +28,19 @@ if ( isset($_POST['content_1'], $_FILES['image']) && empty($_FILES['image']['err
 			$db->update('news_item_images', array($szColName => $szExt), 'id = '.$iImage);
 		}
 	}
+	header('Location: '.$_SERVER['HTTP_REFERER']);
+	exit;
+}
 
+else if ( isset($_GET['delete']) ) {
+	$db->delete('news_item_images', 'id = '.(int)$_GET['delete'].' AND news_item_id = '.(int)$_GET['item']);
 	header('Location: '.$_SERVER['HTTP_REFERER']);
 	exit;
 }
 
 tpl_header();
 
-echo '<h1>Gallery for &quot;'.$objItem->title.'&quot;</h1>';
+echo '<h1>Gallery for &quot;<a href="./edit_item.php?id='.$_GET['id'].'&item='.$_GET['item'].'">'.$objItem->title.'</a>&quot;</h1>';
 
 echo '<table border="1">';
 echo '<tr><th></th><th>o</th><th>Title</th></tr>';
@@ -44,6 +49,7 @@ foreach ( $objItem->getImages() AS $img ) {
 	echo '<td><a href="'.$img->image.'"><img src="'.$img->image.'" height="50" width="50" /></a></td>';
 	echo '<td>'.$img->o.'</td>';
 	echo '<td><a href="edit_item_image.php?id='.$_GET['id'].'&item='.$_GET['item'].'&image='.$img->id.'">'.$img->title.'</a></td>';
+	echo '<td><a href="?id='.$_GET['id'].'&item='.$_GET['item'].'&delete='.$img->id.'">x</a></td>';
 	echo '</tr>';
 }
 echo '</table>';

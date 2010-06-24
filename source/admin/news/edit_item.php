@@ -42,8 +42,17 @@ if ( isset($_POST['title'], $_POST['content_1']) ) {
 			$objItem->setConfig($flag, '1');
 		}
 	}
+	header('Location: '.$_SERVER['HTTP_REFERER']);
+	exit;
+}
 
-	header('Location: items.php?id='.$objNews->id);
+else if ( isset($_GET['del_img']) ) {	
+	$col = 'image_' . $_GET['del_img'];
+	$col2 = 'use_' . $col;
+	if ( in_array($_GET['del_img'], array(1, 2)) && $objItem->$col && 2 != $objNews->$col2 ) {
+		$db->update('news_items', $col.' = \'\'', 'id = '.$objItem->id);
+	}
+	header('Location: '.$_SERVER['HTTP_REFERER']);
 	exit;
 }
 
