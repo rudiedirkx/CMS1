@@ -12,6 +12,7 @@ abstract class DB_Generic {
 	public function connected() {
 		return false;
 	}
+	public function close() {}
 	public function escape( $v ) {}
 	public function insert_id() {}
 	public function affected_rows() {}

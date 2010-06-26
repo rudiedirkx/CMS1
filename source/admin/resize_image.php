@@ -50,8 +50,11 @@ if ( !isset($_GET['target_width'], $_GET['target_height']) ) {
 	echo '<form method="get" action="">';
 	echo '<input type="hidden" name="referer" value="'.htmlspecialchars($szReferer).'" />';
 	echo '<input type="hidden" name="image" value="'.htmlspecialchars($_GET['image']).'" />';
-	echo '<p>Target width:<br /><input type="text" name="target_width" value="100" /></p>';
-	echo '<p>Target height:<br /><input type="text" name="target_height" value="100" /></p>';
+	echo '<p>Target width:<br /><input type="text" id="tw" name="target_width" value="100" /></p>';
+	echo '<p>Target height:<br /><input type="text" id="th" name="target_height" value="100" /></p>';
+	echo '<p>Choose predefined dimensions:<br /><select onchange="var x=this.value.split(\',\');$(\'tw\').value=x[0];$(\'th\').value=x[1];"><option value="0,0">--</option>';
+	foreach ( $db->select('image_dimension_sets') AS $s ) { echo '<option value="'.$s->width.','.$s->height.'">'.$s->name.' ('.$s->width.' * '.$s->height.')</option>'; }
+	echo '</select></p>';
 	echo '<p><input type="submit" value="Continue" /></p>';
 	echo '</form>';
 	exit;

@@ -30,6 +30,10 @@ class db_mysqli extends db_generic {
 		return (0 === $this->dbCon->connect_errno);
 	}
 
+	public function close() {
+		return $this->dbCon->close();
+	}
+
 	public function escape($v) {
 		return $this->dbCon->real_escape_string($v);
 	}

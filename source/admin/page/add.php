@@ -6,7 +6,9 @@ logincheck();
 
 if ( isset($_POST['id'], $_POST['title'], $_POST['content_1'], $_POST['title_2'], $_POST['content_2']) ) {
 
-	if ( !preg_match('/^[a-z0-9]+(?:(\-|_)[a-z0-9]+)*$/i', $_GET['id']) ) {
+//var_dump($_POST['id']);exit;
+
+	if ( 0 == preg_match('/^[a-z0-9]+(?:(\-|_|\.)[a-z0-9]+)*$/i', $_POST['id']) ) {
 		exit('Invalid ID');
 	}
 

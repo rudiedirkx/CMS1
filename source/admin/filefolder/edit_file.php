@@ -23,7 +23,7 @@ if ( isset($_GET['id'], $_GET['file'], $_POST['filename']) ) {
 
 tpl_header();
 
-echo '<h1>Change: &quot;'.$_GET['file'].'&quot;</h1>';
+echo '<h1>Change: <a href="edit.php?id='.$_GET['id'].'">/'.$_GET['id'].'</a> / &quot;'.$_GET['file'].'&quot;</h1>';
 
 ?>
 <form action="" method="post" enctype="multipart/form-data">
@@ -33,6 +33,12 @@ echo '<h1>Change: &quot;'.$_GET['file'].'&quot;</h1>';
 	<p>Upload replacement:<br /><input type="file" name="newfile" /></p>
 
 	<p><input type="submit" value="Save" /></p>
+
+<?if( ($img=getImageSize($dir.'/'.$_GET['file'])) ):?>
+	<p>Dimensions: <a href="/admin/resize_image.php?image=<?=urlencode('/'.$_GET['id'].'/'.$_GET['file'])?>"><?=$img[0]?> * <?=$img[1]?></a></p>
+
+	<p><img src="/<?=$_GET['id']?>/<?=$_GET['file']?>" /></p>
+<?endif;?>
 
 </form>
 

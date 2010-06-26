@@ -1,6 +1,3 @@
 RewriteEngine On
-
-RewriteRule ^(.*)/cms1admin /admin/portal.php?url=$1 [L]
-
-RewriteRule ^((_images|images).*) $1 [NC,QSA,L]
+RewriteRule ^((_images|images|files).*) $1 [NC,QSA,L]
 RewriteRule .* index.php

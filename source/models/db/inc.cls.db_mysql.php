@@ -35,6 +35,10 @@ class db_mysql extends db_generic {
 		return is_resource($this->dbCon);
 	}
 
+	public function close() {
+		return mysql_close($this->dbCon);
+	}
+
 	public function escape($v) {
 		return mysql_real_escape_string($v, $this->dbCon);
 	}

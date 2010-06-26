@@ -284,7 +284,8 @@ Array.prototype.each = Array.prototype.forEach;
 Array.each = Array.forEach;
 function $A(array) {
 // RUDIE's EDIT //
-	return 'object' != typeof array ? Array.copy([array]) : Array.copy(array);
+	return Array.copy(array);
+//	return 'object' != typeof array ? Array.copy([array]) : Array.copy(array);
 // RUDIE's EDIT //
 };
 Array.prototype.clone = function() { return Array.copy(this); }
@@ -638,7 +639,10 @@ Element.extend({
 			case 'number': if (!['zIndex', 'zoom'].contains(property)) value += 'px'; break;
 			case 'array': value = 'rgb(' + value.join(',') + ')';
 		}
-		this.style[property] = value;
+// RUDIE's EDIT //
+//alert(property + ' = ' + value);
+		this.style[property] = value || '';
+// RUDIE's EDIT //
 		return this;
 	},
 	setStyles: function(source){
@@ -890,8 +894,8 @@ var Event = new Class({
 		event = event || window.event;
 		this.event = event;
 		this.type = event.type;
-		this.target = event.target || event.srcElement;
-		if (this.target.nodeType == 3) this.target = this.target.parentNode;
+		this.target = $(event.target || event.srcElement);
+		if (this.target.nodeType && this.target.nodeType == 3) this.target = this.target.parentNode;
 		this.shift = event.shiftKey;
 		this.control = event.ctrlKey;
 		this.alt = event.altKey;
@@ -1051,6 +1055,7 @@ Element.Events = new Abstract({
 	'mousewheel': {
 		type: (window.gecko) ? 'DOMMouseScroll' : 'mousewheel'
 	},
+// RUDIE's EDIT //
 	'directchange': {
 		type: 'keyup',
 		map: function(e){
@@ -1063,6 +1068,7 @@ Element.Events = new Abstract({
 			}
 		}
 	}
+// RUDIE's EDIT //
 });
 Element.NativeEvents = ['click', 'dblclick', 'mouseup', 'mousedown', 'mousewheel', 'DOMMouseScroll', 'mouseover', 'mouseout', 'mousemove', 'keydown', 'keypress', 'keyup', 'load', 'unload', 'beforeunload', 'resize', 'move', 'focus', 'blur', 'change', 'submit', 'reset', 'select', 'error', 'abort', 'contextmenu', 'scroll'];
 Function.extend({
@@ -1224,7 +1230,7 @@ Element.extend({
 				});
 				return (this.multiple) ? values : values[0];
 			case 'input': if (!(this.checked && ['checkbox', 'radio'].contains(this.type)) && !['hidden', 'text', 'password'].contains(this.type)) break;
-			case 'textarea': return this.value;
+			case 'textarea': return this.ckeditor ? this.ckeditor.getData() : this.value;
 		}
 		return false;
 	},
@@ -2046,7 +2052,7 @@ var XHR = new Class({
 		this.transport.onreadystatechange = this.onStateChange.bind(this);
 //		if ((this.options.method == 'post') && this.transport.overrideMimeType) this.setHeader('Connection', 'close');
 		$extend(this.headers, this.options.headers);
-		for (var type in this.headers) try {this.transport.setRequestHeader(type, this.headers[type]);} catch(e){};
+		for (var type in this.headers) try {this.transport.setRequestHeader(type, this.headers[type]);} catch(ex){};
 // RUDIE's EDIT //
 		if ( this.options.execGlobalHandlers && 'function' == typeof Ajax.onStart ) {
 			Ajax.busy++;
@@ -2103,7 +2109,9 @@ var Ajax = XHR.extend({
 	},
 	onComplete: function(){
 		if (this.options.update) $(this.options.update).empty().setHTML(this.response.text);
-		this.fireEvent('onComplete', [this.response.text, /*this.response.xml*/null], 0);
+// RUDIE's EDIT //
+		this.fireEvent('onComplete', [this.response.text.replace(/<script[^>]*>([\s\S]*?)<\/script>/gi, '<script></script>'), /*this.response.xml*/null], 0);
+// RUDIE's EDIT //
 		if (this.options.evalScripts || this.options.evalResponse) this.evalScripts();
 	},
 	request: function(data){
@@ -2159,6 +2167,7 @@ Object.toQueryString = function(source){
 };
 Element.extend({
 	send: function(options){
+//window.alert('send form');return false;
 		return new Ajax(this.getProperty('action'), $merge({data: this.toQueryString()}, options, {method: 'post', element: this})).request();
 	}
 });
@@ -2233,12 +2242,17 @@ var Asset = new Abstract({
 		properties = $merge({
 			'onload': Class.empty
 		}, properties);
-		var script = new Element('script', {'src': source}).addEvents({
-			'load': properties.onload,
-			'readystatechange': function(){
-				if (this.readyState == 'complete') this.fireEvent('load');
-			}
+// RUDIE's EDIT //
+		var script = new Element('script', {'src': source, 'type': 'text/javascript'}).addEvents({
+// RUDIE's EDIT //
+			'load': properties.onload
 		});
+		script.onreadystatechange = function() {
+			if ( (this.readyState == 'loaded' || this.readyState == 'complete') && !this.jsloaded ) {
+				this.jsloaded = true;
+				$(this).fireEvent('load');
+			}
+		};
 		delete properties.onload;
 		return script.setProperties(properties).inject(document.head);
 	},
@@ -2858,10 +2872,14 @@ Fx.Accordion = Accordion;
 
 // RUDIE's EDIT //
 Element.extend({
+	'append': function(el) {
+		this.appendChild(el);
+		return this;
+	},
 	'css' : function(key, val) {
 		if ( 1 == arguments.length ) {
 			if ( 'string' == typeof key ) {
-				this.getStyle(key);
+				return this.getStyle(key);
 			}
 			else if ( 'object' == typeof key ) {
 				this.setStyles(key);
@@ -2880,28 +2898,22 @@ Element.extend({
 		return this;
 	},
 	'attr' : function(key, val) {
-		function attrName(attr) {
-			return Element.Properties[attr] || attr;
-		}
 		if ( 1 == arguments.length ) {
 			if ( 'string' == typeof key ) {
-				return this.getAttribute(attrName(key));
+				return this.getProperty(key);
 			}
 			else if ( 'object' == typeof key ) {
-				for ( attr in key ) {
-					this.setAttribute(attrName(attr), key[attr]);
-				}
 				this.setProperties(key);
 			}
 		}
 		else if ( 2 == arguments.length ) {
 			if ( 'array' == $type(key) && 'array' == $type(val) && key.length == val.length ) {
 				for ( var i=0; i<key.length; key++ ) {
-					this.setAttribute(attrName(key[i]), val[i]);
+					this.setProperty(key[i], val[i]);
 				}
 			}
 			else if ( 'string' == $type(key) ) {
-				this.setAttribute(attrName(key), val);
+				this. setProperty(key, val);
 			}
 		}
 		return this;
@@ -2915,6 +2927,56 @@ Element.extend({
 	},
 	'childs': function(tag) {
 		return tag ? this.getChildren().filter('function' == typeof tag ? tag : function(c){ return tag.toUpperCase() == c.nodeName.toUpperCase(); }) : this.getChildren();
+	},
+	'html': function(content) {
+		return content ? this.setHTML(content).innerHTML : this.innerHTML;
+	},
+	'assignId': function() {
+		return this.id ? this.id : (this.id = 'x'+(''+Math.random()+'').replace(/\./g, ''));
+	},
+	'show': function() {
+		return this.css('display', '');
+	},
+	'hide': function() {
+		return this.css('display', 'none');
+	},
+	'toggle': function() {
+		return 'none' == this.css('display') ? this.show() : this.hide();
+	}
+});
+Asset.extend({
+	loadJS: function(f_src, f_onload) {
+		if ( !$$('script[src]').map(function(s){ return s.attr('src'); }).contains(f_src) ) {
+			return Asset.javascript(f_src, 'function' == typeof f_onload ? {'onload': f_onload} : {});
+		}
+		if ( 'function' == typeof f_onload ) {
+			f_onload();
+		}
+		return false;
+	}
+});
+Array.extend({
+	'item': function(index) {
+		return this[index] || null;
+	},
+	'first': function() {
+		return this[0] || null;
+	},
+	'last': function() {
+		return this.getLast();
+	},
+	'append': function(item) {
+		this.push(item);
+		return this;
+	}
+});
+Element.Events.extend({
+	'enter': {
+		'type': 'keyup',
+		'map': function(e) {
+			e = new Event(e);
+			if ( 13 == e.code ) this.fireEvent('enter', e);
+		}
 	}
 });
 // RUDIE's EDIT //

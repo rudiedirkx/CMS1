@@ -1,41 +1,56 @@
-* { margin:0; padding;0; }
+<html>
 
-body { padding:10px 10px 40px 212px; background:white url(/images/fotooud-1934.jpg) center center no-repeat fixed; }
-table, body { font-size:14px; font-weight:bold; color:black; font-family:Arial,Verdana; }
-h1 { background-color:#006666; color:#ffcc99; padding:7px 0 7px 25px; font-size:25px; margin-bottom:4px; font-family:'Comic Sans MS'; }
-h2 { background-color:#ffcc99; color:#006666; font-size:20px; padding:3px; }
-p, li { line-height:18px; }
-p { padding:6px 0; }
-hr { margin:5px 0; }
+<head>
+<meta http-equiv="Content-Language" content="nl"> 
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252"> 
+<title>Homepage Mozaiek</title> 
+<style type="text/css">
+body, table { font-family:Arial; font-size:13px; color:#FFFF00; }
+a { color:white; }
+a:hover { color:red; font-weight:bold; }
+#wrapper { }
+div.gb-form { width:160px; margin:0 auto; }
+div.gb-form span.label, div.gb-form span.value { display:block; }
+div.gb-form input, div.gb-form textarea { width:160px; }
+div.gb-form div.submit { padding-top:10px; }
+div.gb-form input.submit { display:block; width:110px; margin:0 auto; }
+div.gb-form div.error input, div.gb-form div.error textarea { color:white; background-color:red; }
+td#content-1 p { padding:0 5px; }
+td#content-1 p.nulpad { padding:0; margin:0; }
+</style> 
+</head> 
 
-#menu { width:190px; position:absolute; top:0; left:0; padding:10px 0 0 10px; }
-#menu ul { list-style:none; padding-left:0px; background-color:transparent; }
-#menu li { margin:0 -1px 2px 0; }
-#menu a { display:block; height:26px; text-transform:capitalize; color:#000000; text-decoration:none; font-size:16px; font-weight:bold; background:#fff url('/images/button_normal.gif') left center no-repeat; overflow:hidden; padding:10px 0px 0 35px; }
-#menu a:hover { background-image:url('/images/button_over.gif'); background-color:#006666; }
-#menu a.current { background-image:url('/images/button_active.gif'); color:#006666; }
-#menu a.current:hover { background-image:url('/images/button_active.gif'); color:#800000; }
+<body class="p9-<?php echo $this->_tpl_vars['this']->id; ?>
+ p0-<?php echo $this->_tpl_vars['this']->root->id; ?>
+">
 
-.error input, .error textarea { border:solid 2px red; }
+<table border="0" cellpadding="0" cellspacing="0" width="100%" height="100%"><tr><td valign="middle" align="center">
 
-.entries { border:solid 1px black; padding:10px 10px 0 10px; }
-.entries .entry { margin-bottom:10px; }
-.entries div.name { background-color:#006666; color:#ffcc99;  padding:2px; font-size:14px; }
-.entries span.name { font-weight:bold; }
-.entries .message { background-color:#ffcc99; padding:2px; }
+<div id="wrapper">
+<table border="0" cellpadding="0" cellspacing="0" width="1177" height="616">
+	<tr>
+		<td valign="middle" bgcolor="#990000" colspan="2" bordercolor="#990000"><h1 style="color:white;margin:0;" align="center"><?php echo $this->_tpl_vars['this']->title; ?>
+</h1></td>
+		<td valign="top" bgcolor="#990000"><?php $this->assign('fe', $this->_tpl_vars['this']->file_exists('/images/boven_'.$this->_tpl_vars['this']->id.'.jpg'));
+ ?><img border="0" src="/images/<?php if ($this->_tpl_vars['fe']): ?>boven_<?php echo $this->_tpl_vars['this']->id; ?>
+.jpg<?php else: ?>boven_index.jpg<?php endif; ?>" width="556" height="162"></td>
+		<td valign="top" bgcolor="#990000"><?php if ('index' != $this->_tpl_vars['this']->id): ?><img border="0" src="/images/achtergrond161.jpg" width="255" height="161"><?php else: ?>&nbsp;<?php endif; ?></td>
+		<td height="162"></td>
+	</tr>
+<?php $this->assign('mis', $this->_tpl_vars['this']->load('hoofdmenu')->getMenuItems());
+ ?>
+	<tr>
 
-.newsitem p { padding-left:20px; padding-right:20px; }
-.newsitem .date { font-size:14px; margin-left:20px; }
-
-form div.field { clear:both; }
-form span.label, form span.value { display:block; width:120px; float:left; }
-form span.value { width:300px; }
-form div.field_checkbox span.value { width:auto; padding-right:10px; }
-form div.field input, form div.field textarea { margin-bottom:2px; width:300px; }
-form textarea { height:100px; }
-form span.label { padding-top:4px; }
-form div.field input.submit { margin-left:120px; width:100px; }
-form div.field input.radio, form div.field input.checkbox { width:auto; }
-form div.field_checkboxes label { display:block; }
-
-
+<!-- menu -->
+<td valign="top" bgcolor="#990000" align="center" style="border-right-style: solid; border-right-width: 1px" bordercolor="#990000">
+	<table border="0" cellpadding="0" cellspacing="0" height="100%" align="center">
+	<?php $_from = $this->_tpl_vars['mis']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }if (count($_from)):
+	foreach ($_from as $this->_tpl_vars['k'] => $this->_tpl_vars['mi']):
+?>
+		<tr><td valign="middle" align="center"><h5 style="margin:0;"><?php if (1 || $this->_tpl_vars['mi']->relative_url != $this->_tpl_vars['this']->relative_url): ?><a href="<?php echo $this->_tpl_vars['mi']->link; ?>
+"><?php echo $this->_tpl_vars['mi']->title; ?>
+</a><?php else: ?><?php echo $this->_tpl_vars['mi']->title; ?>
+<?php endif; ?></h5></td></tr>
+	<?php endforeach; endif; unset($_from); ?>
+	</table>
+</td> 
