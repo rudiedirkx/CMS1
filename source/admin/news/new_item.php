@@ -37,9 +37,10 @@ if ( isset($_POST['type'], $_POST['title'], $_POST['title_2']) ) {
 		$szColName = 'image_'.$n;
 		if ( $objNews->{'use_'.$szColName} && !empty($_FILES[$szColName]) && 0 == $_FILES[$szColName]['error'] ) {
 			$szExt = strtolower(substr(strrchr($_FILES[$szColName]['name'], '.'), 1));
-			if ( in_array($szExt, array('jpg', 'jpeg', 'gif', 'bmp', 'png')) ) {
-				if ( $u=move_uploaded_file($_FILES[$szColName]['tmp_name'], PROJECT_PUBLIC_RESOURCES.'/news_item_'.$objItem->id.'_'.$n.'.'.$szExt) ) {
-					$db->update('news_items', array($szColName => $szExt), 'id = '.$iNewsItem);
+			if ( in_array($szExt, array('jpg', 'jpeg', 'gif', 'png')) ) {
+				if ( $u=move_uploaded_file($_FILES[$szColName]['tmp_name'], PROJECT_PUBLIC_RESOURCES.'/news_item_'.$objItem->id.'_'.$n.'_'.$_FILES[$szColName]['name']) ) {
+					chmod(PROJECT_PUBLIC_RESOURCES.'/news_item_'.$objItem->id.'_'.$n.'_'.$_FILES[$szColName]['name'], 0777);
+					$db->update('news_items', array($szColName => $_FILES[$szColName]['name']), 'id = '.$iNewsItem);
 				}
 			}
 		}

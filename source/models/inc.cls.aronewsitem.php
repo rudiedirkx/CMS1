@@ -38,8 +38,8 @@ class ARONewsItem extends Extended_ActiveRecordObject {
 		$this->parent = $parent;
 		$this->root = $parent->root;
 		$this->relative_url = '/'.$this->root->id.'/'.$this->id.'/'.self::urlEscape($this->title);
-		$this->image_1 = $this->image_1 ? '/'.PROJECT_RESOURCES_FOLDER.'/news_item_'.$this->id.'_1.'.$this->image_1 : '';
-		$this->image_2 = $this->image_2 ? '/'.PROJECT_RESOURCES_FOLDER.'/news_item_'.$this->id.'_2.'.$this->image_2 : '';
+		$this->image_1 = $this->image_1 ? '/'.PROJECT_RESOURCES_FOLDER.'/news_item_'.$this->id.'_1_'.$this->image_1 : '';
+		$this->image_2 = $this->image_2 ? '/'.PROJECT_RESOURCES_FOLDER.'/news_item_'.$this->id.'_2_'.$this->image_2 : '';
 		$this->saveConfigs();
 		return $this;
 	}
