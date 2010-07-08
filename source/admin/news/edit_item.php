@@ -20,19 +20,36 @@ if ( isset($_POST['title'], $_POST['content_1']) ) {
 		$arrUpdate['content_2'] = $_POST['content_2'];
 	}
 
-	foreach ( array('1', '2') AS $n ) {
+	$goto = $_SERVER['HTTP_REFERER'];
+
+	foreach ( array('2', '1') AS $n ) {
 		$szColName = 'image_'.$n;
 		if ( $objNews->{'use_'.$szColName} && !empty($_FILES[$szColName]) && 0 == $_FILES[$szColName]['error'] ) {
 			$szExt = strtolower(substr(strrchr($_FILES[$szColName]['name'], '.'), 1));
 			if ( in_array($szExt, array('jpg', 'jpeg', 'gif', 'png')) ) {
-				if ( $u=move_uploaded_file($_FILES[$szColName]['tmp_name'], PROJECT_PUBLIC_RESOURCES.'/news_item_'.$objItem->id.'_'.$n.'_'.$_FILES[$szColName]['name']) ) {
-					chmod(PROJECT_PUBLIC_RESOURCES.'/news_item_'.$objItem->id.'_'.$n.'_'.$_FILES[$szColName]['name'], 0777);
+				$path = PROJECT_PUBLIC_RESOURCES.'/news_item_'.$objItem->id.'_'.$n.'_'.$_FILES[$szColName]['name'];
+				if ( $u=move_uploaded_file($_FILES[$szColName]['tmp_name'], $path) ) {
+					chmod($path, 0777);
 					$arrUpdate[$szColName] = $_FILES[$szColName]['name'];
+					$tw = $objNews->{'image_'.$n.'_thumb_x'};
+					$th = $objNews->{'image_'.$n.'_thumb_y'};
+					if ( $tw && $th ) {
+						$tpath = PROJECT_PUBLIC_RESOURCES.'/thumbs/news_item_'.$objItem->id.'_'.$n.'_'.$_FILES[$szColName]['name'];
+						copy($path, $tpath);
+						chmod($tpath, 0777);
+						$tpubpath = '/'.PROJECT_RESOURCES_FOLDER.'/thumbs/'.basename($tpath);
+						$goto = '/admin/resize_image.php?label=Image+'.$n.'+(thumbnail)&tw='.$tw.'&th='.$th.'&image='.urlencode($tpubpath).'&referer=' . urlencode($goto);
+					}
+					$w = $objNews->{'image_'.$n.'_x'};
+					$h = $objNews->{'image_'.$n.'_y'};
+					if ( $w && $h ) {
+						$pubpath = '/'.PROJECT_RESOURCES_FOLDER.'/'.basename($path);
+						$goto = '/admin/resize_image.php?label=Image+'.$n.'&tw='.$w.'&th='.$h.'&image='.urlencode($pubpath).'&referer=' . urlencode($goto);
+					}
 				}
 			}
 		}
 	}
-
 
 	$db->update('news_items', $arrUpdate, 'id = '.$objItem->id);
 	echo $db->error;
@@ -43,7 +60,7 @@ if ( isset($_POST['title'], $_POST['content_1']) ) {
 			$objItem->setConfig($flag, '1');
 		}
 	}
-	header('Location: '.$_SERVER['HTTP_REFERER']);
+	header('Location: '.$goto);
 	exit;
 }
 

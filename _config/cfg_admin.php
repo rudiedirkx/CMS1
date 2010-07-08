@@ -16,6 +16,8 @@ define( 'PROJECT_ADMIN_LOCATION_TYPE', 4 <= count($l) ? $l[2] : 'admin' );
 
 $application = new Application(CMS_SITE_SUBDOMAIN);
 
+require_once(PROJECT_INCLUDE.'/inc.cls.cmsadminmessages.php');
+
 $g_arrFileFolders = array_values(array_map('basename', array_filter(glob(PROJECT_PUBLIC.'/*'), create_function('$f', 'return is_dir($f) && "_images" != basename($f);'))));
 
 function tpl_header() {
@@ -153,7 +155,7 @@ function logincheck( $f_act = true ) {
 	}
 	unset($_SESSION[SESSION_NAME]);
 	if ( $f_act && 'login.php' != basename($_SERVER['PHP_SELF']) ) {
-		header('Location: /admin/login.php');
+		header('Location: /admin/login');
 		exit('goto login page');
 	}
 	return false;

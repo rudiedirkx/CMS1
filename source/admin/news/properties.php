@@ -24,20 +24,21 @@ if ( isset($_POST['id'], $_POST['title'], $_POST['content_1'], $_POST['title_2']
 		'content_2' => $_POST['content_2'],
 	), 'implementation_id = '.$objNews->implementation_id);
 
-	$objNews->setConfig('use_image_1', ($img1 = max(0, min(2, (int)$_POST['use_image_1']))));
-	$objNews->unsetConfig('image_1_x');
-	$objNews->unsetConfig('image_1_y');
-	if ( $img1 && 0 < (int)$_POST['image_1_x'] && 0 < (int)$_POST['image_1_y'] ) {
-		$objNews->setConfig('image_1_x', (int)$_POST['image_1_x']);
-		$objNews->setConfig('image_1_y', (int)$_POST['image_1_y']);
-	}
-
-	$objNews->setConfig('use_image_2', ($img2 = max(0, min(2, (int)$_POST['use_image_2']))));
-	$objNews->unsetConfig('image_2_x');
-	$objNews->unsetConfig('image_2_y');
-	if ( $img2 && 0 < (int)$_POST['image_2_x'] && 0 < (int)$_POST['image_2_y'] ) {
-		$objNews->setConfig('image_2_x', (int)$_POST['image_2_x']);
-		$objNews->setConfig('image_2_y', (int)$_POST['image_2_y']);
+	// Images
+	foreach ( array('1', '2') AS $n ) {
+		$objNews->setConfig('use_image_'.$n, ($img1 = max(0, min(2, (int)$_POST['use_image_'.$n]))));
+		$objNews->unsetConfig('image_'.$n.'_x');
+		$objNews->unsetConfig('image_'.$n.'_y');
+		if ( $img1 && 0 < (int)$_POST['image_'.$n.'_x'] && 0 < (int)$_POST['image_'.$n.'_y'] ) {
+			$objNews->setConfig('image_'.$n.'_x', (int)$_POST['image_'.$n.'_x']);
+			$objNews->setConfig('image_'.$n.'_y', (int)$_POST['image_'.$n.'_y']);
+		}
+		$objNews->unsetConfig('image_'.$n.'_thumb_x');
+		$objNews->unsetConfig('image_'.$n.'_thumb_y');
+		if ( $img1 && 0 < (int)$_POST['image_'.$n.'_thumb_x'] && 0 < (int)$_POST['image_'.$n.'_thumb_y'] ) {
+			$objNews->setConfig('image_'.$n.'_thumb_x', (int)$_POST['image_'.$n.'_thumb_x']);
+			$objNews->setConfig('image_'.$n.'_thumb_y', (int)$_POST['image_'.$n.'_thumb_y']);
+		}
 	}
 
 	foreach ( array('special_1','special_2','special_3') AS $name ) {
@@ -55,13 +56,6 @@ if ( isset($_POST['id'], $_POST['title'], $_POST['content_1'], $_POST['title_2']
 		}
 	}
 
-	header('Location: '.$_SERVER['HTTP_REFERER']);
-	exit;
-}
-
-else if ( isset($_GET['disable']) ) {
-	$f = $_GET['disable'];
-	$db->update('news_implementations', 'label_for_'.$f.' = CONCAT(\'.\', label_for_'.$f.')', 'implementation_id = '.$objNews->implementation_id);
 	header('Location: '.$_SERVER['HTTP_REFERER']);
 	exit;
 }

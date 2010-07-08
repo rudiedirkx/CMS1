@@ -26,7 +26,7 @@ if ( isset($_POST['username'], $_POST['password']) ) {
 <html>
 
 <body>
-<form method="post" action="">
+<form method="post" action="/admin/login">
 <fieldset>
 <legend>Login<?=isset($_GET['msg'])?' - <span style="color:red;">'.$_GET['msg'].'</span>':''?></legend>
 Username: <input name="username" /><br />
@@ -34,6 +34,8 @@ Password: <input type="password" name="password" /><br />
 <input type="submit" value="Jack in!" />
 </fieldset>
 </form>
+
+<pre><?php print_r($_SERVER); ?></pre>
 </body>
 
 </html>

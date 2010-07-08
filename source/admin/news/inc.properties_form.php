@@ -1,6 +1,6 @@
 
 <style>
-td.dimensions { text-align:center; }
+td.dimensions, td.thumb-dimensions { text-align:center; }
 input.dimension { width:50px; text-align:center; }
 </style>
 
@@ -16,32 +16,40 @@ input.dimension { width:50px; text-align:center; }
 
 	<p>Content 2:<br /><textarea id="content_2" name="content_2" rows="12" cols="100"><?=!isset($objNews) ? '' : htmlspecialchars($objNews->content_2)?></textarea></p>
 
+<?if (isset($objNews)):?>
 	<br />
 	<table border="1">
+	<tr>
+		<td></td>
+		<th colspan="4">Image</th>
+		<th>Thumbnail</th>
+	</tr>
 	<tr>
 		<th></th>
 		<th>Not allowed</th>
 		<th>Optional</th>
 		<th>Mandatory</th>
 		<th>Force dimensions</th>
+		<th>Force dimensions</th>
 	</tr>
 	<tr>
-		<td>Image 1</td>
+		<th>Image 1</th>
 		<td align="center"><input type="radio" name="use_image_1" value="0"<?if (!isset($objNews) || !$objNews->use_image_1):?> checked="1"<?endif;?> /></td>
 		<td align="center"><input type="radio" name="use_image_1" value="1"<?if (isset($objNews) && $objNews->use_image_1):?> checked="1"<?endif;?> /></td>
 		<td align="center"><input type="radio" name="use_image_1" value="2"<?if (isset($objNews) && 2 == (int)$objNews->use_image_1):?> checked="1"<?endif;?> /></td>
 		<td class="dimensions"><input type="text" class="dimension" name="image_1_x" value="<?=isset($objNews)&&$objNews->image_1_x?$objNews->image_1_x:'0'?>" /> <sup>x</sup> <input type="text" class="dimension" name="image_1_y" value="<?=isset($objNews)&&$objNews->image_1_y?$objNews->image_1_y:'0'?>" /></td>
+		<td class="thumb-dimensions"><input type="text" class="dimension" name="image_1_thumb_x" value="<?=isset($objNews)&&$objNews->image_1_thumb_x?$objNews->image_1_thumb_x:'0'?>" /> <sup>x</sup> <input type="text" class="dimension" name="image_1_thumb_y" value="<?=isset($objNews)&&$objNews->image_1_thumb_y?$objNews->image_1_thumb_y:'0'?>" /></td>
 	</tr>
 	<tr>
-		<td>Image 2</td>
+		<th>Image 2</th>
 		<td align="center"><input type="radio" name="use_image_2" value="0"<?if (!isset($objNews) || !$objNews->use_image_2):?> checked="1"<?endif;?> /></td>
 		<td align="center"><input type="radio" name="use_image_2" value="1"<?if (isset($objNews) && $objNews->use_image_2):?> checked="1"<?endif;?> /></td>
 		<td align="center"><input type="radio" name="use_image_2" value="2"<?if (isset($objNews) && 2 == (int)$objNews->use_image_2):?> checked="1"<?endif;?> /></td>
 		<td class="dimensions"><input type="text" class="dimension" name="image_2_x" value="<?=isset($objNews)&&$objNews->image_2_x?$objNews->image_2_x:'0'?>" /> <sup>x</sup> <input type="text" class="dimension" name="image_2_y" value="<?=isset($objNews)&&$objNews->image_2_y?$objNews->image_2_y:'0'?>" /></td>
+		<td class="thumb-dimensions"><input type="text" class="dimension" name="image_2_thumb_x" value="<?=isset($objNews)&&$objNews->image_2_thumb_x?$objNews->image_2_thumb_x:'0'?>" /> <sup>x</sup> <input type="text" class="dimension" name="image_2_thumb_y" value="<?=isset($objNews)&&$objNews->image_2_thumb_y?$objNews->image_2_thumb_y:'0'?>" /></td>
 	</tr>
 	</table>
 
-<?if (isset($objNews)):?>
 	<h2 style="cursor:pointer;" onclick="with(document.getElementById('specials').style){display=display=='none'?'':'none';}">Specials</h2>
 	<p id="specials" style="display:none;">Special 1: <input type="text" name="special_1" value="<?=!isset($objNews) ? '' : $objNews->special_1?>" /><br />Special 2: <input type="text" name="special_2" value="<?=!isset($objNews) ? '' : $objNews->special_2?>" /><br />Special 3: <input type="text" name="special_3" value="<?=!isset($objNews) ? '' : $objNews->special_3?>" /></p>
 

@@ -6,11 +6,13 @@ logincheck();
 
 $szReferer = isset($_POST['referer']) ? $_POST['referer'] : ( isset($_GET['referer']) ? $_GET['referer'] : ( isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '/admin/' ) );
 
-if ( isset($_GET['image'], $_POST['left'], $_POST['top'], $_POST['width'], $_POST['height'], $_POST['target_width'], $_POST['target_height']) ) {
+if ( isset($_POST['image'], $_POST['left'], $_POST['top'], $_POST['width'], $_POST['height'], $_POST['tw'], $_POST['th']) ) {
 
-	$szImagePath = $_SERVER['DOCUMENT_ROOT'] . $_GET['image'];
+	$szImagePath = $_SERVER['DOCUMENT_ROOT'] . $_POST['image'];
 	$is = getimagesize($szImagePath);
 //print_r($is);
+
+//print_r($_POST);exit;
 
 	$arrGDHandlers = array(
 		'image/jpeg' => array('imagecreatefromjpeg', 'imagejpeg'),
@@ -27,9 +29,9 @@ if ( isset($_GET['image'], $_POST['left'], $_POST['top'], $_POST['width'], $_POS
 	if ( !($old_img = $fn1($szImagePath)) ) {
 		exit('Could not open image. Wrong type?');
 	}
-	$new_img = imagecreatetruecolor($_POST['target_width'], $_POST['target_height']);
+	$new_img = imagecreatetruecolor($_POST['tw'], $_POST['th']);
 
-	imagecopyresampled($new_img, $old_img, 0, 0, $_POST['left'], $_POST['top'], $_POST['target_width'], $_POST['target_height'], $_POST['width'], $_POST['height']);
+	imagecopyresampled($new_img, $old_img, 0, 0, $_POST['left'], $_POST['top'], $_POST['tw'], $_POST['th'], $_POST['width'], $_POST['height']);
 
 //echo '<pre>';
 //print_r($is);
@@ -38,20 +40,20 @@ if ( isset($_GET['image'], $_POST['left'], $_POST['top'], $_POST['width'], $_POS
 //	header('Content-type: '.$is['mime']);
 	$fn2($new_img, $szImagePath);
 
-echo '<p>Image saved to <a href="'.$_GET['image'].'">'.$_GET['image'].'</a>. <a href="'.$szReferer.'">Go back</a>.</p>';
+//echo '<p>Image saved to <a href="'.$_POST['image'].'">'.$_POST['image'].'</a>. <a href="'.$szReferer.'">Go back</a>.</p>';
 
-//	header('Location: '.$_SERVER['HTTP_REFERER']);
+	header('Location: '.$szReferer);
 	exit;
 }
 
 tpl_header();
 
-if ( !isset($_GET['target_width'], $_GET['target_height']) ) {
+if ( !isset($_GET['tw'], $_GET['th']) ) {
 	echo '<form method="get" action="">';
 	echo '<input type="hidden" name="referer" value="'.htmlspecialchars($szReferer).'" />';
 	echo '<input type="hidden" name="image" value="'.htmlspecialchars($_GET['image']).'" />';
-	echo '<p>Target width:<br /><input type="text" id="tw" name="target_width" value="100" /></p>';
-	echo '<p>Target height:<br /><input type="text" id="th" name="target_height" value="100" /></p>';
+	echo '<p>Target width:<br /><input type="text" id="tw" name="tw" value="100" /></p>';
+	echo '<p>Target height:<br /><input type="text" id="th" name="th" value="100" /></p>';
 	echo '<p>Choose predefined dimensions:<br /><select onchange="var x=this.value.split(\',\');$(\'tw\').value=x[0];$(\'th\').value=x[1];"><option value="0,0">--</option>';
 	foreach ( $db->select('image_dimension_sets') AS $s ) { echo '<option value="'.$s->width.','.$s->height.'">'.$s->name.' ('.$s->width.' * '.$s->height.')</option>'; }
 	echo '</select></p>';
@@ -61,18 +63,21 @@ if ( !isset($_GET['target_width'], $_GET['target_height']) ) {
 }
 
 ?>
-<form action="" method="post" onsubmit="$A(['left','top','width','height']).each(function(p){ this.elements[p].value = ''+cropper.getCropInfo()[p]; }, this);">
+<h1><?=isset($_GET['label'])?$_GET['label'].': ':'';?><?=basename($_GET['image'])?></h1>
 
+<form action="?" method="post" onsubmit="var c=cropper.getCropInfo();$A(['left','top','width','height']).each(function(p){ this.elements[p].value = ''+c[p]; }, this);">
+
+	<input type="hidden" name="image" value="<?=$_GET['image']?>" />
 	<input type="hidden" name="referer" value="<?=htmlspecialchars($szReferer)?>" />
 
 	<input type="hidden" name="left" value="0" />
 	<input type="hidden" name="top" value="0" />
 	<input type="hidden" name="width" value="0" />
 	<input type="hidden" name="height" value="0" />
-	<input type="hidden" name="target_width" value="<?=$_GET['target_width']?>" />
-	<input type="hidden" name="target_height" value="<?=$_GET['target_height']?>" />
+	<input type="hidden" name="tw" value="<?=$_GET['tw']?>" />
+	<input type="hidden" name="th" value="<?=$_GET['th']?>" />
 
-	<p><img id="cropme" src="<?=$_GET['image']?>" /></p>
+	<p><img id="cropme" src="<?=$_GET['image']?>?rnd=<?=rand(0, 999999)?>" /></p>
 
 	<p><input type="submit" value="CROP" /></p>
 
@@ -80,8 +85,10 @@ if ( !isset($_GET['target_width'], $_GET['target_height']) ) {
 
 <script type="text/javascript" src="/admin/_resources/MooCrop.js"></script>
 <script type="text/javascript">
-var cropper = new MooCrop($('cropme'), {
-	aspectRatio: <?=$_GET['target_width']?>/<?=$_GET['target_height']?>
+$(window).addEvent('load', function() {
+	window.cropper = new MooCrop($('cropme'), {
+		aspectRatio: <?=$_GET['tw']?>/<?=$_GET['th']?>
+	});
 });
 </script>
 
