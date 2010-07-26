@@ -47,3 +47,13 @@ CKEDITOR.editorConfig = function( config ) {
 
 	config.stylesCombo_stylesSet = 'my_styles';
 };
+
+CKEDITOR.on( 'instanceReady', function( ev ) {
+	ev.editor.dataProcessor.writer.setRules( 'p', {
+		indent : false,
+		breakBeforeOpen : true,
+		breakAfterOpen : false,
+		breakBeforeClose : false,
+		breakAfterClose : true
+	});
+});

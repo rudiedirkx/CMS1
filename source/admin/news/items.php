@@ -14,7 +14,7 @@ if ( isset($_GET['del']) ) {
 
 tpl_header();
 
-echo '<h1>News items in: '.$objNews->title.'</h1>';
+echo '<h1>Existing items in: &quot;'.$objNews->title.'&quot;</h1>';
 
 ?>
 <p><a href="properties.php?id=<?=$_GET['id']?>">Properties</a> | <a href="items.php?id=<?=$_GET['id']?>">Items</a> | <a href="new_item.php?id=<?=$_GET['id']?>">New item</a></p>

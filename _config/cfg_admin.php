@@ -20,6 +20,12 @@ require_once(PROJECT_INCLUDE.'/inc.cls.cmsadminmessages.php');
 
 $g_arrFileFolders = array_values(array_map('basename', array_filter(glob(PROJECT_PUBLIC.'/*'), create_function('$f', 'return is_dir($f) && "_images" != basename($f);'))));
 
+$g_arrGDHandlers = array(
+	'image/jpeg' => array('imagecreatefromjpeg', 'imagejpeg'),
+	'image/png' => array('imagecreatefrompng', 'imagepng'),
+	'image/gif' => array('imagecreatefromgif', 'imagegif'),
+);
+
 function tpl_header() {
 	global $g_objAdmin, $application, $g_arrFileFolders;
 	include(PROJECT_ADMIN.'/inc.tpl.header.php');

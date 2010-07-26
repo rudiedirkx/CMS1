@@ -10,19 +10,11 @@ if ( isset($_POST['image'], $_POST['left'], $_POST['top'], $_POST['width'], $_PO
 
 	$szImagePath = $_SERVER['DOCUMENT_ROOT'] . $_POST['image'];
 	$is = getimagesize($szImagePath);
-//print_r($is);
 
-//print_r($_POST);exit;
-
-	$arrGDHandlers = array(
-		'image/jpeg' => array('imagecreatefromjpeg', 'imagejpeg'),
-		'image/png' => array('imagecreatefrompng', 'imagepng'),
-		'image/gif' => array('imagecreatefromgif', 'imagegif'),
-	);
-	if ( !isset($arrGDHandlers[$is['mime']]) ) {
+	if ( !isset($g_arrGDHandlers[$is['mime']]) ) {
 		exit('Invalid image type.');
 	}
-	$arrGDHandler = $arrGDHandlers[$is['mime']];
+	$arrGDHandler = $g_arrGDHandlers[$is['mime']];
 	$fn1 = $arrGDHandler[0];
 	$fn2 = $arrGDHandler[1];
 

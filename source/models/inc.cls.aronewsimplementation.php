@@ -28,7 +28,7 @@ class ARONewsImplementation extends Extended_ActiveRecordObject {
 
 
 	public function parse( &$f_pszViewType = null ) {
-		if ( 0 < preg_match('#^(\d+)(?:\/[^\/]+)?\/(\d+)#', implode('/', $this->details), $parrMatches) ) {
+		if ( 0 < preg_match('#^(\d+)(?:\/[^\/]+)?\/(\d+)(?:\/[^\/]+)?$#', implode('/', $this->details), $parrMatches) ) {
 			$szViewType = 'newsItemImage';
 			$item = $this->getNewsItem($parrMatches[1])->init($this);
 			$object = $item->getImage( $parrMatches[2] )->init($item);
