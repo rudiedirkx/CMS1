@@ -57,7 +57,7 @@ if ( isset($_POST['title'], $_POST['content_1']) ) {
 	$objItem->unsetConfig($objNews->special_1, $objNews->special_2, $objNews->special_3);
 	if ( isset($_POST['cflags']) ) {
 		foreach ( $_POST['cflags'] AS $flag => $x ) {
-			$objItem->setConfig($flag, '1');
+			$objItem->setConfig($flag, $x);
 		}
 	}
 	header('Location: '.$goto);

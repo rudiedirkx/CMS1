@@ -25,19 +25,26 @@ if ( isset($_POST['id'], $_POST['title'], $_POST['content_1'], $_POST['title_2']
 	), 'implementation_id = '.$objNews->implementation_id);
 
 	// Images
-	foreach ( array('1', '2') AS $n ) {
-		$objNews->setConfig('use_image_'.$n, ($img1 = max(0, min(2, (int)$_POST['use_image_'.$n]))));
-		$objNews->unsetConfig('image_'.$n.'_x');
-		$objNews->unsetConfig('image_'.$n.'_y');
-		if ( $img1 && 0 < (int)$_POST['image_'.$n.'_x'] && 0 < (int)$_POST['image_'.$n.'_y'] ) {
-			$objNews->setConfig('image_'.$n.'_x', (int)$_POST['image_'.$n.'_x']);
-			$objNews->setConfig('image_'.$n.'_y', (int)$_POST['image_'.$n.'_y']);
+	foreach ( array('image_1', 'image_2', 'ct_images') AS $n ) {
+		if ( 0 === strpos($n, 'image_') ) {
+			$objNews->setConfig('use_'.$n, ($img1 = max(0, min(2, (int)$_POST['use_'.$n]))));
 		}
-		$objNews->unsetConfig('image_'.$n.'_thumb_x');
-		$objNews->unsetConfig('image_'.$n.'_thumb_y');
-		if ( $img1 && 0 < (int)$_POST['image_'.$n.'_thumb_x'] && 0 < (int)$_POST['image_'.$n.'_thumb_y'] ) {
-			$objNews->setConfig('image_'.$n.'_thumb_x', (int)$_POST['image_'.$n.'_thumb_x']);
-			$objNews->setConfig('image_'.$n.'_thumb_y', (int)$_POST['image_'.$n.'_thumb_y']);
+		else {
+			$objNews->setConfig('min_'.$n, ($img1 = max(0, min(9999, (int)$_POST['min_'.$n]))));
+			$objNews->setConfig('max_'.$n, ($img1 = max(0, min(9999, (int)$_POST['max_'.$n]))));
+		}
+		$objNews->setConfig($n.'_dim_type', $_POST[$n.'_dim_type']);
+		$objNews->unsetConfig($n.'_x');
+		$objNews->unsetConfig($n.'_y');
+		if ( $img1 && 0 < (int)$_POST[$n.'_x'] && 0 < (int)$_POST[$n.'_y'] ) {
+			$objNews->setConfig($n.'_x', (int)$_POST[$n.'_x']);
+			$objNews->setConfig($n.'_y', (int)$_POST[$n.'_y']);
+		}
+		$objNews->unsetConfig($n.'_thumb_x');
+		$objNews->unsetConfig($n.'_thumb_y');
+		if ( $img1 && 0 < (int)$_POST[$n.'_thumb_x'] && 0 < (int)$_POST[$n.'_thumb_y'] ) {
+			$objNews->setConfig($n.'_thumb_x', (int)$_POST[$n.'_thumb_x']);
+			$objNews->setConfig($n.'_thumb_y', (int)$_POST[$n.'_thumb_y']);
 		}
 	}
 

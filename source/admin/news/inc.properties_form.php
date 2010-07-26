@@ -21,7 +21,7 @@ input.dimension { width:50px; text-align:center; }
 	<table border="1">
 	<tr>
 		<td></td>
-		<th colspan="4">Image</th>
+		<th colspan="5">Image</th>
 		<th>Thumbnail</th>
 	</tr>
 	<tr>
@@ -29,14 +29,17 @@ input.dimension { width:50px; text-align:center; }
 		<th>Not allowed</th>
 		<th>Optional</th>
 		<th>Mandatory</th>
-		<th>Force dimensions</th>
+		<th>Dimension type</th>
+		<th>Use dimensions</th>
 		<th>Force dimensions</th>
 	</tr>
+<? $arrDimensionTypes = array('max' => 'Max dimensions', 'min' => 'Min dimensions', 'crop' => 'Crop to dimensions'); ?>
 	<tr>
 		<th>Image 1</th>
 		<td align="center"><input type="radio" name="use_image_1" value="0"<?if (!isset($objNews) || !$objNews->use_image_1):?> checked="1"<?endif;?> /></td>
 		<td align="center"><input type="radio" name="use_image_1" value="1"<?if (isset($objNews) && $objNews->use_image_1):?> checked="1"<?endif;?> /></td>
 		<td align="center"><input type="radio" name="use_image_1" value="2"<?if (isset($objNews) && 2 == (int)$objNews->use_image_1):?> checked="1"<?endif;?> /></td>
+		<td><select name="image_1_dim_type"><? foreach ( $arrDimensionTypes AS $k => $v ) { ?><option<?=$objNews->image_1_dim_type==$k?' selected':''?> value="<?=$k?>"><?=$v?></option><? } ?></select></td>
 		<td class="dimensions"><input type="text" class="dimension" name="image_1_x" value="<?=isset($objNews)&&$objNews->image_1_x?$objNews->image_1_x:'0'?>" /> <sup>x</sup> <input type="text" class="dimension" name="image_1_y" value="<?=isset($objNews)&&$objNews->image_1_y?$objNews->image_1_y:'0'?>" /></td>
 		<td class="thumb-dimensions"><input type="text" class="dimension" name="image_1_thumb_x" value="<?=isset($objNews)&&$objNews->image_1_thumb_x?$objNews->image_1_thumb_x:'0'?>" /> <sup>x</sup> <input type="text" class="dimension" name="image_1_thumb_y" value="<?=isset($objNews)&&$objNews->image_1_thumb_y?$objNews->image_1_thumb_y:'0'?>" /></td>
 	</tr>
@@ -45,8 +48,16 @@ input.dimension { width:50px; text-align:center; }
 		<td align="center"><input type="radio" name="use_image_2" value="0"<?if (!isset($objNews) || !$objNews->use_image_2):?> checked="1"<?endif;?> /></td>
 		<td align="center"><input type="radio" name="use_image_2" value="1"<?if (isset($objNews) && $objNews->use_image_2):?> checked="1"<?endif;?> /></td>
 		<td align="center"><input type="radio" name="use_image_2" value="2"<?if (isset($objNews) && 2 == (int)$objNews->use_image_2):?> checked="1"<?endif;?> /></td>
+		<td><select name="image_2_dim_type"><? foreach ( $arrDimensionTypes AS $k => $v ) { ?><option<?=$objNews->image_2_dim_type==$k?' selected':''?> value="<?=$k?>"><?=$v?></option><? } ?></select></td>
 		<td class="dimensions"><input type="text" class="dimension" name="image_2_x" value="<?=isset($objNews)&&$objNews->image_2_x?$objNews->image_2_x:'0'?>" /> <sup>x</sup> <input type="text" class="dimension" name="image_2_y" value="<?=isset($objNews)&&$objNews->image_2_y?$objNews->image_2_y:'0'?>" /></td>
 		<td class="thumb-dimensions"><input type="text" class="dimension" name="image_2_thumb_x" value="<?=isset($objNews)&&$objNews->image_2_thumb_x?$objNews->image_2_thumb_x:'0'?>" /> <sup>x</sup> <input type="text" class="dimension" name="image_2_thumb_y" value="<?=isset($objNews)&&$objNews->image_2_thumb_y?$objNews->image_2_thumb_y:'0'?>" /></td>
+	</tr>
+	<tr>
+		<th>Content images</th>
+		<td colspan="3" align="center">Min = <input type="text" class="dimension" name="min_ct_images" value="<?=(int)$objNews->min_ct_images?>" />; Max = <input type="text" class="dimension" name="max_ct_images" value="<?=(int)$objNews->max_ct_images?>" /></td>
+		<td><select name="ct_images_dim_type"><? foreach ( $arrDimensionTypes AS $k => $v ) { ?><option<?=$objNews->ct_images_dim_type==$k?' selected':''?> value="<?=$k?>"><?=$v?></option><? } ?></select></td>
+		<td class="dimensions"><input type="text" class="dimension" name="ct_images_x" value="<?=isset($objNews)&&$objNews->ct_images_x?$objNews->ct_images_x:'0'?>" /> <sup>x</sup> <input type="text" class="dimension" name="ct_images_y" value="<?=isset($objNews)&&$objNews->ct_images_y?$objNews->ct_images_y:'0'?>" /></td>
+		<td class="thumb-dimensions"><input type="text" class="dimension" name="ct_images_thumb_x" value="<?=isset($objNews)&&$objNews->ct_images_thumb_x?$objNews->ct_images_thumb_x:'0'?>" /> <sup>x</sup> <input type="text" class="dimension" name="ct_images_thumb_y" value="<?=isset($objNews)&&$objNews->ct_images_thumb_y?$objNews->ct_images_thumb_y:'0'?>" /></td>
 	</tr>
 	</table>
 

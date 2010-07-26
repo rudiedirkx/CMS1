@@ -35,7 +35,7 @@ Password: <input type="password" name="password" /><br />
 </fieldset>
 </form>
 
-<pre><?php print_r($_SERVER); ?></pre>
+<!-- <pre><?php print_r($_SERVER); ?></pre> -->
 </body>
 
 </html>
