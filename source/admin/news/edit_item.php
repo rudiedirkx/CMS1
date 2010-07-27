@@ -110,6 +110,10 @@ else if ( isset($_GET['del_img']) ) {
 
 tpl_header();
 
+?>
+<p><a href="properties.php?id=<?=$_GET['id']?>">Properties</a> | <a href="items.php?id=<?=$_GET['id']?>">Items</a> | <a href="new_item.php?id=<?=$_GET['id']?>">New item</a></p>
+<?php
+
 echo '<h1>Editing item &quot;'.$objItem->title.'&quot;</h1>';
 
 echo '<p><a href="edit_item_images.php?id='.$_GET['id'].'&item='.$_GET['item'].'">Afbeeldingen</a></p>';
