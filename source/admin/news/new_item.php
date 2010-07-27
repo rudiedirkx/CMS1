@@ -109,12 +109,12 @@ if ( isset($_POST['type'], $_POST['title'], $_POST['content_1']) ) {
 
 tpl_header();
 
-echo '<h1>Adding item to: &quot;'.$objNews->title.'&quot;</h1>';
-
-//echo '<pre>'.print_r($objNews, true).'</pre>';
-
 ?>
 <p><a href="properties.php?id=<?=$_GET['id']?>">Properties</a> | <a href="items.php?id=<?=$_GET['id']?>">Items</a> | <a href="new_item.php?id=<?=$_GET['id']?>">New item</a></p>
 <?php
+
+echo '<h1>Adding item to: &quot;'.$objNews->title.'&quot;</h1>';
+
+//echo '<pre>'.print_r($objNews, true).'</pre>';
 
 include('inc.news_item_form.php'); ?>

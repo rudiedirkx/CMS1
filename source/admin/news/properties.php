@@ -69,11 +69,12 @@ if ( isset($_POST['id'], $_POST['title'], $_POST['content_1'], $_POST['title_2']
 
 tpl_header();
 
-echo '<h1>Editing properties of: &quot;'.$objNews->title.'&quot;</h1>';
-
 ?>
 <p><a href="properties.php?id=<?=$_GET['id']?>">Properties</a> | <a href="items.php?id=<?=$_GET['id']?>">Items</a> | <a href="new_item.php?id=<?=$_GET['id']?>">New item</a><?if ($g_objAdmin->allowEditConfigs()) {?><?}?></p>
+<?php
 
-<?php include('inc.properties_form.php'); ?>
+echo '<h1>Editing properties of: &quot;'.$objNews->title.'&quot;</h1>';
+
+include('inc.properties_form.php'); ?>
 
 

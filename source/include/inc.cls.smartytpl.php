@@ -9,7 +9,7 @@ class SmartyTpl extends Smarty {
 		$this->security = true;
 		$this->security_settings['INCLUDE_ANY'] = true;
 		$this->security_settings['ALLOW_SUPER_GLOBALS'] = true;
-		$this->security_settings['MODIFIER_FUNCS'] = array('count', 'strtolower', 'strtoupper', 'var_dump', 'print_r');
+		$this->security_settings['MODIFIER_FUNCS'] = array('rand', 'count', 'strtolower', 'strtoupper', 'var_dump', 'print_r');
 		$this->security_settings['IF_FUNCS'][] = 'strtolower';
 		$this->security_settings['IF_FUNCS'][] = 'strtoupper';
 		$this->security_settings['IF_FUNCS'][] = 'get_class';
