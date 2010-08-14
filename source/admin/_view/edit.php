@@ -16,6 +16,26 @@ if ( !empty($_GET['deleteme']) ) {
 }
 
 else if ( isset($_POST['title'], $_POST['content'], $_POST['type']) ) {
+
+require_once(PROJECT_INCLUDE.'/Dwoo-1.1.1/Dwoo/dwooAutoload.php');
+$template_source = $_POST['content'];
+$template = new Dwoo_Template_String($template_source);
+$dwoo = new Dwoo;
+$compiler = new Dwoo_Compiler;
+$compiler->setDelimiters('<?', '?>');
+$dwoo->setCompiler($compiler);
+try {
+	$compiled_template_source = $dwoo->testTemplate($template);
+//	echo '<pre>'.htmlspecialchars($template_source).'</pre>';
+//	echo '<p>is a valid template:</p>';
+//	exit('<pre>'.htmlspecialchars(file_get_contents($compiled_template_source)).'</pre>');
+}
+catch ( Dwoo_Exception $exc ) {
+	echo '<pre style="background-color:pink;">'.htmlspecialchars($template_source).'</pre>';
+	echo '<p>is NOT a valid template:</p>';
+	exit('<pre style="background-color:pink;">'.$exc->getMessage().'</pre>');
+}
+
 	$objView->title = $_POST['title'];
 	$objView->type = implode(',', $_POST['type']);
 	$objView->save();
@@ -44,13 +64,17 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] ) {
 
 	<p>Content<br /><textarea wrap="off" name="content" rows="21" style="width:100%;"><?=htmlspecialchars(isset($_POST['content']) ? $_POST['content'] : file_get_contents($szViewFile))?></textarea></p>
 
-	<p><!--<a href="?id=<?=$_GET['id']?>&deleteme=1" style="float:right;">Delete me (no returnsies!)</a>-->Type<br /><div style="width:750px;"><?foreach($arrViewTypes AS $v){ echo '<label style="float:left;width:250px;"><input type="checkbox" name="type[]" value="'.$v.'"'.( in_array($v, $arrSelectedTypes) ? ' checked="1"' : '' ).' /> '.$v.'</label>'."\n"; }?></div></p>
+	<p>Type<br /><div style="width:750px;"><?foreach($arrViewTypes AS $v){ echo '<label style="float:left;width:250px;"><input type="checkbox" name="type[]" value="'.$v.'"'.( in_array($v, $arrSelectedTypes) ? ' checked="1"' : '' ).' /> '.$v.'</label>'."\n"; }?></div></p>
 
 	<p style="clear:both;"><br /><input type="submit" value="Save" /></p>
 
 </form>
 
-<script type="text/javascript">document.forms[0].elements[0].focus();</script>
+<script type="text/javascript">
+document.forms[0].elements[0].focus();
+var ta = $$('textarea')[0], tas = ta.attr('style'), talh = ta.css('border', '0').css('padding', '0').offsetHeight / parseInt(ta.attr('rows'));
+$$('textarea')[0].attr('style', tas);
+</script>
 
 <?php
 

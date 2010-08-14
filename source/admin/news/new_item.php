@@ -83,7 +83,7 @@ if ( isset($_POST['type'], $_POST['title'], $_POST['content_1']) ) {
 									$fn2 = $arrGDHandler[1];
 									if ( $old_img = $fn1($path) ) {
 										$new_img = imagecreatetruecolor($tw, $th);
-										var_dump(imagecopyresampled($new_img, $old_img, 0, 0, 0, 0, $tw, $th, $is[0], $is[1]));
+										imagecopyresampled($new_img, $old_img, 0, 0, 0, 0, $tw, $th, $is[0], $is[1]);
 										$fn2($new_img, $path);
 									}
 								}

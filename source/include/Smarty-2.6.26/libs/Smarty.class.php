@@ -63,6 +63,7 @@ define('SMARTY_PHP_ALLOW',	  3);
  */
 class Smarty
 {
+
 	/**#@+
 	 * Smarty Configuration Section
 	 */
@@ -188,7 +189,7 @@ class Smarty
 	var $cache_modified_check = false;
 
 	/**
-	 * This determines how Smarty handles "<?php ... ?>" tags in templates.
+	 * This determines how Smarty handles "< ?php ... ? >" tags in templates.
 	 * possible values:
 	 * <ul>
 	 *  <li>SMARTY_PHP_PASSTHRU -> print tags as plain text</li>
@@ -1244,6 +1245,7 @@ class Smarty
 		}
 
 		$_smarty_compile_path = $this->_get_compile_path($resource_name);
+//echo '<!-- '.$_smarty_compile_path.' -->'; // e.g. /home/dirkx/domains/cms1/source/runtime/example/views_c/%%88^882^882BFF74%%3.php.php
 
 		// if we just need to display the results, don't perform output
 		// buffering - for speed
@@ -1437,6 +1439,44 @@ class Smarty
 
 	}
 
+
+	function _load_compiler() {
+		if ( file_exists(SMARTY_DIR . $this->compiler_file) ) {
+			require_once(SMARTY_DIR . $this->compiler_file);
+		} else {
+			// use include_path
+			require_once($this->compiler_file);
+		}
+
+		$smarty_compiler = new $this->compiler_class;
+
+		$smarty_compiler->template_dir				= $this->template_dir;
+		$smarty_compiler->compile_dir				= $this->compile_dir;
+		$smarty_compiler->plugins_dir				= $this->plugins_dir;
+		$smarty_compiler->config_dir				= $this->config_dir;
+		$smarty_compiler->force_compile				= $this->force_compile;
+		$smarty_compiler->caching					= $this->caching;
+		$smarty_compiler->php_handling				= $this->php_handling;
+		$smarty_compiler->left_delimiter			= $this->left_delimiter;
+		$smarty_compiler->right_delimiter			= $this->right_delimiter;
+		$smarty_compiler->_version					= $this->_version;
+		$smarty_compiler->security					= $this->security;
+		$smarty_compiler->secure_dir				= $this->secure_dir;
+		$smarty_compiler->security_settings			= $this->security_settings;
+		$smarty_compiler->trusted_dir				= $this->trusted_dir;
+		$smarty_compiler->use_sub_dirs				= $this->use_sub_dirs;
+		$smarty_compiler->_reg_objects				= &$this->_reg_objects;
+		$smarty_compiler->_plugins					= &$this->_plugins;
+		$smarty_compiler->_tpl_vars					= &$this->_tpl_vars;
+		$smarty_compiler->default_modifiers			= $this->default_modifiers;
+		$smarty_compiler->compile_id				= $this->_compile_id;
+		$smarty_compiler->_config					= $this->_config;
+		$smarty_compiler->request_use_auto_globals	= $this->request_use_auto_globals;
+
+		return $smarty_compiler;
+	}
+
+
    /**
 	 * compile the given source
 	 *
@@ -1447,38 +1487,7 @@ class Smarty
 	 */
 	function _compile_source($resource_name, &$source_content, &$compiled_content, $cache_include_path=null)
 	{
-		if (file_exists(SMARTY_DIR . $this->compiler_file)) {
-			require_once(SMARTY_DIR . $this->compiler_file);
-		} else {
-			// use include_path
-			require_once($this->compiler_file);
-		}
-
-
-		$smarty_compiler = new $this->compiler_class;
-
-		$smarty_compiler->template_dir	  = $this->template_dir;
-		$smarty_compiler->compile_dir	   = $this->compile_dir;
-		$smarty_compiler->plugins_dir	   = $this->plugins_dir;
-		$smarty_compiler->config_dir		= $this->config_dir;
-		$smarty_compiler->force_compile	 = $this->force_compile;
-		$smarty_compiler->caching		   = $this->caching;
-		$smarty_compiler->php_handling	  = $this->php_handling;
-		$smarty_compiler->left_delimiter	= $this->left_delimiter;
-		$smarty_compiler->right_delimiter   = $this->right_delimiter;
-		$smarty_compiler->_version		  = $this->_version;
-		$smarty_compiler->security		  = $this->security;
-		$smarty_compiler->secure_dir		= $this->secure_dir;
-		$smarty_compiler->security_settings = $this->security_settings;
-		$smarty_compiler->trusted_dir	   = $this->trusted_dir;
-		$smarty_compiler->use_sub_dirs	  = $this->use_sub_dirs;
-		$smarty_compiler->_reg_objects	  = &$this->_reg_objects;
-		$smarty_compiler->_plugins		  = &$this->_plugins;
-		$smarty_compiler->_tpl_vars		 = &$this->_tpl_vars;
-		$smarty_compiler->default_modifiers = $this->default_modifiers;
-		$smarty_compiler->compile_id		= $this->_compile_id;
-		$smarty_compiler->_config			= $this->_config;
-		$smarty_compiler->request_use_auto_globals  = $this->request_use_auto_globals;
+		$smarty_compiler = $this->_load_compiler();
 
 		if (isset($cache_include_path) && isset($this->_cache_serials[$cache_include_path])) {
 			$smarty_compiler->_cache_serial = $this->_cache_serials[$cache_include_path];
@@ -1958,4 +1967,4 @@ class Smarty
 
 /* vim: set expandtab: */
 
-?>
+
