@@ -7,6 +7,10 @@
 -- Server versie: 5.0.37
 -- PHP Versie: 5.2.3
 
+CREATE DATABASE IF NOT EXISTS `cms1_`;
+
+USE `cms1_`;
+
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 -- 
