@@ -1,6 +1,6 @@
-default/snippets/*
-default/views/*
-default/public_html/*
+default/snippets
+default/views
+default/public_html
 
 !default/snippets/.gitignore
 !default/views/.gitignore
