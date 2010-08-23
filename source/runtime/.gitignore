@@ -1,0 +1,5 @@
+default/snippets_c/*
+default/views_c/*
+
+!default/snippets_c/.gitignore
+!default/views_c/.gitignore

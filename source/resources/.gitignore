@@ -1,0 +1,8 @@
+default/snippets/*
+default/views/*
+default/public_html/*
+
+!default/snippets/.gitignore
+!default/views/.gitignore
+!default/public_html/.gitignore
+!default/public_html/_images/.gitignore
