@@ -15,8 +15,10 @@ if ( isset($_POST['id'], $_POST['title'], $_POST['content_1'], $_POST['title_2']
 
 	$objNews->setConfig('ni_label_for_title_1', $_POST['ni_label_for_title_1']);
 	$objNews->setConfig('ni_label_for_content_1', $_POST['ni_label_for_content_1']);
+	$objNews->setConfig('ni_label_for_datetime_1', $_POST['ni_label_for_datetime_1']);
 	$objNews->setConfig('ni_label_for_title_2', $_POST['ni_label_for_title_2']);
 	$objNews->setConfig('ni_label_for_content_2', $_POST['ni_label_for_content_2']);
+	$objNews->setConfig('ni_label_for_datetime_2', $_POST['ni_label_for_datetime_2']);
 
 	$db->update('news_implementations', array(
 		'content_1' => $_POST['content_1'],

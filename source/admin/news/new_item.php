@@ -16,11 +16,10 @@ if ( isset($_POST['type'], $_POST['title'], $_POST['content_1']) ) {
 		'content_2' => '',
 		'created' => time()
 	);
-	if ( isset($_POST['title_2']) ) {
-		$arrInsert['title_2'] = $_POST['title_2'];
-	}
-	if ( isset($_POST['content_2']) ) {
-		$arrInsert['content_2'] = $_POST['content_2'];
+	foreach ( array('title_2', 'content_2', 'datetime_1', 'datetime_2') as $k ) {
+		if ( isset($_POST[$k]) ) {
+			$arrInsert[$k] = $_POST[$k];
+		}
 	}
 	$db->insert('news_items', $arrInsert);
 	echo $db->error;

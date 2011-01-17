@@ -65,7 +65,21 @@ input.dimension { width:50px; text-align:center; }
 	<p id="specials" style="display:none;">Special 1: <input type="text" name="special_1" value="<?=!isset($objNews) ? '' : $objNews->special_1?>" /><br />Special 2: <input type="text" name="special_2" value="<?=!isset($objNews) ? '' : $objNews->special_2?>" /><br />Special 3: <input type="text" name="special_3" value="<?=!isset($objNews) ? '' : $objNews->special_3?>" /></p>
 
 	<h2 style="cursor:pointer;" onclick="with(document.getElementById('labels').style){display=display=='none'?'':'none';}">Labels</h2>
-	<p id="labels" style="display:none;">Title 1: <input type="text" name="ni_label_for_title_1" value="<?=!isset($objNews) ? '' : $objNews->ni_label_for_title_1?>" /><br />Content 1: <input type="text" name="ni_label_for_content_1" value="<?=!isset($objNews) ? '' : $objNews->ni_label_for_content_1?>" /><br />Title 2: <input type="text" name="ni_label_for_title_2" value="<?=!isset($objNews) ? '' : $objNews->ni_label_for_title_2?>" /><br />Content 2: <input type="text" name="ni_label_for_content_2" value="<?=!isset($objNews) ? '' : $objNews->ni_label_for_content_2?>" /></p>
+	<?php
+$labels = array(
+	'title_1' => 'Title 1',
+	'content_1' => 'Content 1',
+	'datetime_1' => 'DateTime 1',
+	'title_2' => 'Title 2',
+	'content_2' => 'Content 2',
+	'datetime_2' => 'DateTime 2',
+);
+	?>
+	<p id="labels" style="display:none;">
+	<?foreach ( $labels as $k => $t ): ?>
+		<?=$t?>: <input type="text" name="ni_label_for_<?=$k?>" value="<?=!isset($objNews) ? '' : $objNews->{'ni_label_for_'.$k}?>" /><br />
+	<?endforeach?>
+	</p>
 
 	<h2 style="cursor:pointer;" onclick="with(document.getElementById('specviews').style){display=display=='none'?'':'none';}">Specific views</h2>
 	<p id="specviews" style="display:none;"><?php

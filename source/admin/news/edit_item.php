@@ -13,11 +13,10 @@ if ( isset($_POST['title'], $_POST['content_1']) ) {
 		'title' => $_POST['title'],
 		'content_1' => $_POST['content_1']
 	);
-	if ( isset($_POST['title_2']) ) {
-		$arrUpdate['title_2'] = $_POST['title_2'];
-	}
-	if ( isset($_POST['content_2']) ) {
-		$arrUpdate['content_2'] = $_POST['content_2'];
+	foreach ( array('title_2', 'content_2', 'datetime_1', 'datetime_2') as $k ) {
+		if ( isset($_POST[$k]) ) {
+			$arrUpdate[$k] = $_POST[$k];
+		}
 	}
 
 	$goto = $_SERVER['HTTP_REFERER'];

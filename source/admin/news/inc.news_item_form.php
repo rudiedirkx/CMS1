@@ -1,15 +1,20 @@
 
 <form method="post" action="" enctype="multipart/form-data">
 
-<?if ( empty($objItem) ) {?>
-	<p>Type:<br /><select name="type"><?foreach ( array('story','gallery') AS $t ) {?><option value="<?=$t?>"><?=ucfirst($t)?></option><?}?></select></p>
-<?}?>
+<?if ( empty($objItem) ):?>
+	<input type="hidden" name="type" value="story" />
+	<!-- <p>Type:<br /><select name="type"><?foreach ( array('story','gallery') AS $t ) {?><option value="<?=$t?>"><?=ucfirst($t)?></option><?}?></select></p> -->
+<?endif?>
 
 	<p>Title:<br /><input type="text" name="title" size="100" value="<?=isset($objItem)?htmlspecialchars($objItem->title):''?>" /></p>
+
+	<?if ($objNews->ni_label_for_datetime_1):?><p><?=$objNews->ni_label_for_datetime_1?>:<br /><input type="datetime" name="datetime_1" value="<?=isset($objItem)?htmlspecialchars($objItem->datetime_1):''?>" /></p><?endif;?>
 
 	<p>Content:<br /><textarea id="content_1" name="content_1"><?=isset($objItem)?htmlspecialchars($objItem->content_1):''?></textarea></p>
 
 	<?if ($objNews->ni_label_for_title_2):?><p><?=$objNews->ni_label_for_title_2?>:<br /><input type="text" name="title_2" size="100" value="<?=isset($objItem)?htmlspecialchars($objItem->title_2):''?>" /></p><?endif;?>
+
+	<?if ($objNews->ni_label_for_datetime_2):?><p><?=$objNews->ni_label_for_datetime_2?>:<br /><input type="datetime" name="datetime_2" value="<?=isset($objItem)?htmlspecialchars($objItem->datetime_2):''?>" /></p><?endif;?>
 
 	<?if ($objNews->ni_label_for_content_2):?><p><?=$objNews->ni_label_for_content_2?>:<br /><textarea id="content_2" name="content_2"><?=isset($objItem)?htmlspecialchars($objItem->content_2):''?></textarea></p><?endif;?>
 

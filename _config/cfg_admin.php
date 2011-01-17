@@ -96,7 +96,7 @@ class CMSUser {
 		}
 	}
 	public function allowAddSnippet() {
-		return in_array($this->user_type, array(0));
+		return in_array($this->user_type, array(0, 2));
 	}
 	public function checkAddSnippetAccess() {
 		if ( !$this->allowAddSnippet() ) {
@@ -113,7 +113,7 @@ class CMSUser {
 		}
 	}
 	public function allowAddView() {
-		return in_array($this->user_type, array(0));
+		return in_array($this->user_type, array(0, 2));
 	}
 	public function checkAddViewAccess() {
 		if ( !$this->allowAddView() ) {
