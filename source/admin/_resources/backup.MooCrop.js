@@ -31,7 +31,7 @@ var MooCrop = new Class({
 		this.setOptions(options);
 		this.img = $(el);
 		if ( this.img.getTag() != 'img') return false;
-
+		
 		this.resizeFunc = this.refresh.bindWithEvent(this);
 		this.removeFunc = this.removeListener.bind(this);
 
@@ -40,19 +40,19 @@ var MooCrop = new Class({
 	},
 
 	setup: function(){
+		
 		$(this.cropArea).setStyles({
 			'width': this.options.min.width, 
 			'height': this.options.min.height,
 			'top' : (this.img.height - this.options.min.height)/2,
 			'left': (this.img.width - this.options.min.width) / 2 
 		});
-
+		
 		this.current.crop = this.crop = this.getCropArea();
-//console.log(JSON.stringify(this.current.crop));
-
+		
 		this.handleWidthOffset = this.options.handleWidth.toInt() / 2;
 		this.handleHeightOffset = this.options.handleHeight.toInt() /2;
-
+		
 		this.fixBoxModel();
 		this.drawMasks();
 		this.positionHandles();
@@ -60,10 +60,8 @@ var MooCrop = new Class({
 
 	getCropArea : function(){
 		var crop = this.cropArea.getCoordinates();
-		crop.left -= this.offsets.x;
-		crop.right -= this.offsets.x; // calculate relative (horizontal)
-		crop.top -= this.offsets.y;
-		crop.bottom  -= this.offsets.y; // calculate relative (vertical)
+		crop.left -= this.offsets.x; crop.right -= this.offsets.x; // calculate relative (horizontal)
+		crop.top -= this.offsets.y; crop.bottom  -= this.offsets.y; // calculate relative (vertical)
 		return crop;
 	},
 
@@ -82,31 +80,11 @@ var MooCrop = new Class({
 		this.south.setStyle('width', b.right);
 	},
 
-	activate : function(event, handle){
+	activate : function(event,handle){
 		event.stop();
-		if ( !([2, 4]).contains(handle.length) ) return;
-
-		var w = this.bounds.right, h = this.bounds.bottom, ci = this.getCropInfo(), s = {top:'auto', bottom:'auto', left:'auto', right:'auto'};
-		if ( handle.contains('S') ) {
-			s['top'] = ci.top;
-		}
-		else {
-			s['bottom'] = h - ci.top - ci.height;
-		}
-		if ( handle.contains('E') ) {
-			s['left'] = ci.left;
-		}
-		else {
-			s['right'] = w - ci.left - ci.width;
-		}
-		this.cropArea.setStyles(s);
-
 		this.current = { 'x' : event.page.x, 'y' : event.page.y, 'handle' : handle, 'crop' : this.current.crop };
-
 		if(this.current.handle == 'NESW' && !this.options.showHandles) this.hideHandles();
-		
 		this.fireEvent('onBegin',[this.img.src,this.getCropInfo(),this.bounds,handle]);
-
 		document.addListener('mousemove', this.resizeFunc);
 		document.addListener('mouseup', this.removeFunc);
 	},
@@ -124,36 +102,18 @@ var MooCrop = new Class({
 		var ydiff = this.current.y - event.page.y;
 
 		var b = this.bounds, c = this.crop, handle = this.current.handle, styles = {}; //saving bytes
-		var dragging = handle.length > 2;
+		var dragging = (handle.length > 2) ? true : false;
 
-if ( !([2, 4]).contains(handle.length) ) return;
+if ( -1 == ['SE', 'E', 'S', 'NESW'].indexOf(handle) ) return;
 
-styles['width'] = c.width;
-styles['height'] = c.height;
-if ( dragging ) {
-	styles['left'] = Math.max(0, Math.min((b.right-c.width), c.left - xdiff));
-	styles['top'] = Math.max(0, Math.min((b.bottom-c.height), c.top - ydiff));
-}
-else {
-	if ( handle.contains('S') ) {
-		ydiff *= -1;
-	}
-	if ( handle.contains('E') ) {
-		xdiff *= -1;
-	}
-	styles['width'] += xdiff;
-	styles['height'] += ydiff;
-}
-//console.log(JSON.stringify(styles));
-
-/*		if( handle.contains("S") ){ //SOUTH
+		if( handle.contains("S") ){//SOUTH
 			if(c.bottom - ydiff > b.bottom ) ydiff = c.bottom - b.bottom; // box south
 			if(!dragging){
 				if( (c.height - ydiff) < b.height ) ydiff = c.height - b.height; // size south
 				styles['height'] = c.height - ydiff; // South handles only
 			}
 		}
-		if( handle.contains("N") ){ //NORTH
+		if( handle.contains("N") ){//NORTH
 			if(c.top - ydiff < b.top ) ydiff = c.top; //box north
 			if(!dragging){
 				if( (c.height + ydiff ) < b.height ) ydiff = b.height - c.height; // size north
@@ -161,26 +121,26 @@ else {
 			}
 			styles['top'] = c.top - ydiff; // both Drag and N handles
 		}
-		if( handle.contains("E") ){ //EAST
+		if( handle.contains("E") ){//EAST
 			if(c.right - xdiff > b.right) xdiff = c.right - b.right; //box east
 			if(!dragging){
 				if( (c.width - xdiff) < b.width ) xdiff = c.width - b.width; // size east
 				styles['width'] = c.width - xdiff;
 			}
 		}
-		if( handle.contains("W") ){ //WEST
+		if( handle.contains("W") ){//WEST
 			if(c.left - xdiff < b.left) xdiff = c.left; //box west
 			if(!dragging){
 				if( (c.width + xdiff) < b.width ) xdiff = b.width - c.width; //size west
 				styles['width'] = c.width + xdiff;
 			}
 			styles['left'] = c.left - xdiff; // both Drag and W handles
-		}*/
+		}
 
 var r = this.options.aspectRatio;
-if ( true && 'NESW' != handle && 0 != r ) {
+if ( 'NESW' != handle && 0 != r ) {
 
-	// r = w / h   so   w = r * h   and   h = w / r
+	// r = w / h, so w = r * h and h = w / r
 
 	if ( $defined(styles.width) ) {
 		var mh = b.bottom - c.top;
@@ -201,64 +161,20 @@ if ( true && 'NESW' != handle && 0 != r ) {
 }
 
 		var preCssStyles = $merge(styles);
-//console.log(JSON.stringify(preCssStyles));
 		if( $defined(styles.width)) styles.width -= this.boxDiff*2;
 		if( $defined(styles.height)) styles.height -= this.boxDiff*2;
 
-//console.log(JSON.stringify(styles));
 		this.cropArea.setStyles(styles);
-		var current = this.getCurrentCoords(preCssStyles);
-//console.log(JSON.stringify(current));
+		this.getCurrentCoords(preCssStyles);
 		this.drawMasks();
 		this.positionHandles();
 		this.fireEvent('onCrop',[this.img.src,this.getCropInfo(),b,handle]);
 	},
 
 	getCurrentCoords : function(changed){
-		var bs = this.bounds, ca = this.cropArea;
-		var l = parseFloat(ca.getStyle('left')), t = parseFloat(ca.getStyle('top')),
-			r = parseFloat(ca.getStyle('right')), b = parseFloat(ca.getStyle('bottom')),
-			w = parseFloat(ca.getStyle('width')), h = parseFloat(ca.getStyle('height'));
-		var north = isNaN(t) ? bs.bottom - h - b : t;
-		var south = bs.bottom - h - north;
-		var west = isNaN(l) ? bs.right - w - r : l;
-		var east = bs.right - w - west;
-
-		var current = {
-			width: changed.width,
-			height: changed.height,
-			left: west,
-			top: north,
-			right: east,
-			bottom: south
-		};
-console.log(JSON.stringify(current));
-/*		var current = $merge(this.crop);
-
-		current.width = changed.width;
-		current.height = changed.height;
-
-		if ( $defined(changed.left) ) {
-			current.left = changed.left;
-			current.right = current.left + current.width;
-		}
-		else {
-			current.right = changed.right;
-			current.left = current.right - current.width;
-		}
-
-		if ( $defined(changed.top) ) {
-			current.top = changed.top;
-			current.bottom = current.top + current.height;
-		}
-		else {
-			current.bottom = changed.bottom;
-			current.top = current.bottom - current.height;
-		}*/
-
-//console.log(JSON.stringify(current));
-//console.log(JSON.stringify(changed));
-/*		if($defined(changed.left)){
+		var current = $merge(this.crop);
+		
+		if($defined(changed.left)){
 			current.left = changed.left;
 			if($defined(changed.width)) current.width = changed.width;
 			else current.right = current.left + current.width;
@@ -273,24 +189,22 @@ console.log(JSON.stringify(current));
 		}
 		if($defined(changed.height) && !$defined(changed.top)){
 			current.height = changed.height; current.bottom = current.top + current.height;
-		}*/
+		}
 		this.current.crop = current;
-		return current;
 	},
 
 	drawMasks : function(){
 		if(!this.options.showMask) return;
-		var cr = this.current.crop, ca = this.cropArea;
-//console.log(JSON.stringify(cr));
-		this.north.setStyle('height', cr.top + 'px' );
-		this.south.setStyle('height', cr.bottom + 'px');
-		this.west.setStyles({ height: cr.height + 'px', width: cr.left + 'px', top: cr.top + 'px'});
-		this.east.setStyles({ height: cr.height + 'px', width: cr.right + 'px', top: cr.top  + 'px', left: 'auto', right: '0px'});
+		var b = this.bounds;  var c = this.current.crop; var handle = this.current.handle;
+		this.north.setStyle('height', c.top + 'px' );
+		this.south.setStyle('height', b.bottom  - c.bottom  + 'px');
+		this.east.setStyles({ height: c.height + 'px', width: b.right  - c.right + 'px',  top: c.top  + 'px', left: c.right + 'px'});
+		this.west.setStyles({ height: c.height + 'px', width: c.left + 'px', top: c.top + 'px'});
 	},
 
 	positionHandles: function(){
 		if(!this.calculateHandles) return;
-		var c = this.current.crop, wOffset = this.handleWidthOffset, hOffset = this.handleHeightOffset;
+		var c = this.current.crop; var wOffset = this.handleWidthOffset; var hOffset = this.handleHeightOffset;
 
 		this.handles.get('N').setStyles({'left' : c.width / 2 - wOffset + 'px', 'top' : - hOffset + 'px'});
 		this.handles.get('NE').setStyles({'left' : c.width - wOffset + 'px', 'top' : - hOffset + 'px'});
@@ -336,18 +250,10 @@ console.log(JSON.stringify(current));
 			this.west =  new Element("div", {'styles' : maskStyles}).injectInside(this.wrapper);
 		}
 
-		this.cropArea = new Element("div", {
-			'styles': {
-				'position': 'absolute',
-				'top': '0px',
-				'left': '0px',
-				'border': o.cropBorder,
-				'cursor': 'move'
-			},
-			'events' : {
-				'dblclick' : function(){ this.fireEvent('onDblClk',[this.img.src,this.getCropInfo(),this.bounds])}.bind(this),
-				'mousedown' : this.activate.bindWithEvent(this,'NESW')
-			}
+		this.cropArea = new Element("div", { 'styles' : { 'position' : 'absolute', 'top' : '0px', 'left' : '0px', 'border' : o.cropBorder, 'cursor' : 'move' },
+		'events' : {
+			'dblclick' : function(){ this.fireEvent('onDblClk',[this.img.src,this.getCropInfo(),this.bounds])}.bind(this),
+			'mousedown' : this.activate.bindWithEvent(this,'NESW')}
 		}).injectInside(this.wrapper);
 
 		this.handles = new Hash();
@@ -361,10 +267,8 @@ console.log(JSON.stringify(current));
 	},
 
 	getCropInfo : function(){
-//console.log(this.current);
 		var c = $merge(this.current.crop);
-		c.width -= this.boxDiff*2;
-		c.height -= this.boxDiff*2;
+		c.width -= this.boxDiff*2; c.height -= this.boxDiff*2;
 		return c;
 	},
 
