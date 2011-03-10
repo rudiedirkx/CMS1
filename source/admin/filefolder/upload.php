@@ -8,7 +8,7 @@ $_GET['id'] = trim($_GET['id'], '/');
 $dir = $_SERVER['DOCUMENT_ROOT'].'/'.$_GET['id'];
 
 if ( isset($_FILES['file']) ) {
-	$szSaveAs = '/'.$_GET['id'].'/'.str_replace('.php', '', $_FILES['file']['name']);
+	$szSaveAs = '/'.$_GET['id'].'/'.$_FILES['file']['name'];
 	move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'].$szSaveAs);
 	if ( !empty($_POST['ids']) && ($ids=$db->select('image_dimension_sets', 'id = '.$_POST['ids'])) ) {
 		header('Location: /admin/resize_image.php?image='.urlencode($szSaveAs).'&target_width='.$ids[0]->width.'&target_height='.$ids[0]->height.'&referer='.urlencode('/admin/filefolder/edit.php?id='.$_GET['id']));

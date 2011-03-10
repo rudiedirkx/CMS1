@@ -5,10 +5,14 @@ require_once('cfg_admin.php');
 logincheck();
 
 $_GET['id'] = trim($_GET['id'], '/');
-$dir = $_SERVER['DOCUMENT_ROOT'].'/'.$_GET['id'];
+$dir = $_SERVER['DOCUMENT_ROOT'].'/'.str_replace('..', '', $_GET['id']);
 
 if ( isset($_GET['del']) ) {
-	unlink($dir.'/'.$_GET['del']);
+	$file = basename($_GET['del']);
+	if ( 0 === strpos($file, '.') || !file_exists($dir.'/'.$file) ) {
+		exit('Invalid file');
+	}
+	unlink($dir.'/'.$file);
 	header('Location: '.$_SERVER['HTTP_REFERER']);
 	exit;
 }
@@ -30,8 +34,7 @@ $rp = realpath($dir.'/');
 if ( empty($_GET['id']) or !$rp or in_array(basename($rp), array('admin', '_resources')) ) {
 	exit('<ul class="error"><li>Invalid folder</li></ul>');
 }
-//$arrFiles = glob($rp.'/*');
-$arrFiles = scandir($rp);
+$arrFiles = array_filter(scandir($rp), create_function('$f', 'return 0 !== strpos(basename($f), ".");'));
 
 tpl_notices();
 

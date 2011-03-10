@@ -7,6 +7,7 @@ logincheck();
 if ( isset($_POST['id'], $_POST['into']) ) {
 	$szFolder = trim(trim($_POST['into'], './').'/'.trim(strtr($_POST['id'], array('.' => '', ' ' => '', '/' => '')), './'), './');
 	mkdir($_SERVER['DOCUMENT_ROOT'].'/'.$szFolder);
+	file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$szFolder.'/.htaccess', 'SetHandler This_is_a_security_line_DO_NOT_REMOVE');
 
 	createHtaccessForSite();
 

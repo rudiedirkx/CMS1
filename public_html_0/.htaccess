@@ -1,4 +1,4 @@
 AuthType Basic
 AuthName "Go away! Now!"
-AuthUserFile ./.htpasswd
+AuthUserFile \SERVER\www\websites\CMS1\public_html_0\.htpasswd
 Require valid-user
